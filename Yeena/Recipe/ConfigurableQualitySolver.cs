@@ -1,0 +1,35 @@
+﻿// Copyright 2013 J.C. Moyer
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Yeena.PathOfExile;
+
+namespace Yeena.Recipe {
+    class ConfigurableQualitySolver : QualitySolver {
+        private readonly Func<PoEItem, bool> _pred; 
+
+        public ConfigurableQualitySolver(PoEItemTable itemTable, Func<PoEItem, bool> pred) : base(itemTable) {
+            _pred = pred;
+        }
+
+        public override IEnumerable<VendorRecipe> Solve(IEnumerable<PoEItem> items) {
+            var qualityWeapons = from item in items
+                                 where _pred(item) && item.Quality > 0
+                                 select item;
+            return from subset in GetSubsetsOfQuality(qualityWeapons.ToArray(), 40)
+                   select new VendorRecipe(subset);
+        }
+    }
+}
