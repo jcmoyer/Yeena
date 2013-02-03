@@ -82,7 +82,7 @@ namespace Yeena.UI.Controls {
             }
             
             // Resize to fit contents
-            ClientSize = new Size(largestWidth, farthestBottom);
+            ClientSize = new Size(largestWidth, nextY);
 
             // Center the labels
             lblItemName1.Left = (ClientSize.Width / 2) - (lblItemName1.ClientSize.Width / 2);
