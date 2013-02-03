@@ -35,27 +35,42 @@ namespace Yeena.UI.Controls {
             foreach (var prop in item.Properties) {
                 builder.AppendLine(prop.DisplayText);
             }
+            if (item.AdditionalProperties != null) {
+                builder.AppendLine();
+                foreach (var prop in item.AdditionalProperties) {
+                    builder.AppendLine(prop.DisplayText);
+                }
+            }
             return builder.ToString();
         }
 
         private void SetItem(PoEItem item) {
             _item = item;
+            int nextY = 0;
 
             if (_item.IsRare) {
                 lblItemName1.ForeColor = Color.Gold;
                 lblItemName2.ForeColor = Color.Gold;
                 lblItemName1.Text = item.RareName;
+                nextY = lblItemName1.Bottom;
                 lblItemName2.Text = item.TypeLine;
                 lblItemName2.Visible = true;
+                lblItemName2.Top = nextY;
+                nextY = lblItemName2.Bottom;
             } else {
                 lblItemName1.ForeColor = Color.White;
                 //lblItemName2.ForeColor = Color.Gold;
                 lblItemName1.Text = item.TypeLine;
                 lblItemName2.Visible = false;
+                nextY = lblItemName1.Bottom;
             }
             if (item.Properties != null && item.Properties.Count > 0) {
                 lblProps.Text = GetItemPropertyString(item);
                 lblProps.Visible = true;
+                lblProps.Top = nextY;
+                nextY = lblProps.Bottom;
+            } else {
+                lblProps.Visible = false;
             }
 
             int largestWidth = Controls.Cast<Control>().Max(c => c.Width);

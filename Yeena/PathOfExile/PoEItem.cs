@@ -42,6 +42,8 @@ namespace Yeena.PathOfExile {
 
         [JsonProperty("properties")]
         private readonly List<PoEItemProperty> _properties;
+        [JsonProperty("additionalProperties")]
+        private readonly List<PoEItemProperty> _additionalProperties;
 
         [JsonProperty("implicitMods")]
         private readonly List<string> _implicitMods;
@@ -117,6 +119,10 @@ namespace Yeena.PathOfExile {
 
         public IReadOnlyList<PoEItemProperty> Properties {
             get { return _properties; }
+        }
+
+        public IReadOnlyList<PoEItemProperty> AdditionalProperties {
+            get { return _additionalProperties; }
         }
 
         public override string ToString() {
