@@ -83,7 +83,7 @@ namespace Yeena.UI {
 
             // We need at least 1 tab to figure out how many tabs there are total
             var stash1 = await _client.GetStashTabAsync(league, 0, cancellationToken);
-            var uiTab1 = CreateStashTabPage("1", stash1);
+            var uiTab1 = CreateStashTabPage(stash1.TabInfo[0].Name, stash1);
             tabControl1.TabPages.Add(uiTab1);
             stashTabs.Add(stash1);
 
@@ -91,7 +91,8 @@ namespace Yeena.UI {
                 cancellationToken.ThrowIfCancellationRequested();
 
                 var stashI = await _client.GetStashTabAsync(league, i, cancellationToken);
-                var uiTabI = CreateStashTabPage((i + 1).ToString(), stashI);
+
+                var uiTabI = CreateStashTabPage(stashI.TabInfo[i].Name, stashI);
                 tabControl1.TabPages.Add(uiTabI);
                 stashTabs.Add(stashI);
             }

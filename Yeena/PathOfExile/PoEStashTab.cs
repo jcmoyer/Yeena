@@ -20,6 +20,7 @@ namespace Yeena.PathOfExile {
     public class PoEStashTab : IEnumerable<PoEItem> {
         [JsonProperty("numTabs")] private readonly int _numTabs = 0;
         [JsonProperty("items")] private readonly List<PoEItem> _items = new List<PoEItem>();
+        [JsonProperty("tabs")] private readonly List<PoEStashTabInfo> _tabInfo = new List<PoEStashTabInfo>(); 
 
         public int TabCount {
             get { return _numTabs; }
@@ -27,6 +28,10 @@ namespace Yeena.PathOfExile {
 
         public IReadOnlyCollection<PoEItem> Items {
             get { return _items; }
+        }
+
+        public IReadOnlyList<PoEStashTabInfo> TabInfo {
+            get { return _tabInfo; }
         }
 
         public IEnumerator<PoEItem> GetEnumerator() {
