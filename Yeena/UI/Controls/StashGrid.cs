@@ -94,6 +94,10 @@ namespace Yeena.UI.Controls {
                 if (!_itemInfoPopup.Visible) {
                     _itemInfoPopup.Show(this);
                 }
+            } else {
+                if (_itemInfoPopup.Visible) {
+                    _itemInfoPopup.Hide();
+                }
             }
 
             base.OnMouseMove(e);
