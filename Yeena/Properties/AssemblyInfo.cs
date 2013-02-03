@@ -20,9 +20,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Yeena")]
 [assembly: AssemblyDescription("A stash evaluator for Path of Exile")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("jcmoyer")]
+[assembly: AssemblyCompany("J.C. Moyer")]
 [assembly: AssemblyProduct("Yeena")]
-[assembly: AssemblyCopyright("Copyright © jcmoyer 2013")]
+[assembly: AssemblyCopyright("Copyright © J.C. Moyer 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -44,5 +44,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
