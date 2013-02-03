@@ -51,7 +51,7 @@ namespace Yeena.UI {
             Settings.Default.RememberMe = chkRememberMe.Checked;
             Settings.Default.Save();
 
-            string cookiesFile = Storage.ResolvePath("cookies.json");
+            string cookiesFile = Storage.ResolvePath("cookies.dat");
 
             if (!Settings.Default.RememberMe) {
                 // Delete the cookies file if there is one since it's no longer relevant.
@@ -66,15 +66,7 @@ namespace Yeena.UI {
         }
 
         void ApplyCookies() {
-            //using (var streamReader = new StreamReader(Storage.ResolvePath("cookies.json"))) {
-            //    var cookies = JsonConvert.DeserializeObject<List<Cookie>>(streamReader.ReadToEnd());
-            //    var container = new CookieContainer();
-            //    foreach (var cookie in cookies) {
-            //        container.Add(cookie);
-            //    }
-            //    Client.Cookies = container;
-            //}
-            string cookiesFile = Storage.ResolvePath("cookies.json");
+            string cookiesFile = Storage.ResolvePath("cookies.dat");
             BinaryFormatter bf = new BinaryFormatter();
             using (Stream s = File.OpenRead(cookiesFile)) {
                 Client.Cookies = (CookieContainer)bf.Deserialize(s);

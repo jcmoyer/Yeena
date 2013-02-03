@@ -18,6 +18,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -227,6 +229,14 @@ namespace Yeena.UI {
                 sg2.DrawToBitmap(b, new Rectangle(i * sg.ClientSize.Width, 0, sg.ClientSize.Width, sg.ClientSize.Height));
             }
             b.Save(dialog.FileName, ImageFormat.Png);
+        }
+
+        private void StashForm_FormClosing(object sender, FormClosingEventArgs e) {
+            string cookiesFile = Storage.ResolvePath("cookies.dat");
+            BinaryFormatter bf = new BinaryFormatter();
+            using (Stream s = File.OpenWrite(cookiesFile)) {
+                bf.Serialize(s, _client.Cookies);
+            }
         }
     }
 }
