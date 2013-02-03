@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -26,8 +27,32 @@ namespace Yeena.UI.Controls {
             set { SetItem(value); }
         }
 
+        private readonly Control[] _displayOrderedControls;
+
         public ItemInfoPopup() {
             InitializeComponent();
+
+            _displayOrderedControls = new Control[] {
+                lblItemName1,
+                lblItemName2,
+                lblProps
+            };
+        }
+
+        private int LayoutVertically(IEnumerable<Control> controls) {
+            int nextY = 0;
+            foreach (var control in controls) {
+                if (!control.Visible) continue;
+                control.Top = nextY;
+                nextY = control.Bottom;
+            }
+            return nextY;
+        }
+
+        private void CenterHorizontally(IEnumerable<Control> controls) {
+            foreach (var control in controls) {
+                control.Left = (ClientSize.Width / 2) - (control.ClientSize.Width / 2);
+            }
         }
 
         private string GetItemPropertyString(PoEItem item) {
@@ -46,48 +71,32 @@ namespace Yeena.UI.Controls {
 
         private void SetItem(PoEItem item) {
             _item = item;
-            int nextY = 0;
 
             if (_item.IsRare) {
                 lblItemName1.ForeColor = Color.Gold;
                 lblItemName2.ForeColor = Color.Gold;
                 lblItemName1.Text = item.RareName;
-                nextY = lblItemName1.Bottom;
                 lblItemName2.Text = item.TypeLine;
                 lblItemName2.Visible = true;
-                lblItemName2.Top = nextY;
-                nextY = lblItemName2.Bottom;
             } else {
                 lblItemName1.ForeColor = Color.White;
-                //lblItemName2.ForeColor = Color.Gold;
                 lblItemName1.Text = item.TypeLine;
                 lblItemName2.Visible = false;
-                nextY = lblItemName1.Bottom;
             }
             if (item.Properties != null && item.Properties.Count > 0) {
                 lblProps.Text = GetItemPropertyString(item);
                 lblProps.Visible = true;
-                lblProps.Top = nextY;
-                nextY = lblProps.Bottom;
             } else {
                 lblProps.Visible = false;
             }
 
             int largestWidth = Controls.Cast<Control>().Max(c => c.Width);
 
-            // TODO: This will need to be changed in the future but for now it works
-            int farthestBottom = lblItemName1.Height;
-            if (!String.IsNullOrEmpty(lblItemName2.Text)) {
-                farthestBottom = Controls.Cast<Control>().Max(c => c.Bottom);
-            }
-            
             // Resize to fit contents
-            ClientSize = new Size(largestWidth, nextY);
+            ClientSize = new Size(largestWidth, LayoutVertically(_displayOrderedControls));
 
-            // Center the labels
-            lblItemName1.Left = (ClientSize.Width / 2) - (lblItemName1.ClientSize.Width / 2);
-            lblItemName2.Left = (ClientSize.Width / 2) - (lblItemName2.ClientSize.Width / 2);
-            lblProps.Left = (ClientSize.Width / 2) - (lblProps.ClientSize.Width / 2);
+            // Center all of the items
+            CenterHorizontally(_displayOrderedControls);
         }
 
         protected override bool ShowWithoutActivation {
