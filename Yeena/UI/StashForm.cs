@@ -97,7 +97,10 @@ namespace Yeena.UI {
                 stashTabs.Add(stashI);
             }
 
-            var stash = _leagueStashes.GetOrAdd(league, _ => new PoEStash(stashTabs));
+            var stash = _leagueStashes.AddOrUpdate(
+                league,
+                _ => new PoEStash(stashTabs),
+                (k, v) => new PoEStash(stashTabs));
             _activeStash = stash;
             recipeSelector1.ItemSource = _activeStash.Items;
         }
