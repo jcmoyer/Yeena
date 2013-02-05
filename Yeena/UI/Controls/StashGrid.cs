@@ -142,11 +142,8 @@ namespace Yeena.UI.Controls {
 
             // Draw items
             foreach (var item in _images) {
-                float left = _drawOffsetX + item.Key.X * _xCellSize;
-                float top = _drawOffsetY + item.Key.Y * _yCellSize;
-                float width = item.Key.Width * _xCellSize;
-                float height = item.Key.Height * _yCellSize;
-                e.Graphics.DrawImage(item.Value, left, top, width, height);
+                var r = CalculateItemRect(item.Key);
+                e.Graphics.DrawImage(item.Value, r);
             }
 
             base.OnPaint(e);
