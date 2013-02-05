@@ -103,7 +103,7 @@ namespace Yeena.UI.Controls {
                     _itemInfoPopup.Show(this);
                 }
             } else {
-                RemoveMarking(_mousedMarking);
+                if (_mousedMarking != null) RemoveMarking(_mousedMarking);
                 if (_itemInfoPopup.Visible) {
                     _itemInfoPopup.Hide();
                 }
