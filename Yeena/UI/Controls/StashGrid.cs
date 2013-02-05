@@ -43,8 +43,12 @@ namespace Yeena.UI.Controls {
         private readonly ItemInfoPopup _itemInfoPopup = new ItemInfoPopup();
         private StashGridMarking _mousedMarking;
 
+        public Pen GridPen { get; set; }
+
         public StashGrid() {
             InitializeComponent();
+
+            GridPen = Pens.Black;
         }
 
         public async void SetImages(IEnumerable<PoEItem> items) {
@@ -60,11 +64,15 @@ namespace Yeena.UI.Controls {
         }
 
         private Rectangle CalculateItemRect(PoEItem item) {
-            int left = (int)(_drawOffsetX + item.X * _xCellSize);
-            int top = (int)(_drawOffsetY + item.Y * _yCellSize);
-            int width = (int)(item.Width * _xCellSize);
-            int height = (int)(item.Height * _yCellSize);
-            return new Rectangle(left, top, width, height);
+            int left = (int)Math.Floor(_drawOffsetX + item.X * _xCellSize);
+            int top = (int)Math.Floor(_drawOffsetY + item.Y * _yCellSize);
+            int width = (item.Width * (int)_xCellSize);
+            int height = (item.Height * (int)_yCellSize);
+            return new Rectangle(
+                (int)(left + GridPen.Width),
+                (int)(top + GridPen.Width),
+                (int)Math.Floor(width + GridPen.Width),
+                (int)Math.Floor(height + GridPen.Width));
         }
 
         protected override void OnMouseMove(MouseEventArgs e) {
@@ -125,14 +133,14 @@ namespace Yeena.UI.Controls {
             // Draw grids
             for (int x = 0; x < HorizontalCellCount + 1; x++) {
                 e.Graphics.DrawLine(
-                    Pens.Black,
+                    GridPen,
                     _drawOffsetX + x * _xCellSize,
                     _drawOffsetY,
                     _drawOffsetX + x * _xCellSize,
                     _drawOffsetY + _drawHeight);
                 for (int y = 0; y < VerticalCellCount + 1; y++) {
                     e.Graphics.DrawLine(
-                        Pens.Black,
+                        GridPen,
                         _drawOffsetX,
                         _drawOffsetY + y * _yCellSize,
                         _drawOffsetX + _drawWidth,
