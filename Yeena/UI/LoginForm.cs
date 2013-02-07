@@ -56,13 +56,7 @@ namespace Yeena.UI {
             if (!Settings.Default.RememberMe) {
                 // Delete the cookies file if there is one since it's no longer relevant.
                 if (File.Exists(cookiesFile)) File.Delete(cookiesFile);
-            } else {
-                //using (var streamWriter = new StreamWriter(Storage.ResolvePath("cookies.json"))) {
-                //    var json = JsonConvert.SerializeObject(Client.Cookies.GetCookies(PoESite.Uri));
-                //    streamWriter.Write(json);
-                //}
-
-            }   
+            }
         }
 
         void ApplyCookies() {
