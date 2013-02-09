@@ -14,12 +14,18 @@
 
 using System;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
+    [JsonObject]
     public class PoEItemTable {
+        [JsonProperty("weapons")]
         private readonly PoEItemCategory _weapons;
+        [JsonProperty("armor")]
         private readonly PoEItemCategory _armor;
+        [JsonProperty("jewelry")]
         private readonly PoEItemCategory _jewelry;
+        [JsonProperty("currency")]
         private readonly PoEItemCategory _currency;
 
         public PoEItemTable(PoEItemCategory weapons, PoEItemCategory armor, PoEItemCategory jewelry,

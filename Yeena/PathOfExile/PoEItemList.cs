@@ -14,20 +14,27 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     /// <summary>
     /// An item list is a list of items with a name that classifies their type,
     /// i.e. Claw has Nailed Fist, Sharktooth Claw, etc...
     /// </summary>
+    [JsonObject]
     public class PoEItemList : IEnumerable<string> {
+        [JsonProperty("name")]
         private readonly string _name;
+        [JsonProperty("items")]
         private readonly List<string> _names; 
+
+        [JsonConstructor]
+        private PoEItemList() {
+        }
 
         public PoEItemList(string name, IEnumerable<string> itemNames) {
             _name = name;
-            _names = itemNames.ToList();
+            _names = new List<string>(itemNames);
         }
 
         public IReadOnlyCollection<string> Names {

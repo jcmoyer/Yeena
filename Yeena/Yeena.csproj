@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\JsonDiskCache.cs" />
+    <Compile Include="Data\PersistentCache.cs" />
     <Compile Include="ImageCache.cs" />
     <Compile Include="PathOfExile\PoEStashRequestError.cs" />
     <Compile Include="PathOfExile\PoEStashTabInfo.cs" />

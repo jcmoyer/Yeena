@@ -14,16 +14,22 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     /// <summary>
     /// A category of items is a read-only list of ItemLists, mapping to a level 1
     /// item group, i.e. Weapon is a category of Claw, Bow, Dagger, etc...
     /// </summary>
+    [JsonObject]
     public class PoEItemCategory : IEnumerable<PoEItemList> {
+        [JsonProperty("name")]
+        private readonly string _name;
+        [JsonProperty("items")]
         private readonly List<PoEItemList> _items; 
 
         public PoEItemCategory(string name, IEnumerable<PoEItemList> items) {
+            _name = name;
             _items = new List<PoEItemList>(items);
         }
 

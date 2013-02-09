@@ -19,10 +19,13 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Yeena.Data;
 using Yeena.PathOfExile;
 using Yeena.Properties;
@@ -41,7 +44,8 @@ namespace Yeena.UI {
         private PoEStash _activeStash = null;
         private StashTabCollectionView _recipeTabs;
 
-        private PoEItemTable _itemTable;
+        //private PoEItemTable _itemTable;
+        private JsonDiskCache<PoEItemTable> _itemTable = new JsonDiskCache<PoEItemTable>("ItemTable");
 
         public StashForm(PoESiteClient client) {
             _client = client;
@@ -138,7 +142,8 @@ namespace Yeena.UI {
         }
 
         private async void StashForm_Load(object sender, EventArgs e) {
-            _itemTable = await _client.GetItemTable();
+            await _itemTable.LoadAsync(_client.GetItemTable);
+
             recipeSelector1.RegisterRecipeSolver(new WhetstoneSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new ScrapSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new BaubleSolver(_itemTable));
@@ -222,7 +227,7 @@ namespace Yeena.UI {
                     sw.WriteLine(("Tab " + tabNumber++ + " ").PadRight(80, '='));
                     foreach (var item in tab) {
                         if (item.IsRare) sw.WriteLine("{0}, {1}", item.RareName, item.TypeLine);
-                        else if (_itemTable.IsEquippable(item)) sw.WriteLine(item.TypeLine);
+                        else if (_itemTable.Value.IsEquippable(item)) sw.WriteLine(item.TypeLine);
                         else {
                             string stackSize = item.StackSize;
                             if (!String.IsNullOrEmpty(stackSize)) {
@@ -259,6 +264,8 @@ namespace Yeena.UI {
             using (Stream s = File.OpenWrite(cookiesFile)) {
                 bf.Serialize(s, _client.Cookies);
             }
+
+            _itemTable.Save();
 
             Settings.Default.LastLeagueName = cboLeague.Text;
             Settings.Default.Save();
