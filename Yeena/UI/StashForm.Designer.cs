@@ -38,15 +38,17 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.btnTabs = new System.Windows.Forms.Button();
             this.recipeSelector1 = new Yeena.UI.Controls.RecipeSelector();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnTabs = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -194,6 +196,18 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 438);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
+            // recipeSelector1
+            // 
+            this.recipeSelector1.AutoSize = true;
+            this.recipeSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.recipeSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.recipeSelector1.ItemSource = null;
+            this.recipeSelector1.Location = new System.Drawing.Point(3, 3);
+            this.recipeSelector1.Name = "recipeSelector1";
+            this.recipeSelector1.Size = new System.Drawing.Size(338, 27);
+            this.recipeSelector1.TabIndex = 0;
+            this.recipeSelector1.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -214,14 +228,6 @@
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 493);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(794, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
             // btnTabs
             // 
             this.btnTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -233,17 +239,21 @@
             this.btnTabs.UseVisualStyleBackColor = true;
             this.btnTabs.Click += new System.EventHandler(this.btnTabs_Click);
             // 
-            // recipeSelector1
+            // statusStrip1
             // 
-            this.recipeSelector1.AutoSize = true;
-            this.recipeSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.recipeSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.recipeSelector1.ItemSource = null;
-            this.recipeSelector1.Location = new System.Drawing.Point(3, 3);
-            this.recipeSelector1.Name = "recipeSelector1";
-            this.recipeSelector1.Size = new System.Drawing.Size(338, 27);
-            this.recipeSelector1.TabIndex = 0;
-            this.recipeSelector1.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 493);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(794, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(38, 17);
+            this.lblStatus.Text = "Status";
             // 
             // StashForm
             // 
@@ -267,6 +277,8 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -293,5 +305,6 @@
         private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Button btnTabs;
+        private System.Windows.Forms.ToolStripStatusLabel lblStatus;
     }
 }

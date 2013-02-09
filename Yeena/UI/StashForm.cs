@@ -97,6 +97,7 @@ namespace Yeena.UI {
             var stashTabs = new List<PoEStashTab>();
 
             // We need at least 1 tab to figure out how many tabs there are total
+            lblStatus.Text = "Fetching first stash page...";
             var stash1 = await _client.GetStashTabAsync(league, 0, 2500, cancellationToken);
             var uiTab1 = CreateStashTabPage(stash1.TabInfo.Name, stash1);
             tabControl1.TabPages.Add(uiTab1);
@@ -105,6 +106,7 @@ namespace Yeena.UI {
             for (int i = 1; i < stash1.TabCount; i++) {
                 cancellationToken.ThrowIfCancellationRequested();
 
+                lblStatus.Text = String.Format("Fetching stash page {0}/{1}...", i + 1, stash1.TabCount);
                 var stashI = await _client.GetStashTabAsync(league, i, 2500, cancellationToken);
 
                 var uiTabI = CreateStashTabPage(stashI.TabInfo.Name, stashI);
@@ -112,6 +114,7 @@ namespace Yeena.UI {
                 stashTabs.Add(stashI);
             }
 
+            lblStatus.Text = "Finalizing...";
             var stash = _leagueStashes.AddOrUpdate(
                 league,
                 _ => new PoEStash(stashTabs),
@@ -119,6 +122,8 @@ namespace Yeena.UI {
             _activeStash = stash;
             _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
             recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
+
+            lblStatus.Text = "Ready";
         }
 
         // Creates and returns a TabPage with a StashGrid control
@@ -142,6 +147,7 @@ namespace Yeena.UI {
         }
 
         private async void StashForm_Load(object sender, EventArgs e) {
+            lblStatus.Text = "Loading item table...";
             await _itemTable.LoadAsync(_client.GetItemTable);
 
             recipeSelector1.RegisterRecipeSolver(new WhetstoneSolver(_itemTable));
