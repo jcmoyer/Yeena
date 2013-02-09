@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageCache.cs" />
+    <Compile Include="PathOfExile\PoEStashRequestError.cs" />
     <Compile Include="PathOfExile\PoEStashTabInfo.cs" />
     <Compile Include="PathOfExile\PoEItem.cs" />
     <Compile Include="PathOfExile\PoEItemCategory.cs" />

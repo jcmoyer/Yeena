@@ -23,6 +23,8 @@ namespace Yeena.PathOfExile {
         [JsonProperty("numTabs")] private readonly int _numTabs = 0;
         [JsonProperty("items")] private readonly List<PoEItem> _items = new List<PoEItem>();
         [JsonProperty("tabs")] private readonly List<PoEStashTabInfo> _tabInfo = new List<PoEStashTabInfo>();
+        [JsonProperty("error")] private readonly PoEStashRequestError _error;
+        
         private PoEStashTabInfo _assocInfo;
 
         public int TabCount {
@@ -37,6 +39,10 @@ namespace Yeena.PathOfExile {
             get { return _assocInfo; }
         }
 
+        public PoEStashRequestError Error {
+            get { return _error; }
+        }
+
         public IEnumerator<PoEItem> GetEnumerator() {
             return _items.GetEnumerator();
         }
@@ -47,6 +53,8 @@ namespace Yeena.PathOfExile {
 
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context) {
+            // Something went wrong. The caller can handle this.
+            if (Error != null) return;
             _assocInfo = _tabInfo[(int)context.Context];
         }
     }

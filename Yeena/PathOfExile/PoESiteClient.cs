@@ -55,11 +55,14 @@ namespace Yeena.PathOfExile {
             return await result.Content.ReadAsStringAsync();
         }
 
-        public Task<PoEStashTab> GetStashTabAsync(string league, int page = 0) {
-            return GetStashTabAsync(league, page, new CancellationToken());
+        public Task<PoEStashTab> GetStashTabAsync(string league, int page = 0, int throttle = 2500) {
+            return GetStashTabAsync(league, page, throttle, new CancellationToken());
         }
 
-        public async Task<PoEStashTab> GetStashTabAsync(string league, int page, CancellationToken cancellationToken) {
+        public async Task<PoEStashTab> GetStashTabAsync(string league, int page, int throttle, CancellationToken cancellationToken) {
+            // This should probably be moved elsewhere.
+            await Task.Delay(throttle);
+
             var result = await _client.PostAsync(PoESite.GetStashItems, new FormUrlEncodedContent(new Dictionary<string, string> {
                 { "league", league },
                 { "tabIndex", page.ToString() },
@@ -72,15 +75,25 @@ namespace Yeena.PathOfExile {
             JsonSerializer ser = new JsonSerializer();
             ser.Context = c;
 
-            return ser.Deserialize<PoEStashTab>(new JsonTextReader(new StringReader(json)));
+            var stashTab = ser.Deserialize<PoEStashTab>(new JsonTextReader(new StringReader(json)));
+
+            if (stashTab.Error != null) {
+                // Retry later.
+                int newThrottle = (int)(throttle * 1.2);
+                await Task.Delay(throttle);
+                return await GetStashTabAsync(league, page, newThrottle, cancellationToken);
+            } else {
+                return stashTab;
+            }
         }
 
-        public async Task<PoEStash> GetStashAsync(string league) {
+        public async Task<PoEStash> GetStashAsync(string league, int throttle = 2500) {
             PoEStashTab tab = await GetStashTabAsync(league);
 
             var tabs = new List<PoEStashTab>(tab.TabCount);
             for (int i = 1; i < tab.TabCount; i++) {
-                tabs.Add(await GetStashTabAsync(league, i));
+                tabs.Add(await GetStashTabAsync(league, i, throttle));
+                await Task.Delay(throttle);
             }
 
             return new PoEStash(tabs);
