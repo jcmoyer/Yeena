@@ -61,7 +61,8 @@ namespace Yeena.UI {
                 tabControl1.TabPages.Add(uiTab1);
             }
             _activeStash = stash;
-            recipeSelector1.ItemSource = _activeStash.Items;
+            _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
+            recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
         }
 
         private async void StartFetchStashPagesAsync(string league, bool refresh = false) {
