@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Yeena.Data;
 using Yeena.PathOfExile;
+using Yeena.Properties;
 using Yeena.Recipe;
 using Yeena.UI.Controls;
 
@@ -65,6 +66,9 @@ namespace Yeena.UI {
                 return;
             }
 
+            cboLeague.Enabled = false;
+            refreshToolStripMenuItem.Enabled = false;
+
             if (_fetchCts != null) {
                 _fetchCts.Cancel(true);
             }
@@ -77,6 +81,11 @@ namespace Yeena.UI {
             tabControl1.TabPages.Clear();
             _fetchCts = new CancellationTokenSource();
             _fetchTask = FetchStashPagesAsync(cboLeague.Text, _fetchCts.Token);
+
+            await _fetchTask;
+
+            cboLeague.Enabled = true;
+            refreshToolStripMenuItem.Enabled = true;
         }
 
         // Asynchronously fetches all the stash pages for a given league
@@ -135,7 +144,13 @@ namespace Yeena.UI {
             recipeSelector1.RegisterRecipeSolver(new BaubleSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new DuplicateRareSolver(_itemTable));
 
-            StartFetchStashPagesAsync(cboLeague.Text);
+            var lastLeague = Settings.Default.LastLeagueName;
+            if (!String.IsNullOrEmpty(lastLeague)) {
+                // This is going to fire StartFetchStashPagesAsync.
+                cboLeague.Text = lastLeague;
+            } else {
+                StartFetchStashPagesAsync(cboLeague.Text);   
+            }
         }
 
         private void recipeSelector1_RecipesSolved(object sender, EventArgs e) {
@@ -244,6 +259,9 @@ namespace Yeena.UI {
             using (Stream s = File.OpenWrite(cookiesFile)) {
                 bf.Serialize(s, _client.Cookies);
             }
+
+            Settings.Default.LastLeagueName = cboLeague.Text;
+            Settings.Default.Save();
         }
 
         private void btnTabs_Click(object sender, EventArgs e) {

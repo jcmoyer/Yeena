@@ -46,5 +46,17 @@ namespace Yeena.Properties {
                 this["Email"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastLeagueName {
+            get {
+                return ((string)(this["LastLeagueName"]));
+            }
+            set {
+                this["LastLeagueName"] = value;
+            }
+        }
     }
 }
