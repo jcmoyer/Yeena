@@ -11,8 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
@@ -20,7 +22,8 @@ namespace Yeena.PathOfExile {
     public class PoEStashTab : IEnumerable<PoEItem> {
         [JsonProperty("numTabs")] private readonly int _numTabs = 0;
         [JsonProperty("items")] private readonly List<PoEItem> _items = new List<PoEItem>();
-        [JsonProperty("tabs")] private readonly List<PoEStashTabInfo> _tabInfo = new List<PoEStashTabInfo>(); 
+        [JsonProperty("tabs")] private readonly List<PoEStashTabInfo> _tabInfo = new List<PoEStashTabInfo>();
+        private PoEStashTabInfo _assocInfo;
 
         public int TabCount {
             get { return _numTabs; }
@@ -30,8 +33,8 @@ namespace Yeena.PathOfExile {
             get { return _items; }
         }
 
-        public IReadOnlyList<PoEStashTabInfo> TabInfo {
-            get { return _tabInfo; }
+        public PoEStashTabInfo TabInfo {
+            get { return _assocInfo; }
         }
 
         public IEnumerator<PoEItem> GetEnumerator() {
@@ -40,6 +43,11 @@ namespace Yeena.PathOfExile {
 
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
+        }
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context) {
+            _assocInfo = _tabInfo[(int)context.Context];
         }
     }
 }

@@ -15,31 +15,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Yeena.PathOfExile;
 
-namespace Yeena.PathOfExile {
-    /// <summary>
-    /// An item list is a list of items with a name that classifies their type,
-    /// i.e. Claw has Nailed Fist, Sharktooth Claw, etc...
-    /// </summary>
-    public class PoEItemList : IEnumerable<string> {
-        private readonly string _name;
-        private readonly List<string> _names; 
+namespace Yeena.Data {
+    class StashTabCollectionView : IEnumerable<PoEStashTab> {
+        private readonly IReadOnlyCollection<PoEStashTab> _tabs;
 
-        public PoEItemList(string name, IEnumerable<string> itemNames) {
-            _name = name;
-            _names = itemNames.ToList();
+        public StashTabCollectionView(IEnumerable<PoEStashTab> tabs) {
+            _tabs = tabs.ToList();
         }
 
-        public IReadOnlyCollection<string> Names {
-            get { return _names; }
-        }
-
-        public IEnumerator<string> GetEnumerator() {
-            return _names.GetEnumerator();
+        public IEnumerator<PoEStashTab> GetEnumerator() {
+            return _tabs.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
         }
+
+        public IEnumerable<PoEItem> Items {
+            get { return _tabs.SelectMany(t => t.Items); }
+        } 
     }
 }

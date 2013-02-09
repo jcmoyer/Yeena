@@ -84,6 +84,8 @@
     <Compile Include="Recipe\RecipeSolver.cs" />
     <Compile Include="Recipe\VendorRecipeNameAttribute.cs" />
     <Compile Include="Recipe\WhetstoneSolver.cs" />
+    <Compile Include="Data\StashTabCollectionView.cs" />
+    <Compile Include="Data\StashView.cs" />
     <Compile Include="Storage.cs" />
     <Compile Include="UI\Controls\ItemInfoPopup.cs">
       <SubType>Form</SubType>
@@ -116,6 +118,12 @@
     <Compile Include="UI\Controls\StashGrid.Designer.cs">
       <DependentUpon>StashGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\TabFilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TabFilterForm.Designer.cs">
+      <DependentUpon>TabFilterForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -140,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Controls\StashGrid.resx">
       <DependentUpon>StashGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TabFilterForm.resx">
+      <DependentUpon>TabFilterForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

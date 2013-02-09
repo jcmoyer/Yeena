@@ -11,11 +11,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
@@ -64,7 +67,12 @@ namespace Yeena.PathOfExile {
             }), cancellationToken);
             result.EnsureSuccessStatusCode();
             var json = await result.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<PoEStashTab>(json);
+
+            StreamingContext c = new StreamingContext(StreamingContextStates.CrossMachine, page);
+            JsonSerializer ser = new JsonSerializer();
+            ser.Context = c;
+
+            return ser.Deserialize<PoEStashTab>(new JsonTextReader(new StringReader(json)));
         }
 
         public async Task<PoEStash> GetStashAsync(string league) {

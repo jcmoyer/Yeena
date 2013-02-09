@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,12 +42,16 @@ namespace Yeena.UI.Controls {
             }
         }
 
-        private async void comboBox1_SelectedValueChanged(object sender, EventArgs e) {
+        private void comboBox1_SelectedValueChanged(object sender, EventArgs e) {
+            SolveRecipes();
+        }
+
+        public async void SolveRecipes() {
             if (ItemSource == null) return;
 
             string name = (string)comboBox1.SelectedItem;
             RecipeSolver solver;
-            
+
             if (_solverMap.TryGetValue(name, out solver)) {
                 Recipes = (await solver.SolveAsync(ItemSource)).ToList();
                 OnRecipesSolved(new EventArgs());

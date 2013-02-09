@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -18,11 +19,11 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Yeena.Data;
 using Yeena.PathOfExile;
 using Yeena.Recipe;
 using Yeena.UI.Controls;
@@ -37,6 +38,7 @@ namespace Yeena.UI {
         // Map of league to stash
         private ConcurrentDictionary<string, PoEStash> _leagueStashes = new ConcurrentDictionary<string, PoEStash>();
         private PoEStash _activeStash = null;
+        private StashTabCollectionView _recipeTabs;
 
         private PoEItemTable _itemTable;
 
@@ -83,7 +85,7 @@ namespace Yeena.UI {
 
             // We need at least 1 tab to figure out how many tabs there are total
             var stash1 = await _client.GetStashTabAsync(league, 0, cancellationToken);
-            var uiTab1 = CreateStashTabPage(stash1.TabInfo[0].Name, stash1);
+            var uiTab1 = CreateStashTabPage(stash1.TabInfo.Name, stash1);
             tabControl1.TabPages.Add(uiTab1);
             stashTabs.Add(stash1);
 
@@ -92,7 +94,7 @@ namespace Yeena.UI {
 
                 var stashI = await _client.GetStashTabAsync(league, i, cancellationToken);
 
-                var uiTabI = CreateStashTabPage(stashI.TabInfo[i].Name, stashI);
+                var uiTabI = CreateStashTabPage(stashI.TabInfo.Name, stashI);
                 tabControl1.TabPages.Add(uiTabI);
                 stashTabs.Add(stashI);
             }
@@ -102,7 +104,8 @@ namespace Yeena.UI {
                 _ => new PoEStash(stashTabs),
                 (k, v) => new PoEStash(stashTabs));
             _activeStash = stash;
-            recipeSelector1.ItemSource = _activeStash.Items;
+            _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
+            recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
         }
 
         // Creates and returns a TabPage with a StashGrid control
@@ -240,6 +243,17 @@ namespace Yeena.UI {
             BinaryFormatter bf = new BinaryFormatter();
             using (Stream s = File.OpenWrite(cookiesFile)) {
                 bf.Serialize(s, _client.Cookies);
+            }
+        }
+
+        private void btnTabs_Click(object sender, EventArgs e) {
+            var filterForm = new TabFilterForm(_activeStash.Tabs);
+            filterForm.SetCheckedTabs(_recipeTabs);
+
+            if (filterForm.ShowDialog() == DialogResult.OK) {
+                _recipeTabs = new StashTabCollectionView(filterForm.FilteredTabs);
+                recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
+                recipeSelector1.SolveRecipes();
             }
         }
     }
