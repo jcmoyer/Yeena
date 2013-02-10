@@ -31,5 +31,9 @@ namespace Yeena.PathOfExile {
         public static readonly Uri ItemDataArmor = new Uri(UriHttps, "item-data/armour");
         public static readonly Uri ItemDataJewelry = new Uri(UriHttps, "item-data/jewelry");
         public static readonly Uri ItemDataCurrency = new Uri(UriHttps, "item-data/currency");
+
+        // Item mods
+        public static readonly Uri ItemDataPrefixes = new Uri(UriHttps, "item-data/prefixmod");
+        public static readonly Uri ItemDataSuffixes = new Uri(UriHttps, "item-data/suffixmod");
     }
 }

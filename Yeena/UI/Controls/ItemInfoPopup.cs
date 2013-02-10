@@ -28,10 +28,12 @@ namespace Yeena.UI.Controls {
         }
 
         private readonly Control[] _displayOrderedControls;
+        private readonly PoEItemTable _itemTable;
 
-        public ItemInfoPopup() {
+        public ItemInfoPopup(PoEItemTable itemTable) {
             InitializeComponent();
 
+            _itemTable = itemTable;
             _displayOrderedControls = new Control[] {
                 lblItemName1,
                 lblItemName2,
@@ -78,6 +80,10 @@ namespace Yeena.UI.Controls {
                 lblItemName1.Text = item.RareName;
                 lblItemName2.Text = item.TypeLine;
                 lblItemName2.Visible = true;
+            } else if (_itemTable.IsMagic(_item)) {
+                lblItemName1.ForeColor = Color.RoyalBlue;
+                lblItemName1.Text = item.TypeLine;
+                lblItemName2.Visible = false;
             } else {
                 lblItemName1.ForeColor = Color.White;
                 lblItemName1.Text = item.TypeLine;

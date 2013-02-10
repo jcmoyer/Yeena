@@ -134,12 +134,22 @@ namespace Yeena.PathOfExile {
             return GetItemListAsync(PoESite.ItemDataCurrency, "Currency");
         }
 
+        public Task<PoEItemCategory> GetPrefixListAsync() {
+            return GetItemListAsync(PoESite.ItemDataPrefixes, "Prefixes");
+        }
+
+        public Task<PoEItemCategory> GetSuffixListAsync() {
+            return GetItemListAsync(PoESite.ItemDataSuffixes, "Suffixes");
+        }
+
         public async Task<PoEItemTable> GetItemTable() {
             return new PoEItemTable(
                 await GetWeaponListAsync(),
                 await GetArmorListAsync(),
                 await GetJewelryListAsync(),
-                await GetCurrencyListAsync());
+                await GetCurrencyListAsync(),
+                await GetPrefixListAsync(),
+                await GetSuffixListAsync());
         }
     }
 }

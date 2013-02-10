@@ -130,7 +130,7 @@ namespace Yeena.UI {
         // Creates and returns a TabPage with a StashGrid control
         private TabPage CreateStashTabPage(string name, PoEStashTab tab) {
             TabPage tp = new TabPage(name);
-            StashGrid grid = new StashGrid();
+            StashGrid grid = new StashGrid(_itemTable);
             grid.Dock = DockStyle.Fill;
             grid.SetImages(tab.Items);
             grid.Tag = tab;

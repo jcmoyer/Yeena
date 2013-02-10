@@ -41,15 +41,18 @@ namespace Yeena.UI.Controls {
 
         public PoEItem HoveredItem { get; private set; }
 
-        private readonly ItemInfoPopup _itemInfoPopup = new ItemInfoPopup();
+        private readonly ItemInfoPopup _itemInfoPopup;
         private StashGridMarking _mousedMarking;
 
         public Pen GridPen { get; set; }
+        private readonly PoEItemTable _itemTable;
 
-        public StashGrid() {
+        public StashGrid(PoEItemTable itemTable) {
             InitializeComponent();
 
             GridPen = Pens.Black;
+            _itemTable = itemTable;
+            _itemInfoPopup = new ItemInfoPopup(_itemTable);
         }
 
         public async void SetImages(IEnumerable<PoEItem> items) {
