@@ -84,6 +84,10 @@ namespace Yeena.PathOfExile {
             get { return !String.IsNullOrEmpty(RareName); }
         }
 
+        public bool IsIdentified {
+            get { return _identified; }
+        }
+
         // Quality is embeded within a string within an array...thus retreival is memoized
         private int _cacheQual = -1;
         public int Quality {
