@@ -19,18 +19,37 @@ using Yeena.PathOfExile;
 
 namespace Yeena.Recipe {
     class ConfigurableQualitySolver : QualitySolver {
-        private readonly Func<PoEItem, bool> _pred; 
+        private readonly Func<PoEItem, bool> _pred;
 
         public ConfigurableQualitySolver(PoEItemTable itemTable, Func<PoEItem, bool> pred) : base(itemTable) {
             _pred = pred;
         }
 
         public override IEnumerable<VendorRecipe> Solve(IEnumerable<PoEItem> items) {
-            var qualityWeapons = from item in items
-                                 where _pred(item) && item.Quality > 0
-                                 select item;
-            return from subset in GetSubsetsOfQuality(qualityWeapons.ToArray(), 40)
-                   select new VendorRecipe(subset);
+            // Only operate on items that satisfy the configured predicate and that have
+            // a quality greater than zero
+            var qualityItems = from item in items
+                               where _pred(item) && item.Quality > 0
+                               select item;
+
+            // Force enumeration into a list since we need to traverse it multiple times
+            var qualityItemList = qualityItems.ToList();
+
+            // Find all items that satisfy a quality recipe alone
+            var q20 = from item in qualityItemList
+                      where item.Quality == 20 &&
+                      (!item.IsIdentified || (item.IsIdentified && !item.IsRare && !ItemTable.IsMagic(item)))
+                      select item;
+            var q20List = q20.ToList();
+            var q20Recipes = from item in q20List select new VendorRecipe(new[] { item });
+
+            // Find the recipes of all remaining items
+            var remaining = qualityItemList.Except(q20List);
+            var remainingRecipes = from subset in GetSubsetsOfQuality(remaining.ToArray(), 40)
+                                   select new VendorRecipe(subset);
+
+            // Return the two recipe sequences
+            return q20Recipes.Concat(remainingRecipes);
         }
     }
 }
