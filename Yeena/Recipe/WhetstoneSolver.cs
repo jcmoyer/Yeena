@@ -15,7 +15,7 @@
 using Yeena.PathOfExile;
 
 namespace Yeena.Recipe {
-    [VendorRecipeName("Whetstone Solver")]
+    [VendorRecipeName("Whetstone")]
     class WhetstoneSolver : ConfigurableQualitySolver {
         public WhetstoneSolver(PoEItemTable itemTable)
             : base(itemTable, itemTable.IsWeapon) {

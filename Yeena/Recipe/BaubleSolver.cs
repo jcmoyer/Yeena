@@ -15,7 +15,7 @@
 using Yeena.PathOfExile;
 
 namespace Yeena.Recipe {
-    [VendorRecipeName("Glassblower's Bauble Solver")]
+    [VendorRecipeName("Glassblower's Bauble")]
     class BaubleSolver : ConfigurableQualitySolver {
         public BaubleSolver(PoEItemTable itemTable)
             : base(itemTable, itemTable.IsFlask) {

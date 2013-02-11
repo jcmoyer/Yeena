@@ -15,7 +15,7 @@
 using Yeena.PathOfExile;
 
 namespace Yeena.Recipe {
-    [VendorRecipeName("Armorer's Scrap Solver")]
+    [VendorRecipeName("Armorer's Scrap")]
     class ScrapSolver : ConfigurableQualitySolver {
         public ScrapSolver(PoEItemTable itemTable)
             : base(itemTable, itemTable.IsArmor) {
