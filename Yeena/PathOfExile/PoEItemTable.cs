@@ -68,7 +68,7 @@ namespace Yeena.PathOfExile {
         }
 
         public bool IsGem(PoEItem item) {
-            throw new NotImplementedException();
+            return item.HasProperty("Experience");
         }
 
         public bool IsMagic(PoEItem item) {
