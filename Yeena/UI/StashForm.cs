@@ -155,6 +155,7 @@ namespace Yeena.UI {
             recipeSelector1.RegisterRecipeSolver(new ScrapSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new BaubleSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new DuplicateRareSolver(_itemTable));
+            recipeSelector1.RegisterRecipeSolver(new SixSocketSolver(_itemTable));
 
             var lastLeague = Settings.Default.LastLeagueName;
             if (!String.IsNullOrEmpty(lastLeague)) {

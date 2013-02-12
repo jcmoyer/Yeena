@@ -33,7 +33,8 @@ namespace Yeena.PathOfExile {
         private readonly bool _support;
         [JsonProperty("league")]
         private readonly string _league;
-        // TODO: sockets
+        [JsonProperty("sockets")]
+        private readonly List<PoEItemSocket> _sockets;
         // TODO: socketedItems
         // seems to only be used for named magics/rares?
         [JsonProperty("name")]
@@ -129,6 +130,10 @@ namespace Yeena.PathOfExile {
         public IReadOnlyList<PoEItemProperty> AdditionalProperties {
             get { return _additionalProperties; }
         }
+
+        public IReadOnlyList<PoEItemSocket> Sockets {
+            get { return _sockets; }
+        } 
 
         public override string ToString() {
             if (IsRare) return RareName;

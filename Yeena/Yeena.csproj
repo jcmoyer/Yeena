@@ -62,6 +62,7 @@
     <Compile Include="Data\JsonDiskCache.cs" />
     <Compile Include="Data\PersistentCache.cs" />
     <Compile Include="ImageCache.cs" />
+    <Compile Include="PathOfExile\PoEItemSocket.cs" />
     <Compile Include="PathOfExile\PoEStashRequestError.cs" />
     <Compile Include="PathOfExile\PoEStashTabInfo.cs" />
     <Compile Include="PathOfExile\PoEItem.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Recipe\ScrapSolver.cs" />
     <Compile Include="Recipe\DuplicateRareSolver.cs" />
     <Compile Include="Recipe\QualitySolver.cs" />
+    <Compile Include="Recipe\SixSocketSolver.cs" />
     <Compile Include="Recipe\VendorRecipe.cs" />
     <Compile Include="Recipe\RecipeSolver.cs" />
     <Compile Include="Recipe\VendorRecipeNameAttribute.cs" />

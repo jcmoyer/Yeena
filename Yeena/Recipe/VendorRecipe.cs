@@ -24,6 +24,12 @@ namespace Yeena.Recipe {
     public class VendorRecipe : IEnumerable<PoEItem> {
         private readonly List<PoEItem> _items;
 
+        public VendorRecipe(PoEItem item) {
+            _items = new List<PoEItem> {
+                item
+            };
+        }
+
         public VendorRecipe(IEnumerable<PoEItem> items) {
             _items = new List<PoEItem>(items);
         }
