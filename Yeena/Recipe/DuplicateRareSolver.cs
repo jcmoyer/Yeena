@@ -17,7 +17,7 @@ using System.Linq;
 using Yeena.PathOfExile;
 
 namespace Yeena.Recipe {
-    [VendorRecipeName("Orb of Chance, Orb of Alchemy (Duplicate Rares)")]
+    [VendorRecipeName("Orb of Chance, Orb of Alchemy (duplicate rares)")]
     class DuplicateRareSolver : RecipeSolver {
         public DuplicateRareSolver(PoEItemTable itemTable)
             : base(itemTable) {
