@@ -123,6 +123,17 @@ namespace Yeena.PathOfExile {
             }
         }
 
+        public bool HasProperty(string name) {
+            bool result = false;
+            if (_properties != null) {
+                result |= _properties.Any(prop => prop.Name == name);
+            }
+            if (_additionalProperties != null) {
+                result |= _additionalProperties.Any(prop => prop.Name == name);
+            }
+            return result;
+        }
+
         public IReadOnlyList<PoEItemProperty> Properties {
             get { return _properties; }
         }
