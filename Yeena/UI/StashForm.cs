@@ -154,6 +154,7 @@ namespace Yeena.UI {
             recipeSelector1.RegisterRecipeSolver(new WhetstoneSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new ScrapSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new BaubleSolver(_itemTable));
+            recipeSelector1.RegisterRecipeSolver(new PrismSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new DuplicateRareSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new SixSocketSolver(_itemTable));
 
