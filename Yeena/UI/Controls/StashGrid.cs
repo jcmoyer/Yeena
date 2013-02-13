@@ -56,6 +56,10 @@ namespace Yeena.UI.Controls {
         }
 
         public async void SetImages(IEnumerable<PoEItem> items) {
+            if (_images.Count > 0) {
+                _images.Clear();
+                Invalidate();
+            }
             _dataSrc = items.ToList();
 
             HttpClient client = new HttpClient();

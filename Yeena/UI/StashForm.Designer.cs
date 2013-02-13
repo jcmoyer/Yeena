@@ -38,11 +38,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.recipeSelector1 = new Yeena.UI.Controls.RecipeSelector();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnTabs = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.recipeSelector1 = new Yeena.UI.Controls.RecipeSelector();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -120,8 +120,8 @@
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh Tab";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // toolStrip1
@@ -196,18 +196,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 438);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
-            // recipeSelector1
-            // 
-            this.recipeSelector1.AutoSize = true;
-            this.recipeSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.recipeSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.recipeSelector1.ItemSource = null;
-            this.recipeSelector1.Location = new System.Drawing.Point(3, 3);
-            this.recipeSelector1.Name = "recipeSelector1";
-            this.recipeSelector1.Size = new System.Drawing.Size(338, 27);
-            this.recipeSelector1.TabIndex = 0;
-            this.recipeSelector1.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -254,6 +242,18 @@
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(38, 17);
             this.lblStatus.Text = "Status";
+            // 
+            // recipeSelector1
+            // 
+            this.recipeSelector1.AutoSize = true;
+            this.recipeSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.recipeSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.recipeSelector1.ItemSource = null;
+            this.recipeSelector1.Location = new System.Drawing.Point(3, 3);
+            this.recipeSelector1.Name = "recipeSelector1";
+            this.recipeSelector1.Size = new System.Drawing.Size(338, 27);
+            this.recipeSelector1.TabIndex = 0;
+            this.recipeSelector1.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
             // 
             // StashForm
             // 

@@ -143,8 +143,18 @@ namespace Yeena.UI {
             StartFetchStashPagesAsync(cboLeague.Text);
         }
 
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e) {
-            StartFetchStashPagesAsync(cboLeague.Text, true);
+        private async void refreshToolStripMenuItem_Click(object sender, EventArgs e) {
+            var selectedGrid = tabControl1.SelectedTab.Controls.OfType<StashGrid>().FirstOrDefault();
+            if (selectedGrid == null) return;
+
+            cboLeague.Enabled = false;
+            refreshToolStripMenuItem.Enabled = false;
+
+            var tab = await _client.GetStashTabAsync(cboLeague.Text, tabControl1.SelectedIndex);
+            selectedGrid.SetImages(tab);
+
+            cboLeague.Enabled = true;
+            refreshToolStripMenuItem.Enabled = true;
         }
 
         private async void StashForm_Load(object sender, EventArgs e) {
