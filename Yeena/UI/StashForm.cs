@@ -303,5 +303,9 @@ namespace Yeena.UI {
                 recipeSelector1.SolveRecipes();
             }
         }
+
+        private void refreshAllTabsToolStripMenuItem_Click(object sender, EventArgs e) {
+            StartFetchStashPagesAsync(cboLeague.Text, true);
+        }
     }
 }
