@@ -59,6 +59,7 @@ namespace Yeena.PathOfExile {
             return GetStashTabAsync(league, page, throttle, new CancellationToken());
         }
 
+        /// <exception cref="System.InvalidCastException">Thrown if there's no stash for this league</exception>
         public async Task<PoEStashTab> GetStashTabAsync(string league, int page, int throttle, CancellationToken cancellationToken) {
             // This should probably be moved elsewhere.
             await Task.Delay(throttle);

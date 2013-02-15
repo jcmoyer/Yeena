@@ -98,7 +98,13 @@ namespace Yeena.UI {
 
             // We need at least 1 tab to figure out how many tabs there are total
             lblStatus.Text = "Fetching first stash page...";
-            var stash1 = await _client.GetStashTabAsync(league, 0, 2500, cancellationToken);
+            PoEStashTab stash1;
+            try {
+                stash1 = await _client.GetStashTabAsync(league, 0, 2500, cancellationToken);
+            } catch (InvalidCastException) {
+                lblStatus.Text = "There is no stash in this league yet.";
+                return;
+            }
             var uiTab1 = CreateStashTabPage(stash1.TabInfo.Name, stash1);
             tabControl1.TabPages.Add(uiTab1);
             stashTabs.Add(stash1);
