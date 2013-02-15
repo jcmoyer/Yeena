@@ -22,7 +22,7 @@ namespace Yeena.PathOfExile {
     /// i.e. Claw has Nailed Fist, Sharktooth Claw, etc...
     /// </summary>
     [JsonObject]
-    public class PoEItemList : IEnumerable<string> {
+    class PoEItemList : IEnumerable<string> {
         [JsonProperty("name")]
         private readonly string _name;
         [JsonProperty("items")]

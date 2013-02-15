@@ -25,7 +25,7 @@ using HtmlAgilityPack;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
-    public class PoESiteClient {
+    class PoESiteClient {
         private readonly HttpClientHandler _handler = new HttpClientHandler();
         private readonly HttpClient _client;
 

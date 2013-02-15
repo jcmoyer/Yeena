@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
-    public class PoEItemSocket {
+    class PoEItemSocket {
         [JsonProperty("group")] private readonly int _number;
         [JsonProperty("attr")] private readonly string _attr;
     }

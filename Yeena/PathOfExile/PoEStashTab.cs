@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
-    public class PoEStashTab : IEnumerable<PoEItem> {
+    class PoEStashTab : IEnumerable<PoEItem> {
         [JsonProperty("numTabs")] private readonly int _numTabs = 0;
         [JsonProperty("items")] private readonly List<PoEItem> _items = new List<PoEItem>();
         [JsonProperty("tabs")] private readonly List<PoEStashTabInfo> _tabInfo = new List<PoEStashTabInfo>();

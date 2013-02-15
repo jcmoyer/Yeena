@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
-    public class PoEItemProperty {
+    class PoEItemProperty {
         private static readonly Regex FormatSpecifier = new Regex(@"%(\d+)", RegexOptions.Compiled);
 
         [JsonProperty("name")] private readonly string _name;

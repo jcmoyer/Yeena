@@ -23,7 +23,7 @@ using Yeena.PathOfExile;
 using Yeena.Properties;
 
 namespace Yeena.UI {
-    public partial class LoginForm : Form {
+    partial class LoginForm : Form {
         private const string PasswordNotNeededString = "[Not needed]";
 
         private bool _infoDirty;

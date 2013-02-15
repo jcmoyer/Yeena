@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
-    public class PoEItemTable {
+    class PoEItemTable {
         [JsonProperty("weapons")]
         private readonly PoEItemCategory _weapons;
         [JsonProperty("armor")]

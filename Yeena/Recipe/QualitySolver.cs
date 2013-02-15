@@ -17,7 +17,7 @@ using System.Linq;
 using Yeena.PathOfExile;
 
 namespace Yeena.Recipe {
-    public abstract class QualitySolver : RecipeSolver {
+    abstract class QualitySolver : RecipeSolver {
         protected QualitySolver(PoEItemTable itemTable) : base(itemTable) {
         }
 

@@ -33,7 +33,7 @@ using Yeena.Recipe;
 using Yeena.UI.Controls;
 
 namespace Yeena.UI {
-    public partial class StashForm : Form {
+    partial class StashForm : Form {
         private readonly PoESiteClient _client;
 
         private CancellationTokenSource _fetchCts;

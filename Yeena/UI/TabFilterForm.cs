@@ -19,7 +19,7 @@ using System.Windows.Forms;
 using Yeena.PathOfExile;
 
 namespace Yeena.UI {
-    public partial class TabFilterForm : Form {
+    partial class TabFilterForm : Form {
         class TaggedStashTab {
             public PoEStashTab Tab { get; private set; }
             

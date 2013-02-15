@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
-    public class PoEItem {
+    class PoEItem {
         [JsonProperty("verified")]
         private readonly bool _verified;
         [JsonProperty("w")]

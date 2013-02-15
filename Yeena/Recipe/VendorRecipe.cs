@@ -21,7 +21,7 @@ namespace Yeena.Recipe {
     /// <summary>
     /// A Recipe is simply a list of items.
     /// </summary>
-    public class VendorRecipe : IEnumerable<PoEItem> {
+    class VendorRecipe : IEnumerable<PoEItem> {
         private readonly List<PoEItem> _items;
 
         public VendorRecipe(PoEItem item) {

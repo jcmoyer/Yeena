@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
-    public class PoEStashTabInfo {
+    class PoEStashTabInfo {
         [JsonProperty("n")] private readonly string _name;
         [JsonProperty("i")] private readonly int _index;
         // colour { r, g, b }

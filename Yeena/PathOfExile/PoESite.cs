@@ -15,7 +15,7 @@
 using System;
 
 namespace Yeena.PathOfExile {
-    public class PoESite {
+    class PoESite {
         // Base uris
         public static readonly Uri Uri = new Uri("http://www.pathofexile.com/");
         public static readonly Uri UriHttps = new Uri("https://www.pathofexile.com/");

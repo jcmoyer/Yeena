@@ -15,7 +15,7 @@
 using System.Collections.Generic;
 
 namespace Yeena.PathOfExile {
-    public class PoEStash {
+    class PoEStash {
         private readonly List<PoEStashTab> _tabs;
 
         public PoEStash(IEnumerable<PoEStashTab> tabs) {

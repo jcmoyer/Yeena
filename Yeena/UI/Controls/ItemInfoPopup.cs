@@ -20,7 +20,7 @@ using System.Windows.Forms;
 using Yeena.PathOfExile;
 
 namespace Yeena.UI.Controls {
-    public partial class ItemInfoPopup : Form {
+    partial class ItemInfoPopup : Form {
         private PoEItem _item;
         public PoEItem Item {
             get { return _item; }

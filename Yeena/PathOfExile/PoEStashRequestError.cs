@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
-    public class PoEStashRequestError {
+    class PoEStashRequestError {
         [JsonProperty("message")]
         private readonly string _message;
 

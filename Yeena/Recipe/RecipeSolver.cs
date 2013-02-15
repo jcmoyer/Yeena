@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using Yeena.PathOfExile;
 
 namespace Yeena.Recipe {
-    public abstract class RecipeSolver {
+    abstract class RecipeSolver {
         protected PoEItemTable ItemTable { get; private set; }
 
         protected RecipeSolver(PoEItemTable itemTable) {

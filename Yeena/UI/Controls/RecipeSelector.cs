@@ -20,7 +20,7 @@ using Yeena.PathOfExile;
 using Yeena.Recipe;
 
 namespace Yeena.UI.Controls {
-    public partial class RecipeSelector : UserControl {
+    partial class RecipeSelector : UserControl {
         public IReadOnlyList<VendorRecipe> Recipes { get; private set; }
         public IReadOnlyList<PoEItem> ItemSource { get; set; } 
 

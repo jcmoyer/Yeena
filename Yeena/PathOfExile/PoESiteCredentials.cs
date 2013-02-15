@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 namespace Yeena.PathOfExile {
-    public class PoESiteCredentials {
+    class PoESiteCredentials {
         public string Username { get; private set; }
         public string Password { get; private set; }
 
