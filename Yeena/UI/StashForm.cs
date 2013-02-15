@@ -70,6 +70,7 @@ namespace Yeena.UI {
 
             cboLeague.Enabled = false;
             refreshToolStripMenuItem.Enabled = false;
+            refreshAllTabsToolStripMenuItem.Enabled = false;
 
             if (_fetchCts != null) {
                 _fetchCts.Cancel(true);
@@ -88,6 +89,7 @@ namespace Yeena.UI {
 
             cboLeague.Enabled = true;
             refreshToolStripMenuItem.Enabled = true;
+            refreshAllTabsToolStripMenuItem.Enabled = true;
         }
 
         // Asynchronously fetches all the stash pages for a given league
@@ -146,12 +148,14 @@ namespace Yeena.UI {
 
             cboLeague.Enabled = false;
             refreshToolStripMenuItem.Enabled = false;
+            refreshAllTabsToolStripMenuItem.Enabled = false;
 
             var tab = await _client.GetStashTabAsync(cboLeague.Text, tabControl1.SelectedIndex);
             selectedGrid.SetImages(tab);
 
             cboLeague.Enabled = true;
             refreshToolStripMenuItem.Enabled = true;
+            refreshAllTabsToolStripMenuItem.Enabled = true;
         }
 
         private async void StashForm_Load(object sender, EventArgs e) {
