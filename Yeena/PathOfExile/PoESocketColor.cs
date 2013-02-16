@@ -12,22 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Newtonsoft.Json;
-
 namespace Yeena.PathOfExile {
-    [JsonObject]
-    class PoEItemSocket {
-        [JsonProperty("group")] private readonly int _number;
-        [JsonProperty("attr")] private readonly string _attr;
-
-        public PoESocketColor Color {
-            get {
-                switch (_attr) {
-                    case "S": return PoESocketColor.Red;
-                    case "D": return PoESocketColor.Green;
-                    case "I": return PoESocketColor.Blue;
-                }
-            }
-        }
+    enum PoESocketColor {
+        Red,
+        Green,
+        Blue,
     }
 }
