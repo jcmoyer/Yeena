@@ -20,6 +20,10 @@ namespace Yeena.PathOfExile {
         [JsonProperty("group")] private readonly int _group;
         [JsonProperty("attr")] private readonly string _attr;
 
+        public int Group {
+            get { return _group; }
+        }
+
         public PoESocketColor Color {
             get {
                 switch (_attr) {
