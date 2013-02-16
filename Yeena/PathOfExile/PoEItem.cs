@@ -150,5 +150,14 @@ namespace Yeena.PathOfExile {
             if (IsRare) return RareName;
             return TypeLine;
         }
+
+        public IEnumerable<IEnumerable<PoEItemSocket>> SocketGroups {
+            get {
+                return from socket in _sockets
+                       group socket by socket.Group
+                       into linked
+                       select linked;
+            }
+        }
     }
 }
