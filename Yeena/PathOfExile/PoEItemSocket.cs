@@ -26,6 +26,7 @@ namespace Yeena.PathOfExile {
                     case "S": return PoESocketColor.Red;
                     case "D": return PoESocketColor.Green;
                     case "I": return PoESocketColor.Blue;
+                    default: return PoESocketColor.Unknown;
                 }
             }
         }

@@ -17,5 +17,6 @@ namespace Yeena.PathOfExile {
         Red,
         Green,
         Blue,
+        Unknown,
     }
 }
