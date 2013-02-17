@@ -50,6 +50,10 @@ namespace Yeena.UI.Controls {
             if (ItemSource == null) return;
 
             string name = (string)comboBox1.SelectedItem;
+
+            // User hasn't selected a recipe yet
+            if (String.IsNullOrEmpty(name)) return;
+
             RecipeSolver solver;
 
             if (_solverMap.TryGetValue(name, out solver)) {
