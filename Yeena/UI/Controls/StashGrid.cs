@@ -47,12 +47,19 @@ namespace Yeena.UI.Controls {
         public Pen GridPen { get; set; }
         private readonly PoEItemTable _itemTable;
 
+        private PoEStashTab _stashStashTab;
+
         public StashGrid(PoEItemTable itemTable) {
             InitializeComponent();
 
             GridPen = Pens.Black;
             _itemTable = itemTable;
             _itemInfoPopup = new ItemInfoPopup(_itemTable);
+        }
+
+        public void SetImages(PoEStashTab tab) {
+            _stashStashTab = tab;
+            SetImages(tab.Items);
         }
 
         public async void SetImages(IEnumerable<PoEItem> items) {
@@ -204,6 +211,10 @@ namespace Yeena.UI.Controls {
 
             _xCellSize = _drawWidth / HorizontalCellCount;
             _yCellSize = _drawHeight / VerticalCellCount;
+        }
+
+        public PoEStashTab StashTab {
+            get { return _stashStashTab; }
         }
     }
 }

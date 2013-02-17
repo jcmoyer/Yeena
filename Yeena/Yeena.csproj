@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Data\JsonDiskCache.cs" />
     <Compile Include="Data\PersistentCache.cs" />
+    <Compile Include="Data\StashTabView.cs" />
     <Compile Include="ImageCache.cs" />
     <Compile Include="PathOfExile\PoEItemSocket.cs" />
     <Compile Include="PathOfExile\PoESocketColor.cs" />

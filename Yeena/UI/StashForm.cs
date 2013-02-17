@@ -137,7 +137,7 @@ namespace Yeena.UI {
             TabPage tp = new TabPage(name);
             StashGrid grid = new StashGrid(_itemTable);
             grid.Dock = DockStyle.Fill;
-            grid.SetImages(tab.Items);
+            grid.SetImages(tab);
             grid.Tag = tab;
             tp.Controls.Add(grid);
             tp.Tag = grid;
@@ -302,10 +302,10 @@ namespace Yeena.UI {
             if (_activeStash == null) return;
 
             var filterForm = new TabFilterForm(_activeStash.Tabs);
-            filterForm.SetCheckedTabs(_recipeTabs);
+            filterForm.SetCheckedTabs(_recipeTabs.Tabs);
 
             if (filterForm.ShowDialog() == DialogResult.OK) {
-                _recipeTabs = new StashTabCollectionView(filterForm.FilteredTabs);
+                _recipeTabs = _recipeTabs.WithTabs(filterForm.FilteredTabs);
                 recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
                 recipeSelector1.SolveRecipes();
             }
@@ -313,6 +313,30 @@ namespace Yeena.UI {
 
         private void refreshAllTabsToolStripMenuItem_Click(object sender, EventArgs e) {
             StartFetchStashPagesAsync(cboLeague.Text, true);
+        }
+
+        private void removeFromStashToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (_activeStash == null) return;
+            if (SelectedRecipe == null) return;
+            
+            _recipeTabs = _recipeTabs.Filter(SelectedRecipe.Items);
+            
+            foreach (var tab in _recipeTabs) {
+                FindStashGridForTab(tab.Tab).SetImages(tab);
+            }
+
+            recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
+            recipeSelector1.SolveRecipes();
+        }
+
+        private StashGrid FindStashGridForTab(PoEStashTab tab) {
+            foreach (var page in tabControl1.TabPages.OfType<TabPage>()) {
+                var stashGrid = page.Controls.OfType<StashGrid>().FirstOrDefault();
+                if (stashGrid != null && stashGrid.StashTab == tab) {
+                    return stashGrid;
+                }
+            }
+            return null;
         }
     }
 }

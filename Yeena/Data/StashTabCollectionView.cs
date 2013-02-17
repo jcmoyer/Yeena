@@ -18,14 +18,27 @@ using System.Linq;
 using Yeena.PathOfExile;
 
 namespace Yeena.Data {
-    class StashTabCollectionView : IEnumerable<PoEStashTab> {
-        private readonly IReadOnlyCollection<PoEStashTab> _tabs;
+    class StashTabCollectionView : IEnumerable<StashTabView> {
+        private readonly IReadOnlyCollection<StashTabView> _tabs;
+        private readonly IReadOnlyCollection<PoEItem> _filtered;
 
-        public StashTabCollectionView(IEnumerable<PoEStashTab> tabs) {
-            _tabs = tabs.ToList();
+        private StashTabCollectionView(IEnumerable<StashTabView> tabs, IEnumerable<PoEItem> filtered) {
+            _filtered = filtered.ToList();
+            _tabs = tabs.Select(t => new StashTabView(t.Tab, _filtered)).ToList();
         }
 
-        public IEnumerator<PoEStashTab> GetEnumerator() {
+        public StashTabCollectionView(IEnumerable<PoEStashTab> tabs) {
+            _tabs = tabs.Select(t => new StashTabView(t)).ToList();
+        }
+
+        public StashTabCollectionView(IEnumerable<PoEStashTab> tabs, IEnumerable<PoEItem> filtered) {
+            _tabs = tabs.Select(t => new StashTabView(t)).ToList();
+            if (_filtered != null) {
+                _filtered = filtered.ToList();
+            }
+        }
+
+        public IEnumerator<StashTabView> GetEnumerator() {
             return _tabs.GetEnumerator();
         }
 
@@ -33,8 +46,31 @@ namespace Yeena.Data {
             return GetEnumerator();
         }
 
-        public IEnumerable<PoEItem> Items {
-            get { return _tabs.SelectMany(t => t.Items); }
+        public StashTabCollectionView WithTabs(IEnumerable<PoEStashTab> tabs) {
+            return new StashTabCollectionView(tabs, _filtered);
+        }
+
+        public StashTabCollectionView Filter(IEnumerable<PoEItem> items) {
+            if (_filtered == null) {
+                return new StashTabCollectionView(_tabs, items);
+            } else {
+                return new StashTabCollectionView(_tabs, _filtered.Concat(items));
+            }
+        }
+
+        public IEnumerable<PoEStashTab> Tabs {
+            get { return _tabs.Select(t => t.Tab); }
         } 
+
+        public IEnumerable<PoEItem> Items {
+            get {
+                var baseQuery = _tabs.SelectMany(t => t);
+                if (_filtered == null) {
+                    return baseQuery;
+                } else {
+                    return baseQuery.Except(_filtered);
+                }
+            }
+        }
     }
 }

@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -32,24 +33,27 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshAllTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblLeague = new System.Windows.Forms.ToolStripLabel();
             this.cboLeague = new System.Windows.Forms.ToolStripComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.recipeSelector1 = new Yeena.UI.Controls.RecipeSelector();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnTabs = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.recipeSelector1 = new Yeena.UI.Controls.RecipeSelector();
-            this.refreshAllTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeFromStashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -126,6 +130,14 @@
             this.refreshToolStripMenuItem.Text = "Refresh Tab";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
+            // refreshAllTabsToolStripMenuItem
+            // 
+            this.refreshAllTabsToolStripMenuItem.Name = "refreshAllTabsToolStripMenuItem";
+            this.refreshAllTabsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
+            this.refreshAllTabsToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.refreshAllTabsToolStripMenuItem.Text = "Refresh All";
+            this.refreshAllTabsToolStripMenuItem.Click += new System.EventHandler(this.refreshAllTabsToolStripMenuItem_Click);
+            // 
             // toolStrip1
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -198,6 +210,18 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 438);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
+            // recipeSelector1
+            // 
+            this.recipeSelector1.AutoSize = true;
+            this.recipeSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.recipeSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.recipeSelector1.ItemSource = null;
+            this.recipeSelector1.Location = new System.Drawing.Point(3, 3);
+            this.recipeSelector1.Name = "recipeSelector1";
+            this.recipeSelector1.Size = new System.Drawing.Size(338, 27);
+            this.recipeSelector1.TabIndex = 0;
+            this.recipeSelector1.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -206,6 +230,7 @@
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.Location = new System.Drawing.Point(3, 65);
@@ -245,25 +270,19 @@
             this.lblStatus.Size = new System.Drawing.Size(38, 17);
             this.lblStatus.Text = "Status";
             // 
-            // recipeSelector1
+            // contextMenuStrip1
             // 
-            this.recipeSelector1.AutoSize = true;
-            this.recipeSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.recipeSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.recipeSelector1.ItemSource = null;
-            this.recipeSelector1.Location = new System.Drawing.Point(3, 3);
-            this.recipeSelector1.Name = "recipeSelector1";
-            this.recipeSelector1.Size = new System.Drawing.Size(338, 27);
-            this.recipeSelector1.TabIndex = 0;
-            this.recipeSelector1.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeFromStashToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 48);
             // 
-            // refreshAllTabsToolStripMenuItem
+            // removeFromStashToolStripMenuItem
             // 
-            this.refreshAllTabsToolStripMenuItem.Name = "refreshAllTabsToolStripMenuItem";
-            this.refreshAllTabsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F5)));
-            this.refreshAllTabsToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.refreshAllTabsToolStripMenuItem.Text = "Refresh All";
-            this.refreshAllTabsToolStripMenuItem.Click += new System.EventHandler(this.refreshAllTabsToolStripMenuItem_Click);
+            this.removeFromStashToolStripMenuItem.Name = "removeFromStashToolStripMenuItem";
+            this.removeFromStashToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.removeFromStashToolStripMenuItem.Text = "Remove From Stash";
+            this.removeFromStashToolStripMenuItem.Click += new System.EventHandler(this.removeFromStashToolStripMenuItem_Click);
             // 
             // StashForm
             // 
@@ -289,6 +308,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -317,5 +337,7 @@
         private System.Windows.Forms.Button btnTabs;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.ToolStripMenuItem refreshAllTabsToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem removeFromStashToolStripMenuItem;
     }
 }
