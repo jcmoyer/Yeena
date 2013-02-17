@@ -68,9 +68,7 @@ namespace Yeena.UI {
                 return;
             }
 
-            cboLeague.Enabled = false;
-            refreshToolStripMenuItem.Enabled = false;
-            refreshAllTabsToolStripMenuItem.Enabled = false;
+            EnableUnsafeControls(false);
 
             if (_fetchCts != null) {
                 _fetchCts.Cancel(true);
@@ -87,9 +85,7 @@ namespace Yeena.UI {
 
             await _fetchTask;
 
-            cboLeague.Enabled = true;
-            refreshToolStripMenuItem.Enabled = true;
-            refreshAllTabsToolStripMenuItem.Enabled = true;
+            EnableUnsafeControls(true);
         }
 
         // Asynchronously fetches all the stash pages for a given league
@@ -152,16 +148,12 @@ namespace Yeena.UI {
             var selectedGrid = tabControl1.SelectedTab.Controls.OfType<StashGrid>().FirstOrDefault();
             if (selectedGrid == null) return;
 
-            cboLeague.Enabled = false;
-            refreshToolStripMenuItem.Enabled = false;
-            refreshAllTabsToolStripMenuItem.Enabled = false;
+            EnableUnsafeControls(false);
 
             var tab = await _client.GetStashTabAsync(cboLeague.Text, tabControl1.SelectedIndex);
             selectedGrid.SetImages(tab);
 
-            cboLeague.Enabled = true;
-            refreshToolStripMenuItem.Enabled = true;
-            refreshAllTabsToolStripMenuItem.Enabled = true;
+            EnableUnsafeControls(true);
         }
 
         private async void StashForm_Load(object sender, EventArgs e) {
@@ -337,6 +329,17 @@ namespace Yeena.UI {
                 }
             }
             return null;
+        }
+
+        private void EnableUnsafeControls(bool state) {
+            cboLeague.Enabled = state;
+            refreshToolStripMenuItem.Enabled = state;
+            refreshAllTabsToolStripMenuItem.Enabled = state;
+            exportToolStripMenuItem.Enabled = state;
+            removeFromStashToolStripMenuItem.Enabled = state;
+            dataGridView1.Enabled = state;
+            recipeSelector1.Enabled = state;
+            btnTabs.Enabled = state;
         }
     }
 }
