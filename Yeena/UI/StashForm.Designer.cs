@@ -42,18 +42,18 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.recipeSelector1 = new Yeena.UI.Controls.RecipeSelector();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeFromStashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnTabs = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeFromStashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.statusStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -242,6 +242,21 @@
             this.dataGridView1.Size = new System.Drawing.Size(338, 399);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeFromStashToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 26);
+            // 
+            // removeFromStashToolStripMenuItem
+            // 
+            this.removeFromStashToolStripMenuItem.Name = "removeFromStashToolStripMenuItem";
+            this.removeFromStashToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.removeFromStashToolStripMenuItem.Text = "Remove From Stash";
+            this.removeFromStashToolStripMenuItem.Click += new System.EventHandler(this.removeFromStashToolStripMenuItem_Click);
             // 
             // btnTabs
             // 
@@ -270,20 +285,6 @@
             this.lblStatus.Size = new System.Drawing.Size(38, 17);
             this.lblStatus.Text = "Status";
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeFromStashToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 48);
-            // 
-            // removeFromStashToolStripMenuItem
-            // 
-            this.removeFromStashToolStripMenuItem.Name = "removeFromStashToolStripMenuItem";
-            this.removeFromStashToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.removeFromStashToolStripMenuItem.Text = "Remove From Stash";
-            this.removeFromStashToolStripMenuItem.Click += new System.EventHandler(this.removeFromStashToolStripMenuItem_Click);
-            // 
             // StashForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,9 +307,9 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
