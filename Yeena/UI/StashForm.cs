@@ -207,14 +207,17 @@ namespace Yeena.UI {
                 foreach (var tcTab in tabControl1.TabPages.OfType<TabPage>()) {
                     StashGrid sg = (StashGrid)tcTab.Tag;
                     PoEStashTab stashTab = (PoEStashTab)sg.Tag;
-                    if (stashTab == responsibleTab) {
-                        var marking = new StashGridMarking(item);
-                        sg.AddMarking(new StashGridMarking(item));
+                    
+                    if (stashTab != responsibleTab) {
+                        continue;
+                    }
 
-                        var solidBrush = marking.Brush as SolidBrush;
-                        if (solidBrush != null) {
-                            tcTab.BackColor = solidBrush.Color;
-                        }
+                    var marking = new StashGridMarking(item);
+                    sg.AddMarking(new StashGridMarking(item));
+
+                    var solidBrush = marking.Brush as SolidBrush;
+                    if (solidBrush != null) {
+                        tcTab.BackColor = solidBrush.Color;
                     }
                 }
             }
