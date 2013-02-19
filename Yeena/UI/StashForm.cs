@@ -198,24 +198,27 @@ namespace Yeena.UI {
                 sg.ClearMarkings();
             }
 
-            if (recipe != null) {
-                foreach (var item in recipe.Items) {
-                    var responsibleTab = _activeStash.GetContainingTab(item);
-                    foreach (var tcTab in tabControl1.TabPages.OfType<TabPage>()) {
-                        StashGrid sg = (StashGrid)tcTab.Tag;
-                        PoEStashTab stashTab = (PoEStashTab)sg.Tag;
-                        if (stashTab == responsibleTab) {
-                            var marking = new StashGridMarking(item);
-                            sg.AddMarking(new StashGridMarking(item));
+            if (recipe == null) {
+                return;
+            }
 
-                            var solidBrush = marking.Brush as SolidBrush;
-                            if (solidBrush != null) {
-                                tcTab.BackColor = solidBrush.Color;
-                            }
+            foreach (var item in recipe.Items) {
+                var responsibleTab = _activeStash.GetContainingTab(item);
+                foreach (var tcTab in tabControl1.TabPages.OfType<TabPage>()) {
+                    StashGrid sg = (StashGrid)tcTab.Tag;
+                    PoEStashTab stashTab = (PoEStashTab)sg.Tag;
+                    if (stashTab == responsibleTab) {
+                        var marking = new StashGridMarking(item);
+                        sg.AddMarking(new StashGridMarking(item));
+
+                        var solidBrush = marking.Brush as SolidBrush;
+                        if (solidBrush != null) {
+                            tcTab.BackColor = solidBrush.Color;
                         }
                     }
                 }
             }
+
             tabControl1.Invalidate();
         }
 
