@@ -33,7 +33,7 @@ namespace Yeena.Data {
 
         public StashTabCollectionView(IEnumerable<PoEStashTab> tabs, IEnumerable<PoEItem> filtered) {
             _tabs = tabs.Select(t => new StashTabView(t)).ToList();
-            if (_filtered != null) {
+            if (filtered != null) {
                 _filtered = filtered.ToList();
             }
         }
