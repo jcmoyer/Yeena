@@ -275,7 +275,6 @@ namespace Yeena.UI {
 
             var sg = tabControl1.TabPages[0].Controls.OfType<StashGrid>().First();
             var b = new Bitmap(sg.ClientSize.Width * _activeStash.Tabs.Count, sg.ClientSize.Height);
-            var g = Graphics.FromImage(b);
             for (int i = 0; i < _activeStash.Tabs.Count; i++) {
                 var sg2 = tabControl1.TabPages[i].Controls.OfType<StashGrid>().First();
                 sg2.DrawToBitmap(b, new Rectangle(i * sg.ClientSize.Width, 0, sg.ClientSize.Width, sg.ClientSize.Height));
