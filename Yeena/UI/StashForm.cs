@@ -37,7 +37,7 @@ namespace Yeena.UI {
         private Task _fetchTask;
 
         // Map of league to stash
-        private ConcurrentDictionary<string, PoEStash> _leagueStashes = new ConcurrentDictionary<string, PoEStash>();
+        private Dictionary<string, PoEStash> _leagueStashes = new Dictionary<string, PoEStash>();
         private PoEStash _activeStash = null;
         private StashTabCollectionView _recipeTabs;
 
@@ -117,10 +117,7 @@ namespace Yeena.UI {
             }
 
             lblStatus.Text = "Finalizing...";
-            var stash = _leagueStashes.AddOrUpdate(
-                league,
-                _ => new PoEStash(stashTabs),
-                (k, v) => new PoEStash(stashTabs));
+            var stash = new PoEStash(stashTabs);
             _activeStash = stash;
             _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
             recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
