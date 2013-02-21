@@ -13,18 +13,14 @@
 // limitations under the License.
 
 using System.IO;
-using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Yeena.Data {
     class BinaryDiskCache<T> : PersistentCache<T> where T : class {
         protected string Filename { get { return Storage.ResolvePath(Name + ".bin"); } }
 
         private readonly BinaryFormatter _formatter;
-        private readonly DefaultContractResolver _resolver;
-
+        
         public BinaryDiskCache(string name)
             : base(name) {
             _formatter = new BinaryFormatter();
