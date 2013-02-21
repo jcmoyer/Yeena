@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\BinaryDiskCache.cs" />
     <Compile Include="Data\JsonDiskCache.cs" />
     <Compile Include="Data\PersistentCache.cs" />
     <Compile Include="Data\StashTabView.cs" />

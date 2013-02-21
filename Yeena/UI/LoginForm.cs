@@ -14,11 +14,10 @@
 
 using System;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
+using Yeena.Data;
 using Yeena.PathOfExile;
 using Yeena.Properties;
 
@@ -29,6 +28,8 @@ namespace Yeena.UI {
         private bool _infoDirty;
 
         public PoESiteClient Client { get; private set; }
+
+        private BinaryDiskCache<CookieContainer> _cookies = new BinaryDiskCache<CookieContainer>("Cookies");
 
         public LoginForm() {
             InitializeComponent();
@@ -52,20 +53,7 @@ namespace Yeena.UI {
             Settings.Default.RememberMe = chkRememberMe.Checked;
             Settings.Default.Save();
 
-            string cookiesFile = Storage.ResolvePath("cookies.dat");
-
-            if (!Settings.Default.RememberMe) {
-                // Delete the cookies file if there is one since it's no longer relevant.
-                if (File.Exists(cookiesFile)) File.Delete(cookiesFile);
-            }
-        }
-
-        void ApplyCookies() {
-            string cookiesFile = Storage.ResolvePath("cookies.dat");
-            BinaryFormatter bf = new BinaryFormatter();
-            using (Stream s = File.OpenRead(cookiesFile)) {
-                Client.Cookies = (CookieContainer)bf.Deserialize(s);
-            }
+            _cookies.Save();
         }
 
         void EnableChildren(bool state) {
@@ -88,9 +76,12 @@ namespace Yeena.UI {
 
             // We require the user to not have made any changes to the login info if we're to fetch old cookies from cache.
             if (Settings.Default.RememberMe && !_infoDirty) {
-                ApplyCookies();
-                response = string.Empty; //await Client.LoginAsync();
+                // Try to load the cookies from disk
+                Client.Cookies = _cookies.Load(() => Client.Cookies);
+                response = string.Empty;
             } else {
+                // Make the store reference the client's cookies
+                _cookies.Load(() => Client.Cookies);
                 response = await Client.LoginAsync(new PoESiteCredentials(txtEmail.Text, txtPassword.Text));
             }
 

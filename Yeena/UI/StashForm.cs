@@ -283,12 +283,6 @@ namespace Yeena.UI {
         }
 
         private void StashForm_FormClosing(object sender, FormClosingEventArgs e) {
-            string cookiesFile = Storage.ResolvePath("cookies.dat");
-            BinaryFormatter bf = new BinaryFormatter();
-            using (Stream s = File.OpenWrite(cookiesFile)) {
-                bf.Serialize(s, _client.Cookies);
-            }
-
             _itemTable.Save();
 
             Settings.Default.LastLeagueName = cboLeague.Text;
