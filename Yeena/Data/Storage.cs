@@ -15,7 +15,7 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace Yeena {
+namespace Yeena.Data {
     class Storage {
         /// <summary>
         /// Where we should store things.

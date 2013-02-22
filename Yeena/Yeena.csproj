@@ -88,7 +88,7 @@
     <Compile Include="Recipe\WhetstoneSolver.cs" />
     <Compile Include="Data\StashTabCollectionView.cs" />
     <Compile Include="Data\StashView.cs" />
-    <Compile Include="Storage.cs" />
+    <Compile Include="Data\Storage.cs" />
     <Compile Include="UI\Controls\ItemInfoPopup.cs">
       <SubType>Form</SubType>
     </Compile>
