@@ -32,8 +32,6 @@ namespace Yeena {
                     Application.Run(new StashForm(login.Client));
                 }
             }
-
-            ImageCache.Save();
         }
     }
 }

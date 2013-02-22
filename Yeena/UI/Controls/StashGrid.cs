@@ -18,6 +18,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Windows.Forms;
+using Yeena.Data;
 using Yeena.PathOfExile;
 
 namespace Yeena.UI.Controls {
@@ -46,15 +47,17 @@ namespace Yeena.UI.Controls {
 
         public Pen GridPen { get; set; }
         private readonly PoEItemTable _itemTable;
+        private readonly ImageCache _imageCache;
 
         private PoEStashTab _stashStashTab;
 
-        public StashGrid(PoEItemTable itemTable) {
+        public StashGrid(PoEItemTable itemTable, ImageCache imageCache) {
             InitializeComponent();
 
             GridPen = Pens.Black;
             _itemTable = itemTable;
             _itemInfoPopup = new ItemInfoPopup(_itemTable);
+            _imageCache = imageCache;
         }
 
         public void SetImages(PoEStashTab tab) {
@@ -71,7 +74,7 @@ namespace Yeena.UI.Controls {
 
             HttpClient client = new HttpClient();
             foreach (var item in _dataSrc) {
-                _images[item] = await ImageCache.GetAsync(client, new Uri(PoESite.Uri, item.IconUrl));
+                _images[item] = await _imageCache.GetAsync(client, new Uri(PoESite.Uri, item.IconUrl));
 
                 //Image.FromStream(await client.GetStreamAsync(new Uri(PoESite.Uri, item.IconUrl)));
                 Invalidate(CalculateItemRect(item));

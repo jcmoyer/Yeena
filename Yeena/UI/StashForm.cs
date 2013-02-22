@@ -43,6 +43,7 @@ namespace Yeena.UI {
 
         //private PoEItemTable _itemTable;
         private JsonDiskCache<PoEItemTable> _itemTable = new JsonDiskCache<PoEItemTable>("ItemTable");
+        private ImageCache _imageCache = new ImageCache("Images");
 
         public StashForm(PoESiteClient client) {
             _client = client;
@@ -128,7 +129,7 @@ namespace Yeena.UI {
         // Creates and returns a TabPage with a StashGrid control
         private TabPage CreateStashTabPage(string name, PoEStashTab tab) {
             TabPage tp = new TabPage(name);
-            StashGrid grid = new StashGrid(_itemTable);
+            StashGrid grid = new StashGrid(_itemTable, _imageCache);
             grid.Dock = DockStyle.Fill;
             grid.SetImages(tab);
             grid.Tag = tab;
@@ -156,6 +157,9 @@ namespace Yeena.UI {
         private async void StashForm_Load(object sender, EventArgs e) {
             lblStatus.Text = "Loading item table...";
             await _itemTable.LoadAsync(_client.GetItemTable);
+
+            lblStatus.Text = "Loading image cache...";
+            await _imageCache.LoadAsync(() => Task.Factory.StartNew(() => new ConcurrentDictionary<Uri, Image>()));
 
             recipeSelector1.RegisterRecipeSolver(new WhetstoneSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new ScrapSolver(_itemTable));
@@ -281,6 +285,7 @@ namespace Yeena.UI {
 
         private void StashForm_FormClosing(object sender, FormClosingEventArgs e) {
             _itemTable.Save();
+            _imageCache.Save();
 
             Settings.Default.LastLeagueName = cboLeague.Text;
             Settings.Default.Save();
