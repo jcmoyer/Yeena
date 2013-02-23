@@ -68,6 +68,18 @@ namespace Yeena.UI.Controls {
                     builder.AppendLine(prop.DisplayText);
                 }
             }
+            if (item.ImplicitMods != null) {
+                builder.AppendLine();
+                foreach (var mod in item.ImplicitMods) {
+                    builder.AppendLine(mod);
+                }
+            }
+            if (item.ExplicitMods != null) {
+                builder.AppendLine();
+                foreach (var mod in item.ExplicitMods) {
+                    builder.AppendLine(mod);
+                }
+            }
             return builder.ToString();
         }
 
