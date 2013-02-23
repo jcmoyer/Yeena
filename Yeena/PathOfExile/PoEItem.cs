@@ -159,5 +159,13 @@ namespace Yeena.PathOfExile {
                        select linked;
             }
         }
+
+        public IReadOnlyCollection<string> ImplicitMods {
+            get { return _implicitMods; }
+        }
+
+        public IReadOnlyCollection<string> ExplicitMods {
+            get { return _explicitMods; }
+        } 
     }
 }
