@@ -69,6 +69,10 @@ namespace Yeena.PathOfExile {
             return item.HasProperty("Experience");
         }
 
+        public bool IsNormal(PoEItem item) {
+            return !item.IsRare && !IsMagic(item);
+        }
+
         public bool IsMagic(PoEItem item) {
             string baseName = GetBaseItemName(item);
             // In the case that the typeline is the same as the base name we know there is no
