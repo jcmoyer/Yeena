@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -59,8 +60,10 @@ namespace Yeena.UI.Controls {
 
         private string GetItemPropertyString(PoEItem item) {
             StringBuilder builder = new StringBuilder();
-            foreach (var prop in item.Properties) {
-                builder.AppendLine(prop.DisplayText);
+            if (item.Properties != null) {
+                foreach (var prop in item.Properties) {
+                    builder.AppendLine(prop.DisplayText);
+                }   
             }
             if (item.AdditionalProperties != null) {
                 builder.AppendLine();
@@ -101,8 +104,9 @@ namespace Yeena.UI.Controls {
                 lblItemName1.Text = item.TypeLine;
                 lblItemName2.Visible = false;
             }
-            if (item.Properties != null && item.Properties.Count > 0) {
-                lblProps.Text = GetItemPropertyString(item);
+            string propText = GetItemPropertyString(item);
+            if (!String.IsNullOrWhiteSpace(propText)) {
+                lblProps.Text = propText;
                 lblProps.Visible = true;
             } else {
                 lblProps.Visible = false;
