@@ -87,7 +87,7 @@ namespace Yeena.UI.Controls {
                 builder.AppendLine();
                 builder.AppendLine("Unidentified");
             }
-            return builder.ToString();
+            return builder.ToString().TrimStart();
         }
 
         private void SetItem(PoEItem item) {
