@@ -83,6 +83,10 @@ namespace Yeena.UI.Controls {
                     builder.AppendLine(mod);
                 }
             }
+            if (!item.IsIdentified && item.FrameType != PoEItemFrameType.Normal) {
+                builder.AppendLine();
+                builder.AppendLine("Unidentified");
+            }
             return builder.ToString();
         }
 
