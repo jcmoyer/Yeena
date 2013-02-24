@@ -167,5 +167,9 @@ namespace Yeena.PathOfExile {
         public IReadOnlyCollection<string> ExplicitMods {
             get { return _explicitMods; }
         } 
+
+        public PoEItemFrameType FrameType {
+            get { return (PoEItemFrameType)_frameType; }
+        }
     }
 }
