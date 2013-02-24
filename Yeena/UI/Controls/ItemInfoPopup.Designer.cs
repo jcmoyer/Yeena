@@ -26,6 +26,7 @@
             this.lblItemName1 = new System.Windows.Forms.Label();
             this.lblItemName2 = new System.Windows.Forms.Label();
             this.lblProps = new System.Windows.Forms.Label();
+            this.lblUnidentified = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblItemName1
@@ -62,6 +63,17 @@
             this.lblProps.Text = "Property 1 kind of long\r\nProperty 2\r\nProperty 3";
             this.lblProps.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // lblUnidentified
+            // 
+            this.lblUnidentified.AutoSize = true;
+            this.lblUnidentified.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUnidentified.ForeColor = System.Drawing.Color.Red;
+            this.lblUnidentified.Location = new System.Drawing.Point(160, 88);
+            this.lblUnidentified.Name = "lblUnidentified";
+            this.lblUnidentified.Size = new System.Drawing.Size(75, 13);
+            this.lblUnidentified.TabIndex = 3;
+            this.lblUnidentified.Text = "Unidentified";
+            // 
             // ItemInfoPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -69,6 +81,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(247, 110);
+            this.Controls.Add(this.lblUnidentified);
             this.Controls.Add(this.lblProps);
             this.Controls.Add(this.lblItemName2);
             this.Controls.Add(this.lblItemName1);
@@ -88,5 +101,6 @@
         private System.Windows.Forms.Label lblItemName1;
         private System.Windows.Forms.Label lblItemName2;
         private System.Windows.Forms.Label lblProps;
+        private System.Windows.Forms.Label lblUnidentified;
     }
 }

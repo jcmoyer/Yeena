@@ -38,6 +38,7 @@ namespace Yeena.UI.Controls {
             _displayOrderedControls = new Control[] {
                 lblItemName1,
                 lblItemName2,
+                lblUnidentified,
                 lblProps
             };
         }
@@ -83,10 +84,6 @@ namespace Yeena.UI.Controls {
                     builder.AppendLine(mod);
                 }
             }
-            if (!item.IsIdentified && item.FrameType != PoEItemFrameType.Normal) {
-                builder.AppendLine();
-                builder.AppendLine("Unidentified");
-            }
             return builder.ToString().TrimStart();
         }
 
@@ -120,6 +117,7 @@ namespace Yeena.UI.Controls {
             } else {
                 lblProps.Visible = false;
             }
+            lblUnidentified.Visible = !item.IsIdentified && item.FrameType != PoEItemFrameType.Normal;
 
             int largestWidth = Controls.Cast<Control>().Max(c => c.Width);
 
