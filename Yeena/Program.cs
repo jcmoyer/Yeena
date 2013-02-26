@@ -14,6 +14,7 @@
 
 using System;
 using System.Windows.Forms;
+using Yeena.Data;
 using Yeena.UI;
 
 namespace Yeena {
@@ -26,12 +27,16 @@ namespace Yeena {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            using (var login = new LoginForm()) {
+            var context = new ApplicationSettingsContext("ApplicationSettings");
+
+            using (var login = new LoginForm(context.Settings)) {
                 var result = login.ShowDialog();
                 if (result == DialogResult.OK) {
-                    Application.Run(new StashForm(login.Client));
+                    Application.Run(new StashForm(context.Settings, login.Client));
                 }
             }
+
+            context.Save();
         }
     }
 }

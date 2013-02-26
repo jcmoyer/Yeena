@@ -25,7 +25,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Yeena.Data;
 using Yeena.PathOfExile;
-using Yeena.Properties;
 using Yeena.Recipe;
 using Yeena.UI.Controls;
 
@@ -44,8 +43,10 @@ namespace Yeena.UI {
         //private PoEItemTable _itemTable;
         private JsonDiskCache<PoEItemTable> _itemTable = new JsonDiskCache<PoEItemTable>("ItemTable");
         private ImageCache _imageCache = new ImageCache("Images");
+        private readonly ApplicationSettings _settings;
 
-        public StashForm(PoESiteClient client) {
+        public StashForm(ApplicationSettings settings, PoESiteClient client) {
+            _settings = settings;
             _client = client;
 
             InitializeComponent();
@@ -168,7 +169,7 @@ namespace Yeena.UI {
             recipeSelector1.RegisterRecipeSolver(new DuplicateRareSolver(_itemTable));
             recipeSelector1.RegisterRecipeSolver(new SixSocketSolver(_itemTable));
 
-            var lastLeague = Settings.Default.LastLeagueName;
+            var lastLeague = _settings.LastLeagueName;
             if (!String.IsNullOrEmpty(lastLeague)) {
                 // This is going to fire StartFetchStashPagesAsync.
                 cboLeague.Text = lastLeague;
@@ -287,8 +288,7 @@ namespace Yeena.UI {
             _itemTable.Save();
             _imageCache.Save();
 
-            Settings.Default.LastLeagueName = cboLeague.Text;
-            Settings.Default.Save();
+            _settings.LastLeagueName = cboLeague.Text;
         }
 
         private void btnTabs_Click(object sender, EventArgs e) {

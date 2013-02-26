@@ -19,7 +19,6 @@ using System.Net;
 using System.Windows.Forms;
 using Yeena.Data;
 using Yeena.PathOfExile;
-using Yeena.Properties;
 
 namespace Yeena.UI {
     partial class LoginForm : Form {
@@ -30,13 +29,16 @@ namespace Yeena.UI {
         public PoESiteClient Client { get; private set; }
 
         private BinaryDiskCache<CookieContainer> _cookies = new BinaryDiskCache<CookieContainer>("Cookies");
+        private readonly ApplicationSettings _settings;
 
-        public LoginForm() {
+        public LoginForm(ApplicationSettings settings) {
+            _settings = settings;
+
             InitializeComponent();
 
             LoadSettings();
 
-            if (Settings.Default.RememberMe) {
+            if (_settings.RememberMe) {
                 txtPassword.UseSystemPasswordChar = false;
                 txtPassword.Text = PasswordNotNeededString;
                 _infoDirty = false;
@@ -44,14 +46,13 @@ namespace Yeena.UI {
         }
 
         void LoadSettings() {
-            txtEmail.Text = Settings.Default.Email;
-            chkRememberMe.Checked = Settings.Default.RememberMe;
+            txtEmail.Text = _settings.Email;
+            chkRememberMe.Checked = _settings.RememberMe;
         }
 
         void SaveSettings() {
-            Settings.Default.Email = txtEmail.Text;
-            Settings.Default.RememberMe = chkRememberMe.Checked;
-            Settings.Default.Save();
+            _settings.Email = txtEmail.Text;
+            _settings.RememberMe = chkRememberMe.Checked;
 
             _cookies.Save();
         }
@@ -75,7 +76,7 @@ namespace Yeena.UI {
             Client = new PoESiteClient();
 
             // We require the user to not have made any changes to the login info if we're to fetch old cookies from cache.
-            if (Settings.Default.RememberMe && !_infoDirty) {
+            if (_settings.RememberMe && !_infoDirty) {
                 // Try to load the cookies from disk
                 Client.Cookies = _cookies.Load(() => Client.Cookies);
                 response = string.Empty;

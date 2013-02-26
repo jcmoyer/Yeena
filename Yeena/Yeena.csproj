@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ApplicationSettings.cs" />
+    <Compile Include="Data\ApplicationSettingsContext.cs" />
     <Compile Include="Data\BinaryDiskCache.cs" />
     <Compile Include="Data\JsonDiskCache.cs" />
     <Compile Include="Data\PersistentCache.cs" />
@@ -155,18 +157,6 @@
     <EmbeddedResource Include="UI\TabFilterForm.resx">
       <DependentUpon>TabFilterForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
