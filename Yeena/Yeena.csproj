@@ -78,6 +78,7 @@
     <Compile Include="PathOfExile\PoEStashTab.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recipe\ChromaticSolver.cs" />
     <Compile Include="Recipe\ConfigurableQualitySolver.cs" />
     <Compile Include="Recipe\BaubleSolver.cs" />
     <Compile Include="Recipe\PrismSolver.cs" />
