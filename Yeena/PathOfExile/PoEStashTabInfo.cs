@@ -29,5 +29,9 @@ namespace Yeena.PathOfExile {
         public int Index {
             get { return _index; }
         }
+
+        public override string ToString() {
+            return _name;
+        }
     }
 }

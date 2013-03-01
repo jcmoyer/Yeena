@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
@@ -33,6 +34,10 @@ namespace Yeena.PathOfExile {
                     default: return PoESocketColor.Unknown;
                 }
             }
+        }
+
+        public override string ToString() {
+            return Enum.GetName(typeof(PoESocketColor), Color);
         }
     }
 }

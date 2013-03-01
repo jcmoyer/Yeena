@@ -50,5 +50,9 @@ namespace Yeena.PathOfExile {
                 });
             }
         }
+
+        public override string ToString() {
+            return DisplayText;
+        }
     }
 }

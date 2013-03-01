@@ -40,5 +40,9 @@ namespace Yeena.PathOfExile {
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
         }
+
+        public override string ToString() {
+            return _name;
+        }
     }
 }
