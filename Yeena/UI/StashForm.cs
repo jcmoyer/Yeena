@@ -346,7 +346,7 @@ namespace Yeena.UI {
             if (e.Button == MouseButtons.Right) {
                 var info = dataGridView1.HitTest(e.X, e.Y);
                 dataGridView1.ClearSelection();
-                if (info.RowIndex >= 0) {
+                if (info.Type == DataGridViewHitTestType.Cell) {
                     dataGridView1.Rows[info.RowIndex].Selected = true;
                 }
             }
