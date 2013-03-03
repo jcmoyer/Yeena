@@ -130,6 +130,7 @@
     <Compile Include="UI\TabFilterForm.Designer.cs">
       <DependentUpon>TabFilterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\IEnumerableExtensions.cs" />
     <EmbeddedResource Include="UI\Controls\ItemInfoPopup.resx">
       <DependentUpon>ItemInfoPopup.cs</DependentUpon>
     </EmbeddedResource>

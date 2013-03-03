@@ -16,6 +16,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Yeena.PathOfExile;
+using Yeena.Utilities;
 
 namespace Yeena.Data {
     class StashTabCollectionView : IEnumerable<StashTabView> {
@@ -64,7 +65,7 @@ namespace Yeena.Data {
 
         public IEnumerable<PoEItem> Items {
             get {
-                var baseQuery = _tabs.SelectMany(t => t);
+                var baseQuery = _tabs.Flatten();
                 if (_filtered == null) {
                     return baseQuery;
                 } else {

@@ -14,6 +14,7 @@
 
 using System.Linq;
 using Newtonsoft.Json;
+using Yeena.Utilities;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
@@ -87,8 +88,8 @@ namespace Yeena.PathOfExile {
             if (IsFlask(item)) {
                 // If it's a flask the best option seems to be subtracting the prefix/suffix
                 string itemName = item.TypeLine;
-                string maybePrefix = _prefixes.SelectMany(list => list).FirstOrDefault(item.TypeLine.StartsWith);
-                string maybeSuffix = _prefixes.SelectMany(list => list).FirstOrDefault(item.TypeLine.StartsWith);
+                string maybePrefix = _prefixes.Flatten().FirstOrDefault(item.TypeLine.StartsWith);
+                string maybeSuffix = _prefixes.Flatten().FirstOrDefault(item.TypeLine.StartsWith);
                 if (maybePrefix != null) {
                     itemName = itemName.Remove(0, maybePrefix.Length);
                 }
@@ -101,7 +102,7 @@ namespace Yeena.PathOfExile {
             string maybeName = _weapons
                 .Concat(_armor)
                 .Concat(_jewelry)
-                .SelectMany(list => list)
+                .Flatten()
                 .FirstOrDefault(item.TypeLine.Contains);
             return maybeName ?? item.TypeLine;
         }
