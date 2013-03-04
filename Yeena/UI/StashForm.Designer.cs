@@ -37,23 +37,26 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblLeague = new System.Windows.Forms.ToolStripLabel();
             this.cboLeague = new System.Windows.Forms.ToolStripComboBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.recipeSelector1 = new Yeena.UI.Controls.RecipeSelector();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeFromStashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnTabs = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnTabs = new System.Windows.Forms.Button();
+            this.recipeSelector1 = new Yeena.UI.Controls.RecipeSelector();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -167,31 +170,63 @@
             this.cboLeague.Text = "Default";
             this.cboLeague.SelectedIndexChanged += new System.EventHandler(this.cboLeague_SelectedIndexChanged);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeFromStashToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 26);
+            // 
+            // removeFromStashToolStripMenuItem
+            // 
+            this.removeFromStashToolStripMenuItem.Name = "removeFromStashToolStripMenuItem";
+            this.removeFromStashToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.removeFromStashToolStripMenuItem.Text = "Remove From Stash";
+            this.removeFromStashToolStripMenuItem.Click += new System.EventHandler(this.removeFromStashToolStripMenuItem_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 493);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(794, 22);
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(38, 17);
+            this.lblStatus.Text = "Status";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 49);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel2);
+            this.splitContainer1.Size = new System.Drawing.Size(794, 444);
+            this.splitContainer1.SplitterDistance = 444;
+            this.splitContainer1.TabIndex = 6;
+            // 
             // tabControl1
             // 
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tabControl1.Location = new System.Drawing.Point(3, 3);
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(438, 438);
-            this.tabControl1.TabIndex = 1;
+            this.tabControl1.Size = new System.Drawing.Size(444, 444);
+            this.tabControl1.TabIndex = 2;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 49);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(794, 444);
-            this.tableLayoutPanel1.TabIndex = 5;
             // 
             // tableLayoutPanel2
             // 
@@ -201,26 +236,14 @@
             this.tableLayoutPanel2.Controls.Add(this.dataGridView1, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.btnTabs, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(447, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(344, 438);
-            this.tableLayoutPanel2.TabIndex = 2;
-            // 
-            // recipeSelector1
-            // 
-            this.recipeSelector1.AutoSize = true;
-            this.recipeSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.recipeSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.recipeSelector1.ItemSource = null;
-            this.recipeSelector1.Location = new System.Drawing.Point(3, 3);
-            this.recipeSelector1.Name = "recipeSelector1";
-            this.recipeSelector1.Size = new System.Drawing.Size(338, 27);
-            this.recipeSelector1.TabIndex = 0;
-            this.recipeSelector1.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(346, 444);
+            this.tableLayoutPanel2.TabIndex = 3;
             // 
             // dataGridView1
             // 
@@ -239,29 +262,15 @@
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(338, 399);
+            this.dataGridView1.Size = new System.Drawing.Size(340, 399);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeFromStashToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 26);
-            // 
-            // removeFromStashToolStripMenuItem
-            // 
-            this.removeFromStashToolStripMenuItem.Name = "removeFromStashToolStripMenuItem";
-            this.removeFromStashToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.removeFromStashToolStripMenuItem.Text = "Remove From Stash";
-            this.removeFromStashToolStripMenuItem.Click += new System.EventHandler(this.removeFromStashToolStripMenuItem_Click);
-            // 
             // btnTabs
             // 
             this.btnTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTabs.Location = new System.Drawing.Point(266, 36);
+            this.btnTabs.Location = new System.Drawing.Point(268, 36);
             this.btnTabs.Name = "btnTabs";
             this.btnTabs.Size = new System.Drawing.Size(75, 23);
             this.btnTabs.TabIndex = 2;
@@ -269,28 +278,24 @@
             this.btnTabs.UseVisualStyleBackColor = true;
             this.btnTabs.Click += new System.EventHandler(this.btnTabs_Click);
             // 
-            // statusStrip1
+            // recipeSelector1
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 493);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(794, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(38, 17);
-            this.lblStatus.Text = "Status";
+            this.recipeSelector1.AutoSize = true;
+            this.recipeSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.recipeSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.recipeSelector1.ItemSource = null;
+            this.recipeSelector1.Location = new System.Drawing.Point(3, 3);
+            this.recipeSelector1.Name = "recipeSelector1";
+            this.recipeSelector1.Size = new System.Drawing.Size(340, 27);
+            this.recipeSelector1.TabIndex = 0;
+            this.recipeSelector1.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
             // 
             // StashForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 515);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -303,13 +308,16 @@
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -326,19 +334,19 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel lblLeague;
         private System.Windows.Forms.ToolStripComboBox cboLeague;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private Controls.RecipeSelector recipeSelector1;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem summaryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.Button btnTabs;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus;
         private System.Windows.Forms.ToolStripMenuItem refreshAllTabsToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem removeFromStashToolStripMenuItem;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private Controls.RecipeSelector recipeSelector1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnTabs;
     }
 }
