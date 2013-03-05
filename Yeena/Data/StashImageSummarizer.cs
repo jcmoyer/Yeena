@@ -19,37 +19,45 @@ using Yeena.PathOfExile;
 
 namespace Yeena.Data {
     class StashImageSummarizer : IStashSummarizer {
+        private readonly HttpClient _client;
+
+        private readonly int _tabWidth;
+
         private readonly ImageCache _imageCache;
 
         public StashImageSummarizer(ImageCache imgCache) {
             _imageCache = imgCache;
+
+            _client = new HttpClient();
+            
+            // TODO: Make 32 parameterizable here and below
+            _tabWidth = PoEGame.StashWidth * 32;
         }
 
-        public async void Summarize(string filename, PoEStash stash) {
-            HttpClient cl = new HttpClient();
-
-            int tabWidth = PoEGame.StashWidth * 32;
+        public void Summarize(string filename, PoEStash stash) {
             int imageWidth = PoEGame.StashWidth * 32 * stash.Tabs.Count;
             int imageHeight = PoEGame.StashHeight * 32;
             var bitmap = new Bitmap(imageWidth, imageHeight);
-            var g = Graphics.FromImage(bitmap);
-            int t = 0;
-
-            g.FillRectangle(Brushes.Black, 0, 0, imageWidth, imageHeight);
-
-            foreach (var tab in stash.Tabs) {
-                foreach (var item in tab) {
-                    var itemImage = await _imageCache.GetAsync(cl, new Uri(PoESite.Uri, item.IconUrl));
-                    g.DrawImage(itemImage, tabWidth * t + item.X * 32, item.Y * 32, item.Width * 32, item.Height * 32);
+            
+            using (var g = Graphics.FromImage(bitmap)) {
+                g.FillRectangle(Brushes.Black, 0, 0, imageWidth, imageHeight);
+                foreach (var tab in stash.Tabs) {
+                    RenderTab(g, tab);
                 }
-
-                t++;
             }
 
-            g.Dispose();
             bitmap.Save(filename);
         }
 
+        private void RenderTab(Graphics g, PoEStashTab tab) {
+            foreach (var item in tab) {
+                RenderItem(g, item, tab.TabInfo.Index * _tabWidth);
+            }
+        }
 
+        private async void RenderItem(Graphics g, PoEItem item, int offsetX) {
+            var itemImage = await _imageCache.GetAsync(_client, new Uri(PoESite.Uri, item.IconUrl));
+            g.DrawImage(itemImage, offsetX + item.X * 32, item.Y * 32, item.Width * 32, item.Height * 32);
+        }
     }
 }
