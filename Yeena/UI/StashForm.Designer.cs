@@ -41,22 +41,22 @@
             this.removeFromStashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.splMain = new System.Windows.Forms.SplitContainer();
+            this.tabStash = new System.Windows.Forms.TabControl();
+            this.panRecipe = new System.Windows.Forms.TableLayoutPanel();
+            this.dgvRecipes = new System.Windows.Forms.DataGridView();
             this.btnTabs = new System.Windows.Forms.Button();
-            this.recipeSelector1 = new Yeena.UI.Controls.RecipeSelector();
+            this.recSelector = new Yeena.UI.Controls.RecipeSelector();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splMain)).BeginInit();
+            this.splMain.Panel1.SuspendLayout();
+            this.splMain.Panel2.SuspendLayout();
+            this.splMain.SuspendLayout();
+            this.panRecipe.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecipes)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -87,32 +87,32 @@
             this.summaryToolStripMenuItem,
             this.imageToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // summaryToolStripMenuItem
             // 
             this.summaryToolStripMenuItem.Name = "summaryToolStripMenuItem";
-            this.summaryToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.summaryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.summaryToolStripMenuItem.Text = "Text Summary";
             this.summaryToolStripMenuItem.Click += new System.EventHandler(this.summaryToolStripMenuItem_Click);
             // 
             // imageToolStripMenuItem
             // 
             this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
-            this.imageToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.imageToolStripMenuItem.Text = "Image";
             this.imageToolStripMenuItem.Click += new System.EventHandler(this.imageToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(103, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -200,72 +200,72 @@
             this.lblStatus.Size = new System.Drawing.Size(38, 17);
             this.lblStatus.Text = "Status";
             // 
-            // splitContainer1
+            // splMain
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 49);
-            this.splitContainer1.Name = "splitContainer1";
+            this.splMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splMain.Location = new System.Drawing.Point(0, 49);
+            this.splMain.Name = "splMain";
             // 
-            // splitContainer1.Panel1
+            // splMain.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.tabControl1);
+            this.splMain.Panel1.Controls.Add(this.tabStash);
             // 
-            // splitContainer1.Panel2
+            // splMain.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel2);
-            this.splitContainer1.Size = new System.Drawing.Size(794, 444);
-            this.splitContainer1.SplitterDistance = 444;
-            this.splitContainer1.TabIndex = 6;
+            this.splMain.Panel2.Controls.Add(this.panRecipe);
+            this.splMain.Size = new System.Drawing.Size(794, 444);
+            this.splMain.SplitterDistance = 444;
+            this.splMain.TabIndex = 6;
             // 
-            // tabControl1
+            // tabStash
             // 
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(444, 444);
-            this.tabControl1.TabIndex = 2;
-            this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+            this.tabStash.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabStash.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabStash.Location = new System.Drawing.Point(0, 0);
+            this.tabStash.Name = "tabStash";
+            this.tabStash.SelectedIndex = 0;
+            this.tabStash.Size = new System.Drawing.Size(444, 444);
+            this.tabStash.TabIndex = 2;
+            this.tabStash.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
-            // tableLayoutPanel2
+            // panRecipe
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.recipeSelector1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.dataGridView1, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.btnTabs, 0, 1);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(346, 444);
-            this.tableLayoutPanel2.TabIndex = 3;
+            this.panRecipe.ColumnCount = 1;
+            this.panRecipe.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.panRecipe.Controls.Add(this.recSelector, 0, 0);
+            this.panRecipe.Controls.Add(this.dgvRecipes, 0, 2);
+            this.panRecipe.Controls.Add(this.btnTabs, 0, 1);
+            this.panRecipe.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panRecipe.Location = new System.Drawing.Point(0, 0);
+            this.panRecipe.Name = "panRecipe";
+            this.panRecipe.RowCount = 3;
+            this.panRecipe.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panRecipe.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panRecipe.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.panRecipe.Size = new System.Drawing.Size(346, 444);
+            this.panRecipe.TabIndex = 3;
             // 
-            // dataGridView1
+            // dgvRecipes
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 65);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(340, 399);
-            this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
-            this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
+            this.dgvRecipes.AllowUserToAddRows = false;
+            this.dgvRecipes.AllowUserToDeleteRows = false;
+            this.dgvRecipes.AllowUserToOrderColumns = true;
+            this.dgvRecipes.AllowUserToResizeRows = false;
+            this.dgvRecipes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRecipes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRecipes.ContextMenuStrip = this.contextMenuStrip1;
+            this.dgvRecipes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRecipes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvRecipes.Location = new System.Drawing.Point(3, 65);
+            this.dgvRecipes.MultiSelect = false;
+            this.dgvRecipes.Name = "dgvRecipes";
+            this.dgvRecipes.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvRecipes.RowHeadersVisible = false;
+            this.dgvRecipes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRecipes.Size = new System.Drawing.Size(340, 399);
+            this.dgvRecipes.TabIndex = 1;
+            this.dgvRecipes.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            this.dgvRecipes.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             // 
             // btnTabs
             // 
@@ -278,24 +278,24 @@
             this.btnTabs.UseVisualStyleBackColor = true;
             this.btnTabs.Click += new System.EventHandler(this.btnTabs_Click);
             // 
-            // recipeSelector1
+            // recSelector
             // 
-            this.recipeSelector1.AutoSize = true;
-            this.recipeSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.recipeSelector1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.recipeSelector1.ItemSource = null;
-            this.recipeSelector1.Location = new System.Drawing.Point(3, 3);
-            this.recipeSelector1.Name = "recipeSelector1";
-            this.recipeSelector1.Size = new System.Drawing.Size(340, 27);
-            this.recipeSelector1.TabIndex = 0;
-            this.recipeSelector1.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
+            this.recSelector.AutoSize = true;
+            this.recSelector.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.recSelector.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.recSelector.ItemSource = null;
+            this.recSelector.Location = new System.Drawing.Point(3, 3);
+            this.recSelector.Name = "recSelector";
+            this.recSelector.Size = new System.Drawing.Size(340, 27);
+            this.recSelector.TabIndex = 0;
+            this.recSelector.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
             // 
             // StashForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 515);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splMain);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -311,13 +311,13 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.splMain.Panel1.ResumeLayout(false);
+            this.splMain.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splMain)).EndInit();
+            this.splMain.ResumeLayout(false);
+            this.panRecipe.ResumeLayout(false);
+            this.panRecipe.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecipes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,11 +342,11 @@
         private System.Windows.Forms.ToolStripMenuItem refreshAllTabsToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem removeFromStashToolStripMenuItem;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private Controls.RecipeSelector recipeSelector1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.SplitContainer splMain;
+        private System.Windows.Forms.TabControl tabStash;
+        private System.Windows.Forms.TableLayoutPanel panRecipe;
+        private Controls.RecipeSelector recSelector;
+        private System.Windows.Forms.DataGridView dgvRecipes;
         private System.Windows.Forms.Button btnTabs;
     }
 }

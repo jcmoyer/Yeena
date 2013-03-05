@@ -52,15 +52,15 @@ namespace Yeena.UI {
         }
 
         private void ShowStash(PoEStash stash) {
-            tabControl1.TabPages.Clear();
+            tabStash.TabPages.Clear();
             int stashNum = 1;
             foreach (var tab in stash.Tabs) {
                 var uiTab1 = CreateStashTabPage(stashNum++.ToString(), tab);
-                tabControl1.TabPages.Add(uiTab1);
+                tabStash.TabPages.Add(uiTab1);
             }
             _activeStash = stash;
             _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
-            recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
+            recSelector.ItemSource = _recipeTabs.Items.ToList();
         }
 
         private async void StartFetchStashPagesAsync(string league, bool refresh = false) {
@@ -80,7 +80,7 @@ namespace Yeena.UI {
             } catch (OperationCanceledException) {
             }
 
-            tabControl1.TabPages.Clear();
+            tabStash.TabPages.Clear();
             _fetchCts = new CancellationTokenSource();
             _fetchTask = FetchStashPagesAsync(cboLeague.Text, _fetchCts.Token);
 
@@ -103,7 +103,7 @@ namespace Yeena.UI {
                 return;
             }
             var uiTab1 = CreateStashTabPage(stash1.TabInfo.Name, stash1);
-            tabControl1.TabPages.Add(uiTab1);
+            tabStash.TabPages.Add(uiTab1);
             stashTabs.Add(stash1);
 
             for (int i = 1; i < stash1.TabCount; i++) {
@@ -113,7 +113,7 @@ namespace Yeena.UI {
                 var stashI = await _client.GetStashTabAsync(league, i, 2500, cancellationToken);
 
                 var uiTabI = CreateStashTabPage(stashI.TabInfo.Name, stashI);
-                tabControl1.TabPages.Add(uiTabI);
+                tabStash.TabPages.Add(uiTabI);
                 stashTabs.Add(stashI);
             }
 
@@ -121,7 +121,7 @@ namespace Yeena.UI {
             var stash = new PoEStash(stashTabs);
             _activeStash = stash;
             _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
-            recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
+            recSelector.ItemSource = _recipeTabs.Items.ToList();
 
             lblStatus.Text = "Ready";
         }
@@ -143,12 +143,12 @@ namespace Yeena.UI {
         }
 
         private async void refreshToolStripMenuItem_Click(object sender, EventArgs e) {
-            var selectedGrid = tabControl1.SelectedTab.Controls.OfType<StashGrid>().FirstOrDefault();
+            var selectedGrid = tabStash.SelectedTab.Controls.OfType<StashGrid>().FirstOrDefault();
             if (selectedGrid == null) return;
 
             EnableUnsafeControls(false);
 
-            var tab = await _client.GetStashTabAsync(cboLeague.Text, tabControl1.SelectedIndex);
+            var tab = await _client.GetStashTabAsync(cboLeague.Text, tabStash.SelectedIndex);
             selectedGrid.SetImages(tab);
 
             EnableUnsafeControls(true);
@@ -161,13 +161,13 @@ namespace Yeena.UI {
             lblStatus.Text = "Loading image cache...";
             await _imageCache.LoadAsync(() => Task.Factory.StartNew(() => new ConcurrentDictionary<Uri, Image>()));
 
-            recipeSelector1.RegisterRecipeSolver(new WhetstoneSolver(_itemTable));
-            recipeSelector1.RegisterRecipeSolver(new ScrapSolver(_itemTable));
-            recipeSelector1.RegisterRecipeSolver(new BaubleSolver(_itemTable));
-            recipeSelector1.RegisterRecipeSolver(new PrismSolver(_itemTable));
-            recipeSelector1.RegisterRecipeSolver(new DuplicateRareSolver(_itemTable));
-            recipeSelector1.RegisterRecipeSolver(new SixSocketSolver(_itemTable));
-            recipeSelector1.RegisterRecipeSolver(new ChromaticSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new WhetstoneSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new ScrapSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new BaubleSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new PrismSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new DuplicateRareSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new SixSocketSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new ChromaticSolver(_itemTable));
 
             var lastLeague = _settings.LastLeagueName;
             if (!String.IsNullOrEmpty(lastLeague)) {
@@ -179,13 +179,13 @@ namespace Yeena.UI {
         }
 
         private void recipeSelector1_RecipesSolved(object sender, EventArgs e) {
-            dataGridView1.DataSource = recipeSelector1.Recipes.OrderByDescending(r => r.ItemCount).ToList();
+            dgvRecipes.DataSource = recSelector.Recipes.OrderByDescending(r => r.ItemCount).ToList();
         }
 
         private VendorRecipe SelectedRecipe {
             get {
-                if (dataGridView1.SelectedRows.Count > 0) {
-                    return (VendorRecipe)dataGridView1.SelectedRows[0].DataBoundItem;
+                if (dgvRecipes.SelectedRows.Count > 0) {
+                    return (VendorRecipe)dgvRecipes.SelectedRows[0].DataBoundItem;
                 }
                 return null;
             }
@@ -194,7 +194,7 @@ namespace Yeena.UI {
         private void dataGridView1_SelectionChanged(object sender, EventArgs e) {
             var recipe = SelectedRecipe;
 
-            foreach (var tcTab in tabControl1.TabPages.OfType<TabPage>()) {
+            foreach (var tcTab in tabStash.TabPages.OfType<TabPage>()) {
                 tcTab.BackColor = default(Color);
                 StashGrid sg = (StashGrid)tcTab.Tag;
                 sg.ClearMarkings();
@@ -206,7 +206,7 @@ namespace Yeena.UI {
 
             foreach (var item in recipe.Items) {
                 var responsibleTab = _activeStash.GetContainingTab(item);
-                foreach (var tcTab in tabControl1.TabPages.OfType<TabPage>()) {
+                foreach (var tcTab in tabStash.TabPages.OfType<TabPage>()) {
                     StashGrid sg = (StashGrid)tcTab.Tag;
                     PoEStashTab stashTab = (PoEStashTab)sg.Tag;
                     
@@ -224,7 +224,7 @@ namespace Yeena.UI {
                 }
             }
 
-            tabControl1.Invalidate();
+            tabStash.Invalidate();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -232,7 +232,7 @@ namespace Yeena.UI {
         }
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e) {
-            TabPage page = tabControl1.TabPages[e.Index];
+            TabPage page = tabStash.TabPages[e.Index];
             e.Graphics.FillRectangle(new SolidBrush(page.BackColor), e.Bounds);
 
             Rectangle paddedBounds = e.Bounds;
@@ -275,10 +275,10 @@ namespace Yeena.UI {
             dialog.DefaultExt = "txt";
             if (dialog.ShowDialog() == DialogResult.Cancel) return;
 
-            var sg = tabControl1.TabPages[0].Controls.OfType<StashGrid>().First();
+            var sg = tabStash.TabPages[0].Controls.OfType<StashGrid>().First();
             var b = new Bitmap(sg.ClientSize.Width * _activeStash.Tabs.Count, sg.ClientSize.Height);
             for (int i = 0; i < _activeStash.Tabs.Count; i++) {
-                var sg2 = tabControl1.TabPages[i].Controls.OfType<StashGrid>().First();
+                var sg2 = tabStash.TabPages[i].Controls.OfType<StashGrid>().First();
                 sg2.DrawToBitmap(b, new Rectangle(i * sg.ClientSize.Width, 0, sg.ClientSize.Width, sg.ClientSize.Height));
             }
             b.Save(dialog.FileName, ImageFormat.Png);
@@ -299,8 +299,8 @@ namespace Yeena.UI {
 
             if (filterForm.ShowDialog() == DialogResult.OK) {
                 _recipeTabs = _recipeTabs.WithTabs(filterForm.FilteredTabs);
-                recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
-                recipeSelector1.SolveRecipes();
+                recSelector.ItemSource = _recipeTabs.Items.ToList();
+                recSelector.SolveRecipes();
             }
         }
 
@@ -318,12 +318,12 @@ namespace Yeena.UI {
                 FindStashGridForTab(tab.Tab).SetImages(tab);
             }
 
-            recipeSelector1.ItemSource = _recipeTabs.Items.ToList();
-            recipeSelector1.SolveRecipes();
+            recSelector.ItemSource = _recipeTabs.Items.ToList();
+            recSelector.SolveRecipes();
         }
 
         private StashGrid FindStashGridForTab(PoEStashTab tab) {
-            foreach (var page in tabControl1.TabPages.OfType<TabPage>()) {
+            foreach (var page in tabStash.TabPages.OfType<TabPage>()) {
                 var stashGrid = page.Controls.OfType<StashGrid>().FirstOrDefault();
                 if (stashGrid != null && stashGrid.StashTab == tab) {
                     return stashGrid;
@@ -338,17 +338,17 @@ namespace Yeena.UI {
             refreshAllTabsToolStripMenuItem.Enabled = state;
             exportToolStripMenuItem.Enabled = state;
             removeFromStashToolStripMenuItem.Enabled = state;
-            dataGridView1.Enabled = state;
-            recipeSelector1.Enabled = state;
+            dgvRecipes.Enabled = state;
+            recSelector.Enabled = state;
             btnTabs.Enabled = state;
         }
 
         private void dataGridView1_MouseDown(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Right) {
-                var info = dataGridView1.HitTest(e.X, e.Y);
-                dataGridView1.ClearSelection();
+                var info = dgvRecipes.HitTest(e.X, e.Y);
+                dgvRecipes.ClearSelection();
                 if (info.Type == DataGridViewHitTestType.Cell) {
-                    dataGridView1.Rows[info.RowIndex].Selected = true;
+                    dgvRecipes.Rows[info.RowIndex].Selected = true;
                 }
             }
         }
