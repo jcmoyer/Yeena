@@ -63,6 +63,7 @@
     <Compile Include="Data\StashTabView.cs" />
     <Compile Include="Data\ImageCache.cs" />
     <Compile Include="Data\StashTextSummarizer.cs" />
+    <Compile Include="PathOfExile\PoEGame.cs" />
     <Compile Include="PathOfExile\PoEItemFrameType.cs" />
     <Compile Include="PathOfExile\PoEItemSocket.cs" />
     <Compile Include="PathOfExile\PoESocketColor.cs" />

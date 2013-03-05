@@ -23,8 +23,8 @@ using Yeena.PathOfExile;
 
 namespace Yeena.UI.Controls {
     partial class StashGrid : UserControl {
-        private const float HorizontalCellCount = 12;
-        private const float VerticalCellCount = 12;
+        private static readonly float HorizontalCellCount = PoEGame.StashWidth;
+        private static readonly float VerticalCellCount = PoEGame.StashHeight;
 
         private List<PoEItem> _dataSrc = new List<PoEItem>();
         private readonly Dictionary<PoEItem, Image> _images = new Dictionary<PoEItem, Image>();

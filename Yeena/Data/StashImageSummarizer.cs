@@ -28,9 +28,9 @@ namespace Yeena.Data {
         public async void Summarize(string filename, PoEStash stash) {
             HttpClient cl = new HttpClient();
 
-            int tabWidth = 12 * 32;
-            int imageWidth = 12 * 32 * stash.Tabs.Count;
-            int imageHeight = 12 * 32;
+            int tabWidth = PoEGame.StashWidth * 32;
+            int imageWidth = PoEGame.StashWidth * 32 * stash.Tabs.Count;
+            int imageHeight = PoEGame.StashHeight * 32;
             var bitmap = new Bitmap(imageWidth, imageHeight);
             var g = Graphics.FromImage(bitmap);
             int t = 0;
