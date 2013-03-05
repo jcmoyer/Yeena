@@ -247,26 +247,7 @@ namespace Yeena.UI {
             dialog.DefaultExt = "txt";
             if (dialog.ShowDialog() == DialogResult.Cancel) return;
 
-            using (var fs = File.OpenWrite(dialog.FileName))
-            using (var sw = new StreamWriter(fs)) {
-                int tabNumber = 1;
-                foreach (var tab in _activeStash.Tabs) {
-                    sw.WriteLine(("Tab " + tabNumber++ + " ").PadRight(80, '='));
-                    foreach (var item in tab) {
-                        if (item.IsRare) sw.WriteLine("{0}, {1}", item.RareName, item.TypeLine);
-                        else if (_itemTable.Value.IsEquippable(item)) sw.WriteLine(item.TypeLine);
-                        else {
-                            string stackSize = item.StackSize;
-                            if (!String.IsNullOrEmpty(stackSize)) {
-                                sw.WriteLine("{0} ({1})", item.TypeLine, item.StackSize);
-                            } else {
-                                sw.WriteLine(item.TypeLine);
-                            }
-                        }
-                    }
-                    sw.WriteLine();
-                }
-            }
+            new StashTextSummarizer(_itemTable).Summarize(dialog.FileName, _activeStash);
         }
 
         private void imageToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -275,13 +256,7 @@ namespace Yeena.UI {
             dialog.DefaultExt = "txt";
             if (dialog.ShowDialog() == DialogResult.Cancel) return;
 
-            var sg = tabStash.TabPages[0].Controls.OfType<StashGrid>().First();
-            var b = new Bitmap(sg.ClientSize.Width * _activeStash.Tabs.Count, sg.ClientSize.Height);
-            for (int i = 0; i < _activeStash.Tabs.Count; i++) {
-                var sg2 = tabStash.TabPages[i].Controls.OfType<StashGrid>().First();
-                sg2.DrawToBitmap(b, new Rectangle(i * sg.ClientSize.Width, 0, sg.ClientSize.Width, sg.ClientSize.Height));
-            }
-            b.Save(dialog.FileName, ImageFormat.Png);
+            new StashImageSummarizer(_imageCache).Summarize(dialog.FileName, _activeStash);
         }
 
         private void StashForm_FormClosing(object sender, FormClosingEventArgs e) {

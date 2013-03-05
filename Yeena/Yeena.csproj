@@ -56,10 +56,13 @@
     <Compile Include="Data\ApplicationSettings.cs" />
     <Compile Include="Data\ApplicationSettingsContext.cs" />
     <Compile Include="Data\BinaryDiskCache.cs" />
+    <Compile Include="Data\StashImageSummarizer.cs" />
+    <Compile Include="Data\IStashSummarizer.cs" />
     <Compile Include="Data\JsonDiskCache.cs" />
     <Compile Include="Data\PersistentCache.cs" />
     <Compile Include="Data\StashTabView.cs" />
     <Compile Include="Data\ImageCache.cs" />
+    <Compile Include="Data\StashTextSummarizer.cs" />
     <Compile Include="PathOfExile\PoEItemFrameType.cs" />
     <Compile Include="PathOfExile\PoEItemSocket.cs" />
     <Compile Include="PathOfExile\PoESocketColor.cs" />
