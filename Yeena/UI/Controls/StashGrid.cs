@@ -74,7 +74,7 @@ namespace Yeena.UI.Controls {
 
             HttpClient client = new HttpClient();
             foreach (var item in _dataSrc) {
-                _images[item] = await _imageCache.GetAsync(client, new Uri(PoESite.Uri, item.IconUrl));
+                _images[item] = await _imageCache.GetAsync(client, item.IconUri);
 
                 //Image.FromStream(await client.GetStreamAsync(new Uri(PoESite.Uri, item.IconUrl)));
                 Invalidate(CalculateItemRect(item));

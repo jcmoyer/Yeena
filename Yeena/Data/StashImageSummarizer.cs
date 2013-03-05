@@ -56,7 +56,7 @@ namespace Yeena.Data {
         }
 
         private async void RenderItem(Graphics g, PoEItem item, int offsetX) {
-            var itemImage = await _imageCache.GetAsync(_client, new Uri(PoESite.Uri, item.IconUrl));
+            var itemImage = await _imageCache.GetAsync(_client, item.IconUri);
             g.DrawImage(itemImage, offsetX + item.X * 32, item.Y * 32, item.Width * 32, item.Height * 32);
         }
     }

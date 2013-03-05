@@ -76,7 +76,12 @@ namespace Yeena.PathOfExile {
         public int Width { get { return _width; } }
         public int Height { get { return _height; } }
 
-        public string IconUrl { get { return _iconUrl; } }
+        /// <summary>
+        /// Returns a fully qualified Uri that can be used to access the item's icon.
+        /// </summary>
+        public Uri IconUri {
+            get { return new Uri(PoESite.Uri, _iconUrl); }
+        }
 
         public string RareName { get { return _name; } }
         public string TypeLine { get { return _typeLine; } }
