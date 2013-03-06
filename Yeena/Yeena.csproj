@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -128,6 +129,12 @@
     <Compile Include="UI\Controls\StashGrid.Designer.cs">
       <DependentUpon>StashGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SummarizerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SummarizerForm.Designer.cs">
+      <DependentUpon>SummarizerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\TabFilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Controls\StashGrid.resx">
       <DependentUpon>StashGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SummarizerForm.resx">
+      <DependentUpon>SummarizerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TabFilterForm.resx">
       <DependentUpon>TabFilterForm.cs</DependentUpon>

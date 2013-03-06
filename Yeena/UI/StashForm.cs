@@ -247,7 +247,7 @@ namespace Yeena.UI {
             dialog.DefaultExt = "txt";
             if (dialog.ShowDialog() == DialogResult.Cancel) return;
 
-            new StashTextSummarizer(_itemTable).Summarize(dialog.FileName, _activeStash);
+            DoSummarize(new StashTextSummarizer(_itemTable), dialog.FileName);
         }
 
         private void imageToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -256,7 +256,14 @@ namespace Yeena.UI {
             dialog.DefaultExt = "txt";
             if (dialog.ShowDialog() == DialogResult.Cancel) return;
 
-            new StashImageSummarizer(_imageCache).Summarize(dialog.FileName, _activeStash);
+            DoSummarize(new StashImageSummarizer(_imageCache), dialog.FileName);
+        }
+
+        private void DoSummarize(IStashSummarizer summarizer, string filename) {
+            var form = new SummarizerForm(summarizer);
+            if (form.ShowDialog() == DialogResult.OK) {
+                summarizer.Summarize(filename, _activeStash);
+            }
         }
 
         private void StashForm_FormClosing(object sender, FormClosingEventArgs e) {
