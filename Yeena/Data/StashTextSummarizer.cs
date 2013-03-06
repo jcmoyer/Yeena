@@ -21,8 +21,21 @@ namespace Yeena.Data {
     class StashTextSummarizer : IStashSummarizer {
         private readonly PoEItemTable _itemTable;
 
+        private int _indentSize;
+        public int IndentSize {
+            get { return _indentSize; }
+            set {
+                if (_indentSize < 0) throw new ArgumentException("Indent size must be greater than or equal to zero.");
+                _indentSize = value;
+            }
+        }
+
+        public bool IncludeProperties { get; set; }
+
         public StashTextSummarizer(PoEItemTable itemTable) {
             _itemTable = itemTable;
+
+            IndentSize = 2;
         }
 
         public void Summarize(string filename, PoEStash stash) {
@@ -56,6 +69,10 @@ namespace Yeena.Data {
                 } else {
                     WriteSimple(writer, item);
                 }
+
+                if (IncludeProperties) {
+                    WriteProperties(writer, item);
+                }
             }
 
             writer.WriteLine();
@@ -71,6 +88,24 @@ namespace Yeena.Data {
 
         private void WriteSimple(TextWriter writer, PoEItem item) {
             writer.WriteLine(item.TypeLine);
+        }
+
+        private void WriteProperties(TextWriter writer, PoEItem item) {
+            if (item.Properties != null) {
+                foreach (var prop in item.Properties) {
+                    WriteProperty(writer, prop);
+                }
+            }
+            if (item.AdditionalProperties != null) {
+                foreach (var prop in item.AdditionalProperties) {
+                    WriteProperty(writer, prop);
+                }
+            }
+        }
+
+        private void WriteProperty(TextWriter writer, PoEItemProperty property) {
+            writer.Write(new String(' ', IndentSize));
+            writer.WriteLine(property.DisplayText);
         }
     }
 }
