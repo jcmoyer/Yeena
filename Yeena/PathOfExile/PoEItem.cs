@@ -166,11 +166,11 @@ namespace Yeena.PathOfExile {
         }
 
         public IReadOnlyCollection<string> ImplicitMods {
-            get { return _implicitMods; }
+            get { return _implicitMods ?? new List<string>(); }
         }
 
         public IReadOnlyCollection<string> ExplicitMods {
-            get { return _explicitMods; }
+            get { return _explicitMods ?? new List<string>(); }
         } 
 
         public PoEItemFrameType FrameType {
