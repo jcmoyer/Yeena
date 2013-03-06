@@ -25,6 +25,12 @@ namespace Yeena.Data {
 
         private readonly ImageCache _imageCache;
 
+        private SolidBrush _background;
+        public Color BackgroundColor {
+            get { return _background.Color; }
+            set { _background = new SolidBrush(value); }
+        }
+
         private int _cellSize;
         public int CellSize {
             get { return _cellSize; }
@@ -41,7 +47,8 @@ namespace Yeena.Data {
             _imageCache = imgCache;
 
             _client = new HttpClient();
-            
+
+            BackgroundColor = Color.Black;
             CellSize = 32;
         }
 
@@ -51,7 +58,7 @@ namespace Yeena.Data {
             var bitmap = new Bitmap(imageWidth, imageHeight);
             
             using (var g = Graphics.FromImage(bitmap)) {
-                g.FillRectangle(Brushes.Black, 0, 0, imageWidth, imageHeight);
+                g.FillRectangle(_background, 0, 0, imageWidth, imageHeight);
                 foreach (var tab in stash.Tabs) {
                     RenderTab(g, tab);
                 }
