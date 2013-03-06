@@ -31,6 +31,15 @@ namespace Yeena.Data {
             }
         }
 
+        private int _emptyLinesBetweenItems;
+        public int EmptyLinesBetweenItems {
+            get { return _emptyLinesBetweenItems; }
+            set {
+                if (_emptyLinesBetweenItems < 0) throw new ArgumentException("Empty line count must be greater than or equal to zero.");
+                _emptyLinesBetweenItems = value;
+            }
+        }
+
         public bool IncludeProperties { get; set; }
         public bool IncludeImplicitMods { get; set; }
         public bool IncludeExplicitMods { get; set; }
@@ -38,6 +47,7 @@ namespace Yeena.Data {
         public StashTextSummarizer(PoEItemTable itemTable) {
             _itemTable = itemTable;
 
+            EmptyLinesBetweenItems = 1;
             IndentSize = 2;
         }
 
@@ -82,6 +92,8 @@ namespace Yeena.Data {
                 if (IncludeExplicitMods) {
                     WriteMods(writer, item.ExplicitMods);
                 }
+
+                WriteEmptyLines(writer, _emptyLinesBetweenItems);
             }
 
             writer.WriteLine();
@@ -122,6 +134,12 @@ namespace Yeena.Data {
         private void WriteMod(TextWriter writer, string mod) {
             writer.Write(new String(' ', IndentSize));
             writer.WriteLine(mod);
+        }
+
+        private void WriteEmptyLines(TextWriter writer, int count) {
+            for (int i = 0; i < count; i++) {
+                writer.WriteLine();
+            }
         }
     }
 }
