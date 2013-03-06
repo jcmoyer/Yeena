@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Yeena.PathOfExile;
 
@@ -31,6 +32,8 @@ namespace Yeena.Data {
         }
 
         public bool IncludeProperties { get; set; }
+        public bool IncludeImplicitMods { get; set; }
+        public bool IncludeExplicitMods { get; set; }
 
         public StashTextSummarizer(PoEItemTable itemTable) {
             _itemTable = itemTable;
@@ -73,6 +76,12 @@ namespace Yeena.Data {
                 if (IncludeProperties) {
                     WriteProperties(writer, item);
                 }
+                if (IncludeImplicitMods) {
+                    WriteMods(writer, item.ImplicitMods);
+                }
+                if (IncludeExplicitMods) {
+                    WriteMods(writer, item.ExplicitMods);
+                }
             }
 
             writer.WriteLine();
@@ -102,6 +111,17 @@ namespace Yeena.Data {
         private void WriteProperty(TextWriter writer, PoEItemProperty property) {
             writer.Write(new String(' ', IndentSize));
             writer.WriteLine(property.DisplayText);
+        }
+
+        private void WriteMods(TextWriter writer, IEnumerable<string> mods) {
+            foreach (var mod in mods) {
+                WriteMod(writer, mod);
+            }
+        }
+
+        private void WriteMod(TextWriter writer, string mod) {
+            writer.Write(new String(' ', IndentSize));
+            writer.WriteLine(mod);
         }
     }
 }
