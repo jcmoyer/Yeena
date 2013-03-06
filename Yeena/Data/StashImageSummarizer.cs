@@ -13,6 +13,7 @@
 // limitations under the License.
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Net.Http;
 using Yeena.PathOfExile;
@@ -22,22 +23,31 @@ namespace Yeena.Data {
     class StashImageSummarizer : IStashSummarizer {
         private readonly HttpClient _client;
 
-        private readonly int _tabWidth;
-
         private readonly ImageCache _imageCache;
+
+        private int _cellSize;
+        public int CellSize {
+            get { return _cellSize; }
+            set {
+                if (value <= 0) throw new ArgumentException("Value must be greater than zero.");
+                _cellSize = value;
+            }
+        }
+
+        [Browsable(false)]
+        public int TabWidth { get { return PoEGame.StashWidth * CellSize; } }
 
         public StashImageSummarizer(ImageCache imgCache) {
             _imageCache = imgCache;
 
             _client = new HttpClient();
             
-            // TODO: Make 32 parameterizable here and below
-            _tabWidth = PoEGame.StashWidth * 32;
+            CellSize = 32;
         }
 
         public void Summarize(string filename, PoEStash stash) {
-            int imageWidth = PoEGame.StashWidth * 32 * stash.Tabs.Count;
-            int imageHeight = PoEGame.StashHeight * 32;
+            int imageWidth = PoEGame.StashWidth * CellSize * stash.Tabs.Count;
+            int imageHeight = PoEGame.StashHeight * CellSize;
             var bitmap = new Bitmap(imageWidth, imageHeight);
             
             using (var g = Graphics.FromImage(bitmap)) {
@@ -52,13 +62,13 @@ namespace Yeena.Data {
 
         private void RenderTab(Graphics g, PoEStashTab tab) {
             foreach (var item in tab) {
-                RenderItem(g, item, tab.TabInfo.Index * _tabWidth);
+                RenderItem(g, item, tab.TabInfo.Index * TabWidth);
             }
         }
 
         private async void RenderItem(Graphics g, PoEItem item, int offsetX) {
             var itemImage = await _imageCache.GetAsync(_client, item.IconUri);
-            g.DrawImage(itemImage, offsetX + item.X * 32, item.Y * 32, item.Width * 32, item.Height * 32);
+            g.DrawImage(itemImage, offsetX + item.X * CellSize, item.Y * CellSize, item.Width * CellSize, item.Height * CellSize);
         }
     }
 }
