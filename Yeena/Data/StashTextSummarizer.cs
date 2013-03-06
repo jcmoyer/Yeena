@@ -91,15 +91,11 @@ namespace Yeena.Data {
         }
 
         private void WriteProperties(TextWriter writer, PoEItem item) {
-            if (item.Properties != null) {
-                foreach (var prop in item.Properties) {
-                    WriteProperty(writer, prop);
-                }
+            foreach (var prop in item.Properties) {
+                WriteProperty(writer, prop);
             }
-            if (item.AdditionalProperties != null) {
-                foreach (var prop in item.AdditionalProperties) {
-                    WriteProperty(writer, prop);
-                }
+            foreach (var prop in item.AdditionalProperties) {
+                WriteProperty(writer, prop);
             }
         }
 

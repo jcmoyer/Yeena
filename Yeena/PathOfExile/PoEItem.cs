@@ -140,11 +140,11 @@ namespace Yeena.PathOfExile {
         }
 
         public IReadOnlyList<PoEItemProperty> Properties {
-            get { return _properties; }
+            get { return _properties ?? new List<PoEItemProperty>(); }
         }
 
         public IReadOnlyList<PoEItemProperty> AdditionalProperties {
-            get { return _additionalProperties; }
+            get { return _additionalProperties ?? new List<PoEItemProperty>(); }
         }
 
         public IReadOnlyList<PoEItemSocket> Sockets {
