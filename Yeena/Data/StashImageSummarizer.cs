@@ -13,7 +13,6 @@
 // limitations under the License.
 
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Net.Http;
 using Yeena.PathOfExile;
@@ -40,8 +39,7 @@ namespace Yeena.Data {
             }
         }
 
-        [Browsable(false)]
-        public int TabWidth { get { return PoEGame.StashWidth * CellSize; } }
+        private int TabWidth { get { return PoEGame.StashWidth * CellSize; } }
 
         public StashImageSummarizer(ImageCache imgCache) {
             _imageCache = imgCache;
