@@ -18,6 +18,7 @@ using System.Net.Http;
 using Yeena.PathOfExile;
 
 namespace Yeena.Data {
+    [SummarizerName("Image")]
     class StashImageSummarizer : IStashSummarizer {
         private readonly HttpClient _client;
 

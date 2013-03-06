@@ -17,6 +17,7 @@ using System.IO;
 using Yeena.PathOfExile;
 
 namespace Yeena.Data {
+    [SummarizerName("Text")]
     class StashTextSummarizer : IStashSummarizer {
         private readonly PoEItemTable _itemTable;
 

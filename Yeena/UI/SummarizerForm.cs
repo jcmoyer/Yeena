@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
+using System.Linq;
 using System.Windows.Forms;
 using Yeena.Data;
 
@@ -27,12 +29,23 @@ namespace Yeena.UI {
             pgProps.SelectedObject = _summarizer;
         }
 
-        private void btnOk_Click(object sender, System.EventArgs e) {
+        protected override void OnLoad(EventArgs e) {
+            var nameAttr = _summarizer.GetType().GetCustomAttributes(false).OfType<SummarizerNameAttribute>().FirstOrDefault();
+            if (nameAttr != null) {
+                SummarizerName = nameAttr.Name;
+            }
+        }
+
+        private void btnOk_Click(object sender, EventArgs e) {
             DialogResult = DialogResult.OK;
         }
 
-        private void btnCancel_Click(object sender, System.EventArgs e) {
+        private void btnCancel_Click(object sender, EventArgs e) {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private string SummarizerName {
+            set { Text = String.Format("Summarizer: {0}", value); }
         }
     }
 }
