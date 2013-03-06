@@ -55,13 +55,16 @@ namespace Yeena.Data {
             int imageHeight = PoEGame.StashHeight * CellSize;
             
             using (var bitmap = new Bitmap(imageWidth, imageHeight)) {
-                using (var g = Graphics.FromImage(bitmap)) {
-                    g.FillRectangle(_background, 0, 0, imageWidth, imageHeight);
-                    foreach (var tab in stash.Tabs) {
-                        RenderTab(g, tab);
-                    }
-                }
+                using (var g = Graphics.FromImage(bitmap))
+                    Render(g, stash, imageWidth, imageHeight);
                 bitmap.Save(filename);
+            }
+        }
+
+        private void Render(Graphics g, PoEStash stash, int imageWidth, int imageHeight) {
+            g.FillRectangle(_background, 0, 0, imageWidth, imageHeight);
+            foreach (var tab in stash.Tabs) {
+                RenderTab(g, tab);
             }
         }
 
