@@ -108,7 +108,12 @@ namespace Yeena.Data {
         }
 
         private void WriteSimple(TextWriter writer, PoEItem item) {
-            writer.WriteLine(item.TypeLine);
+            writer.Write(item.TypeLine);
+            if (!item.IsIdentified && item.FrameType != PoEItemFrameType.Normal) {
+                writer.WriteLine(" (Unidentified)");
+            } else {
+                writer.WriteLine();
+            }
         }
 
         private void WriteProperties(TextWriter writer, PoEItem item) {
