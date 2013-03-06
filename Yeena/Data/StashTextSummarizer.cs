@@ -77,7 +77,7 @@ namespace Yeena.Data {
             foreach (var item in tab) {
                 if (item.IsRare) {
                     WriteRare(writer, item);
-                } else if (!String.IsNullOrEmpty(item.StackSize)) {
+                } else if (!String.IsNullOrEmpty(item.StackSize) && !IncludeProperties) {
                     WriteStack(writer, item);
                 } else {
                     WriteSimple(writer, item);
