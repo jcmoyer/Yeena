@@ -137,10 +137,10 @@ namespace Yeena.PathOfExile {
         public bool HasProperty(string name) {
             bool result = false;
             if (_properties != null) {
-                result |= _properties.Any(prop => prop.Name == name);
+                result |= Properties.Any(prop => prop.Name == name);
             }
             if (_additionalProperties != null) {
-                result |= _additionalProperties.Any(prop => prop.Name == name);
+                result |= AdditionalProperties.Any(prop => prop.Name == name);
             }
             return result;
         }
