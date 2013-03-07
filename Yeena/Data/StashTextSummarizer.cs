@@ -40,6 +40,15 @@ namespace Yeena.Data {
             }
         }
 
+        private int _emptyLinesBetweenTabs;
+        public int EmptyLinesBetweenTabs {
+            get { return _emptyLinesBetweenTabs; }
+            set {
+                if (_emptyLinesBetweenTabs < 0) throw new ArgumentException("Empty line count must be greater than or equal to zero.");
+                _emptyLinesBetweenTabs = value;
+            }
+        }
+
         public bool IncludeProperties { get; set; }
         public bool IncludeImplicitMods { get; set; }
         public bool IncludeExplicitMods { get; set; }
@@ -47,6 +56,7 @@ namespace Yeena.Data {
         public StashTextSummarizer(PoEItemTable itemTable) {
             _itemTable = itemTable;
 
+            EmptyLinesBetweenTabs = 2;
             EmptyLinesBetweenItems = 1;
             IndentSize = 2;
         }
@@ -56,7 +66,6 @@ namespace Yeena.Data {
             using (var sw = new StreamWriter(fs)) {
                 foreach (var tab in stash.Tabs) {
                     WriteTab(sw, tab);
-                    sw.WriteLine();
                 }
             }
         }
@@ -96,7 +105,7 @@ namespace Yeena.Data {
                 WriteEmptyLines(writer, _emptyLinesBetweenItems);
             }
 
-            writer.WriteLine();
+            WriteEmptyLines(writer, _emptyLinesBetweenTabs);
         }
 
         private void WriteRare(TextWriter writer, PoEItem item) {
