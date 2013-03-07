@@ -94,38 +94,15 @@ namespace Yeena.PathOfExile {
             get { return _identified; }
         }
 
-        // Quality is embeded within a string within an array...thus retreival is memoized
-        private int _cacheQual = -1;
+        // Accessing properties is fairly expensive so retreival is memoized.
+        private readonly Lazy<int> _quality; 
         public int Quality {
-            get {
-                if (_cacheQual >= 0) return _cacheQual;
-
-                if (_properties == null) return (_cacheQual = 0);
-                if (_properties.Count == 0) return (_cacheQual = 0);
-
-                var qualityProp = _properties.FirstOrDefault(p => p.Name == "Quality");
-                if (qualityProp == null) return (_cacheQual = 0);
-                var qualityStr = qualityProp.Values[0][0] as string;
-                if (qualityStr == null) return (_cacheQual = 0);
-                return (_cacheQual = Int32.Parse(qualityStr.Substring(1, qualityStr.Length - 2)));
-            }
+            get { return _quality.Value; }
         }
 
-        // Memoized
-        private string _stackSizeStr;
+        private readonly Lazy<string> _stackSize;
         public string StackSize {
-            get {
-                if (_stackSizeStr != null) return _stackSizeStr;
-
-                if (_properties == null) return (_stackSizeStr = String.Empty);
-                if (_properties.Count == 0) return (_stackSizeStr = String.Empty);
-
-                var stackProp = _properties.FirstOrDefault(p => p.Name == "Stack Size");
-                if (stackProp == null) return (_stackSizeStr = String.Empty);
-                var stackVal = stackProp.Values[0][0] as string;
-                if (stackVal == null) return (_stackSizeStr = String.Empty);
-                return (_stackSizeStr = stackVal);
-            }
+            get { return _stackSize.Value; }
         }
 
         public PoEItemProperty GetProperty(string name) {
@@ -143,6 +120,15 @@ namespace Yeena.PathOfExile {
                 result |= AdditionalProperties.Any(prop => prop.Name == name);
             }
             return result;
+        }
+
+        private T TryGetProperty<T>(string name, Func<object, T> converter, T defaultValue) {
+            if (HasProperty(name)) {
+                var prop = GetProperty(name);
+                return converter(prop.Values[0][0]);
+            } else {
+                return defaultValue;
+            }
         }
 
         public IReadOnlyList<PoEItemProperty> Properties {
@@ -181,6 +167,20 @@ namespace Yeena.PathOfExile {
 
         public PoEItemFrameType FrameType {
             get { return (PoEItemFrameType)_frameType; }
+        }
+
+        [JsonConstructor]
+        private PoEItem() {
+            Func<object, int> qualityConverter = value => {
+                // Quality strings are in the format +XX%.
+                // We need to chop off the first and last characters
+                // and turn the enclosed number into an integer.
+                string s = value.ToString();
+                return Int32.Parse(s.Substring(1, s.Length - 2));
+            };
+
+            _quality = new Lazy<int>(() => TryGetProperty("Quality", qualityConverter, 0));
+            _stackSize = new Lazy<string>(() => TryGetProperty("Stack Size", Convert.ToString, String.Empty));
         }
     }
 }
