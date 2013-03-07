@@ -59,32 +59,30 @@ namespace Yeena.UI.Controls {
             }
         }
 
-        private string GetItemPropertyString(PoEItem item) {
+        private string CreateDisplayString(IEnumerable<IEnumerable<string>> sections) {
             StringBuilder builder = new StringBuilder();
-            if (item.Properties != null) {
-                foreach (var prop in item.Properties) {
-                    builder.AppendLine(prop.DisplayText);
-                }   
-            }
-            if (item.AdditionalProperties != null) {
-                builder.AppendLine();
-                foreach (var prop in item.AdditionalProperties) {
-                    builder.AppendLine(prop.DisplayText);
+            foreach (var section in sections) {
+                var sectionList = section as List<string> ?? section.ToList();
+                foreach (var line in sectionList) {
+                    builder.AppendLine(line);
+                }
+                // Insert an empty line if there was content in this section to separate this
+                // section from other ones.
+                if (sectionList.Count > 0) {
+                    builder.AppendLine();
                 }
             }
-            if (item.ImplicitMods != null) {
-                builder.AppendLine();
-                foreach (var mod in item.ImplicitMods) {
-                    builder.AppendLine(mod);
-                }
-            }
-            if (item.ExplicitMods != null) {
-                builder.AppendLine();
-                foreach (var mod in item.ExplicitMods) {
-                    builder.AppendLine(mod);
-                }
-            }
-            return builder.ToString().TrimStart();
+            return builder.ToString().TrimEnd();
+        }
+
+        private string GetItemPropertyString(PoEItem item) {
+            var sections = new List<IEnumerable<string>> {
+                item.Properties.Select(prop => prop.DisplayText),
+                item.AdditionalProperties.Select(prop => prop.DisplayText),
+                item.ImplicitMods,
+                item.ExplicitMods,
+            };
+            return CreateDisplayString(sections);
         }
 
         private void SetItem(PoEItem item) {
