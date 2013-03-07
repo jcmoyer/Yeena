@@ -128,6 +128,12 @@ namespace Yeena.PathOfExile {
             }
         }
 
+        public PoEItemProperty GetProperty(string name) {
+            var result = Properties.FirstOrDefault(prop => prop.Name == name) ??
+                AdditionalProperties.FirstOrDefault(prop => prop.Name == name);
+            return result;
+        }
+
         public bool HasProperty(string name) {
             bool result = false;
             if (_properties != null) {
