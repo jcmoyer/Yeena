@@ -165,6 +165,7 @@ namespace Yeena.UI {
             recSelector.RegisterRecipeSolver(new ScrapSolver(_itemTable));
             recSelector.RegisterRecipeSolver(new BaubleSolver(_itemTable));
             recSelector.RegisterRecipeSolver(new PrismSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new ChiselSolver(_itemTable));
             recSelector.RegisterRecipeSolver(new DuplicateRareSolver(_itemTable));
             recSelector.RegisterRecipeSolver(new SixSocketSolver(_itemTable));
             recSelector.RegisterRecipeSolver(new ChromaticSolver(_itemTable));
