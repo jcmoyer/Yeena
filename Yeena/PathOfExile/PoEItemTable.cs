@@ -70,6 +70,10 @@ namespace Yeena.PathOfExile {
             return item.HasProperty("Experience");
         }
 
+        public bool IsMap(PoEItem item) {
+            return item.TypeLine.Contains("Map");
+        }
+
         public bool IsNormal(PoEItem item) {
             return !item.IsRare && !IsMagic(item);
         }
