@@ -52,7 +52,7 @@ namespace Yeena.PathOfExile {
         }
 
         [OnDeserialized]
-        internal void OnDeserialized(StreamingContext context) {
+        private void OnDeserialized(StreamingContext context) {
             // Something went wrong. The caller can handle this.
             if (Error != null) return;
             _assocInfo = _tabInfo[(int)context.Context];
