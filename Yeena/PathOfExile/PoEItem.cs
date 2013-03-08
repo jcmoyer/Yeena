@@ -105,32 +105,6 @@ namespace Yeena.PathOfExile {
             get { return _stackSize.Value; }
         }
 
-        public PoEItemProperty GetProperty(string name) {
-            var result = Properties.FirstOrDefault(prop => prop.Name == name) ??
-                AdditionalProperties.FirstOrDefault(prop => prop.Name == name);
-            return result;
-        }
-
-        public bool HasProperty(string name) {
-            bool result = false;
-            if (_properties != null) {
-                result |= Properties.Any(prop => prop.Name == name);
-            }
-            if (_additionalProperties != null) {
-                result |= AdditionalProperties.Any(prop => prop.Name == name);
-            }
-            return result;
-        }
-
-        private T TryGetProperty<T>(string name, Func<object, T> converter, T defaultValue) {
-            if (HasProperty(name)) {
-                var prop = GetProperty(name);
-                return converter(prop.Values[0][0]);
-            } else {
-                return defaultValue;
-            }
-        }
-
         public IReadOnlyList<PoEItemProperty> Properties {
             get { return _properties ?? new List<PoEItemProperty>(); }
         }
@@ -181,6 +155,32 @@ namespace Yeena.PathOfExile {
 
             _quality = new Lazy<int>(() => TryGetProperty("Quality", qualityConverter, 0));
             _stackSize = new Lazy<string>(() => TryGetProperty("Stack Size", Convert.ToString, String.Empty));
+        }
+
+        public PoEItemProperty GetProperty(string name) {
+            var result = Properties.FirstOrDefault(prop => prop.Name == name) ??
+                AdditionalProperties.FirstOrDefault(prop => prop.Name == name);
+            return result;
+        }
+
+        public bool HasProperty(string name) {
+            bool result = false;
+            if (_properties != null) {
+                result |= Properties.Any(prop => prop.Name == name);
+            }
+            if (_additionalProperties != null) {
+                result |= AdditionalProperties.Any(prop => prop.Name == name);
+            }
+            return result;
+        }
+
+        private T TryGetProperty<T>(string name, Func<object, T> converter, T defaultValue) {
+            if (HasProperty(name)) {
+                var prop = GetProperty(name);
+                return converter(prop.Values[0][0]);
+            } else {
+                return defaultValue;
+            }
         }
     }
 }
