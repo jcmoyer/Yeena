@@ -19,7 +19,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Yeena.Data {
     class JsonDiskCache<T> : PersistentCache<T> where T : class {
-        protected string Filename { get { return Storage.ResolvePath(Name + ".json"); } }
+        protected string FileName { get { return Storage.ResolvePath(Name + ".json"); } }
 
         private readonly JsonSerializer _serializer;
         private readonly DefaultContractResolver _resolver;
@@ -33,15 +33,15 @@ namespace Yeena.Data {
         }
 
         protected override void OnLoad() {
-            if (File.Exists(Filename)) {
-                using (var sr = new StreamReader(Filename))
+            if (File.Exists(FileName)) {
+                using (var sr = new StreamReader(FileName))
                 using (var jr = new JsonTextReader(sr))
                     Value = _serializer.Deserialize<T>(jr);
             }
         }
 
         protected override void OnSave() {
-            using (var sw = new StreamWriter(Filename))
+            using (var sw = new StreamWriter(FileName))
             using (var jw = new JsonTextWriter(sw))
                 _serializer.Serialize(jw, Value);
         }

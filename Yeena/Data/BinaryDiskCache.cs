@@ -17,7 +17,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Yeena.Data {
     class BinaryDiskCache<T> : PersistentCache<T> where T : class {
-        protected string Filename { get { return Storage.ResolvePath(Name + ".bin"); } }
+        protected string FileName { get { return Storage.ResolvePath(Name + ".bin"); } }
 
         private readonly BinaryFormatter _formatter;
         
@@ -27,14 +27,14 @@ namespace Yeena.Data {
         }
 
         protected override void OnLoad() {
-            if (File.Exists(Filename)) {
-                using (var sr = File.OpenRead(Filename))
+            if (File.Exists(FileName)) {
+                using (var sr = File.OpenRead(FileName))
                     Value = (T)_formatter.Deserialize(sr);
             }
         }
 
         protected override void OnSave() {
-            using (var sw = File.OpenWrite(Filename))
+            using (var sw = File.OpenWrite(FileName))
                 _formatter.Serialize(sw, Value);
         }
 
