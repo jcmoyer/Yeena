@@ -25,7 +25,7 @@ using HtmlAgilityPack;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
-    class PoESiteClient {
+    class PoESiteClient : IDisposable {
         private readonly HttpClientHandler _handler = new HttpClientHandler();
         private readonly HttpClient _client;
 
@@ -42,6 +42,25 @@ namespace Yeena.PathOfExile {
             // All requests require this cookie to be set to a constant value.
             Cookie sessionStart = new Cookie("session_start", _session.SessionStart.ToString(), "/", PoESite.Uri.Host);
             _handler.CookieContainer.Add(sessionStart);
+        }
+
+        ~PoESiteClient() {
+            Dispose(false);
+        }
+
+        public void Dispose() {
+            Dispose(true);
+        }
+
+        private void Dispose(bool disposing) {
+            if (disposing) {
+                if (_handler != null) {
+                    _handler.Dispose();
+                }
+                if (_client != null) {
+                    _client.Dispose();
+                }
+            }
         }
 
         public async Task<string> LoginAsync(PoESiteCredentials creds) {

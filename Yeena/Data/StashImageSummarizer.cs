@@ -19,7 +19,7 @@ using Yeena.PathOfExile;
 
 namespace Yeena.Data {
     [SummarizerName("Image")]
-    class StashImageSummarizer : IStashSummarizer {
+    class StashImageSummarizer : IStashSummarizer, IDisposable {
         private readonly HttpClient _client;
 
         private readonly ImageCache _imageCache;
@@ -48,6 +48,25 @@ namespace Yeena.Data {
 
             BackgroundColor = Color.Black;
             CellSize = 32;
+        }
+
+        ~StashImageSummarizer() {
+            Dispose(false);
+        }
+
+        public void Dispose() {
+            Dispose(true);
+        }
+
+        private void Dispose(bool disposing) {
+            if (disposing) {
+                if (_client != null) {
+                    _client.Dispose();
+                }
+                if (_background != null) {
+                    _background.Dispose();
+                }
+            }
         }
 
         public void Summarize(string filename, PoEStash stash) {
