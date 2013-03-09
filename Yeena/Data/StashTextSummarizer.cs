@@ -119,7 +119,8 @@ namespace Yeena.Data {
         private void WriteSimple(TextWriter writer, PoEItem item) {
             writer.Write(item.TypeLine);
             if (!item.IsIdentified && item.FrameType != PoEItemFrameType.Normal) {
-                writer.WriteLine(" (Unidentified)");
+                string itemRarity = Enum.GetName(typeof(PoEItemFrameType), item.FrameType);
+                writer.WriteLine(" ({0}, unidentified)", itemRarity);
             } else {
                 writer.WriteLine();
             }
