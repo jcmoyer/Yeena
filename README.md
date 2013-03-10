@@ -4,6 +4,8 @@ Yeena is a stash evaluation tool for Path of Exile named in the vein of the trus
 
 Yeena is safe to use - your account password is never stored locally, and your credentials are transmitted to the Path of Exile site through https. Browse the source code and see for yourself.
 
+A word of warning: this program was quickly thrown together for the purpose of finding whetstone and armorer's scrap ingredients. For this reason, there are a lot of messy parts that will eventually be cleaned up.
+
 ## Precompiled Binaries
 
 You can download a precompiled version of Yeena [here](http://jcmoyer.github.com/Yeena/). 
@@ -13,8 +15,6 @@ You can download a precompiled version of Yeena [here](http://jcmoyer.github.com
 ### Windows (Visual Studio 2012)
 
 First, clone the project. In the same directory as Yeena.sln, create a folder named `Libraries`. External dependencies will go in this directory. Go [here](http://json.codeplex.com/) and download Json.NET and extract it somewhere, then navigate to the `Bin/Net40` directory and copy `Newtonsoft.Json.dll` to the newly created `Libraries` directory. Do the same thing with HtmlAgilityPack from [here](http://htmlagilitypack.codeplex.com/). Once this is done you can open up the Yeena solution file in Visual Studio 2012 and compile it.
-
-A word of warning: this program was quickly thrown together for the purpose of finding whetstone and armorer's scrap ingredients. For this reason, there are a lot of messy parts that will eventually be cleaned up.
 
 ### Windows (Mono)
 
