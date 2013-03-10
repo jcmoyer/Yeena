@@ -4,6 +4,10 @@ Yeena is a stash evaluation tool for Path of Exile named in the vein of the trus
 
 Yeena is safe to use - your account password is never stored locally, and your credentials are transmitted to the Path of Exile site through https. Browse the source code and see for yourself.
 
+## Precompiled Binaries
+
+You can download a precompiled version of Yeena [here](http://jcmoyer.github.com/Yeena/). 
+
 ## Compilation
 
 First, clone the project.
