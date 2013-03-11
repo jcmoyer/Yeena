@@ -51,6 +51,8 @@ namespace Yeena.UI.Controls {
 
         private PoEStashTab _stashStashTab;
 
+        private PoEItem[,] _itemGrid;
+
         public StashGrid(PoEItemTable itemTable, ImageCache imageCache) {
             InitializeComponent();
 
@@ -79,6 +81,23 @@ namespace Yeena.UI.Controls {
                 //Image.FromStream(await client.GetStreamAsync(new Uri(PoESite.Uri, item.IconUrl)));
                 Invalidate(CalculateItemRect(item));
             }
+
+            BuildItemGrid(_dataSrc);
+        }
+
+        private void BuildItemGrid(IEnumerable<PoEItem> items) {
+            _itemGrid = new PoEItem[PoEGame.StashWidth,PoEGame.StashHeight];
+            foreach (var item in items) {
+                foreach (var p in CalculateGridIndices(item)) {
+                    _itemGrid[p.X, p.Y] = item;
+                }
+            }
+        }
+
+        private IEnumerable<Point> CalculateGridIndices(PoEItem item) {
+            return from x in Enumerable.Range(item.X, item.Width)
+                   from y in Enumerable.Range(item.Y, item.Height)
+                   select new Point(x, y);
         }
 
         private Rectangle CalculateItemRect(PoEItem item) {
@@ -98,22 +117,15 @@ namespace Yeena.UI.Controls {
             int cellX = (int)((e.X - _drawOffsetX) / _xCellSize);
             int cellY = (int)((e.Y - _drawOffsetY) / _yCellSize);
 
-            HoveredItem = null;
-            foreach (var item in _dataSrc) {
-                if (cellX >= item.X && cellX < item.X + item.Width &&
-                    cellY >= item.Y && cellY < item.Y + item.Height) {
-                    HoveredItem = item;
-                    _itemInfoPopup.Item = item;
+            PoEItem item;
+            if (TryGetItemAtCell(cellX, cellY, out item)) {
+                HoveredItem = item;
+                _itemInfoPopup.Item = item;
 
-                    if (_mousedMarking != null) RemoveMarking(_mousedMarking);
-                    _mousedMarking = new StashGridMarking(HoveredItem, Brushes.SteelBlue);
-                    AddMarking(_mousedMarking);
+                if (_mousedMarking != null) RemoveMarking(_mousedMarking);
+                _mousedMarking = new StashGridMarking(HoveredItem, Brushes.SteelBlue);
+                AddMarking(_mousedMarking);
 
-                    break;
-                }
-            }
-
-            if (HoveredItem != null) {
                 var where = PointToScreen(e.Location);
                 where.Offset(16, 16);
                 _itemInfoPopup.Location = where;
@@ -128,6 +140,19 @@ namespace Yeena.UI.Controls {
             }
 
             base.OnMouseMove(e);
+        }
+
+        private bool TryGetItemAtCell(int x, int y, out PoEItem item) {
+            if (x >= 0 && x < PoEGame.StashWidth && y >= 0 && y < PoEGame.StashHeight) {
+                item = _itemGrid[x, y];
+                // We only return true if there was an item found on the item grid.
+                // Empty cells return false.
+                return item != null;
+            } else {
+                // We also return false for indices out of range.
+                item = null;
+                return false;
+            }
         }
 
         protected override void OnMouseLeave(EventArgs e) {
