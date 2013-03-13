@@ -40,8 +40,8 @@ namespace Yeena.UI {
         private StashTabCollectionView _recipeTabs;
 
         //private PoEItemTable _itemTable;
-        private JsonDiskCache<PoEItemTable> _itemTable = new JsonDiskCache<PoEItemTable>("ItemTable");
-        private ImageCache _imageCache = new ImageCache("Images");
+        private readonly JsonDiskCache<PoEItemTable> _itemTable = new JsonDiskCache<PoEItemTable>("ItemTable");
+        private readonly ImageCache _imageCache = new ImageCache("Images");
         private readonly ApplicationSettings _settings;
 
         public StashForm(ApplicationSettings settings, PoESiteClient client) {
