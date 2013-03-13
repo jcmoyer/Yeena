@@ -254,7 +254,7 @@ namespace Yeena.UI {
         private void imageToolStripMenuItem_Click(object sender, EventArgs e) {
             FileDialog dialog = new SaveFileDialog();
             dialog.Filter = "PNG Images (*.png)|*.png|All Files (*.*)|*.*";
-            dialog.DefaultExt = "txt";
+            dialog.DefaultExt = "png";
             if (dialog.ShowDialog() == DialogResult.Cancel) return;
 
             DoSummarize(new StashImageSummarizer(_imageCache), dialog.FileName);
