@@ -78,7 +78,6 @@ namespace Yeena.UI.Controls {
             foreach (var item in _dataSrc) {
                 _images[item] = await _imageCache.GetAsync(client, item.IconUri);
 
-                //Image.FromStream(await client.GetStreamAsync(new Uri(PoESite.Uri, item.IconUrl)));
                 Invalidate(CalculateItemRect(item));
             }
 
@@ -163,8 +162,6 @@ namespace Yeena.UI.Controls {
         }
 
         protected override void OnPaint(PaintEventArgs e) {
-            //Rectangle drawRect = new Rectangle(_drawOffsetX, _drawOffsetY, _drawWidth, _drawHeight);
-
             e.Graphics.FillRectangle(Brushes.DimGray, ClientRectangle);
 
             foreach (var marking in _markings) {

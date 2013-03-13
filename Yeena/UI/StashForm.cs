@@ -39,7 +39,6 @@ namespace Yeena.UI {
         private PoEStash _activeStash = null;
         private StashTabCollectionView _recipeTabs;
 
-        //private PoEItemTable _itemTable;
         private readonly JsonDiskCache<PoEItemTable> _itemTable = new JsonDiskCache<PoEItemTable>("ItemTable");
         private readonly ImageCache _imageCache = new ImageCache("Images");
         private readonly ApplicationSettings _settings;
