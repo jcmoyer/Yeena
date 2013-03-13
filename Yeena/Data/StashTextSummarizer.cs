@@ -67,7 +67,7 @@ namespace Yeena.Data {
         }
 
         public void Summarize(string filename, PoEStash stash) {
-            using (var fs = File.OpenWrite(filename))
+            using (var fs = File.Open(filename, FileMode.Create))
             using (var sw = new StreamWriter(fs)) {
                 foreach (var tab in stash.Tabs) {
                     WriteTab(sw, tab);
