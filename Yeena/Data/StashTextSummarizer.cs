@@ -15,6 +15,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using Yeena.PathOfExile;
 
 namespace Yeena.Data {
@@ -49,6 +51,7 @@ namespace Yeena.Data {
             }
         }
 
+        public bool IncludeSockets { get; set; }
         public bool IncludeProperties { get; set; }
         public bool IncludeImplicitMods { get; set; }
         public bool IncludeExplicitMods { get; set; }
@@ -59,6 +62,8 @@ namespace Yeena.Data {
             EmptyLinesBetweenTabs = 2;
             EmptyLinesBetweenItems = 1;
             IndentSize = 2;
+
+            IncludeSockets = true;
         }
 
         public void Summarize(string filename, PoEStash stash) {
@@ -92,6 +97,9 @@ namespace Yeena.Data {
                     WriteSimple(writer, item);
                 }
 
+                if (IncludeSockets && item.SocketGroups.Any()) {
+                    WriteSocketLine(writer, item);
+                }
                 if (IncludeProperties) {
                     WriteProperties(writer, item);
                 }
@@ -101,7 +109,7 @@ namespace Yeena.Data {
                 if (IncludeExplicitMods) {
                     WriteMods(writer, item.ExplicitMods);
                 }
-
+                
                 WriteEmptyLines(writer, _emptyLinesBetweenItems);
             }
 
@@ -155,6 +163,20 @@ namespace Yeena.Data {
             for (int i = 0; i < count; i++) {
                 writer.WriteLine();
             }
+        }
+
+        private void WriteSocketLine(TextWriter writer, PoEItem item) {
+            writer.Write(new String(' ', IndentSize));
+            writer.WriteLine("Sockets: {0}", BuildSocketString(item));
+        }
+
+        private string BuildSocketString(PoEItem item) {
+            var builder = new StringBuilder();
+            foreach (var group in item.SocketGroups) {
+                builder.Append(String.Join("-", group.Select(s => s.Color.GetShortName())));
+                builder.Append(' ');
+            }
+            return builder.ToString().TrimEnd();
         }
     }
 }
