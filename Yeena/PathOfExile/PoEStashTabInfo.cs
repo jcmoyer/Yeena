@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
@@ -20,7 +21,7 @@ namespace Yeena.PathOfExile {
         [JsonProperty("n")] private readonly string _name;
         [JsonProperty("i")] private readonly int _index;
         // colour { r, g, b }
-        // src
+        [JsonProperty("src")] private readonly string _src;
 
         public string Name {
             get { return _name; }
@@ -28,6 +29,14 @@ namespace Yeena.PathOfExile {
 
         public int Index {
             get { return _index; }
+        }
+
+        /// <summary>
+        /// Returns a fully qualified Uri that can be used to access the associated tab's
+        /// display bitmap. This is the same image displayed on the site's stash browser.
+        /// </summary>
+        public Uri ImageUri {
+            get { return new Uri(PoESite.Uri, _src); }
         }
 
         public override string ToString() {
