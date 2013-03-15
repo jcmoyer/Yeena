@@ -124,10 +124,10 @@ namespace Yeena.Data {
         }
 
         private void RenderGrid(Graphics g, int tabCount) {
-            for (int x = 0; x <= PoEGame.StashWidth * tabCount; x++) {
+            for (int x = 1; x <= PoEGame.StashWidth * tabCount; x++) {
                 g.DrawLine(_gridPen, x * CellSize, 0, x * CellSize, PoEGame.StashHeight * CellSize);
             }
-            for (int y = 0; y <= PoEGame.StashHeight; y++) {
+            for (int y = 1; y <= PoEGame.StashHeight; y++) {
                 g.DrawLine(_gridPen, 0, y * CellSize, PoEGame.StashWidth * tabCount * CellSize, y * CellSize);
             }
         }
