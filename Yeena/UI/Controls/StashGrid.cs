@@ -170,23 +170,7 @@ namespace Yeena.UI.Controls {
                     CalculateItemRect(marking.Item));
             }
 
-            // Draw grids
-            for (int x = 0; x < HorizontalCellCount + 1; x++) {
-                e.Graphics.DrawLine(
-                    GridPen,
-                    _drawOffsetX + x * _xCellSize,
-                    _drawOffsetY,
-                    _drawOffsetX + x * _xCellSize,
-                    _drawOffsetY + _drawHeight);
-                for (int y = 0; y < VerticalCellCount + 1; y++) {
-                    e.Graphics.DrawLine(
-                        GridPen,
-                        _drawOffsetX,
-                        _drawOffsetY + y * _yCellSize,
-                        _drawOffsetX + _drawWidth,
-                        _drawOffsetY + y * _yCellSize);
-                }
-            }
+            DrawGrid(e.Graphics);
 
             // Draw items
             foreach (var item in _images) {
@@ -195,6 +179,25 @@ namespace Yeena.UI.Controls {
             }
 
             base.OnPaint(e);
+        }
+
+        private void DrawGrid(Graphics g) {
+            for (int x = 0; x < HorizontalCellCount + 1; x++) {
+                g.DrawLine(
+                    GridPen,
+                    _drawOffsetX + x * _xCellSize,
+                    _drawOffsetY,
+                    _drawOffsetX + x * _xCellSize,
+                    _drawOffsetY + _drawHeight);
+            }
+            for (int y = 0; y < VerticalCellCount + 1; y++) {
+                g.DrawLine(
+                    GridPen,
+                    _drawOffsetX,
+                    _drawOffsetY + y * _yCellSize,
+                    _drawOffsetX + _drawWidth,
+                    _drawOffsetY + y * _yCellSize);
+            }
         }
 
         public void AddMarking(StashGridMarking marking) {
