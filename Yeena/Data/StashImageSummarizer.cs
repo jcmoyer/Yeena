@@ -30,6 +30,16 @@ namespace Yeena.Data {
             set { _background = new SolidBrush(value); }
         }
 
+        private readonly Pen _gridPen = new Pen(Color.Black);
+        public Color GridColor {
+            get { return _gridPen.Color; }
+            set { _gridPen.Color = value; }
+        }
+        public float GridWidth {
+            get { return _gridPen.Width; }
+            set { _gridPen.Width = value; }
+        }
+
         private int _cellSize;
         public int CellSize {
             get { return _cellSize; }
@@ -40,6 +50,7 @@ namespace Yeena.Data {
         }
 
         private int TabWidth { get { return PoEGame.StashWidth * CellSize; } }
+        public bool IncludeGrid { get; set; }
 
         public StashImageSummarizer(ImageCache imgCache) {
             _imageCache = imgCache;
@@ -82,8 +93,20 @@ namespace Yeena.Data {
 
         private void Render(Graphics g, PoEStash stash, int imageWidth, int imageHeight) {
             g.FillRectangle(_background, 0, 0, imageWidth, imageHeight);
+            if (IncludeGrid) {
+                RenderGrid(g, stash.Tabs.Count);
+            }
             foreach (var tab in stash.Tabs) {
                 RenderTab(g, tab);
+            }
+        }
+
+        private void RenderGrid(Graphics g, int tabCount) {
+            for (int x = 0; x <= PoEGame.StashWidth * tabCount; x++) {
+                g.DrawLine(_gridPen, x * CellSize, 0, x * CellSize, PoEGame.StashHeight * CellSize);
+            }
+            for (int y = 0; y <= PoEGame.StashHeight; y++) {
+                g.DrawLine(_gridPen, 0, y * CellSize, PoEGame.StashWidth * tabCount * CellSize, y * CellSize);
             }
         }
 
