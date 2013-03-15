@@ -59,7 +59,9 @@ namespace Yeena.Data {
 
             _client = new HttpClient();
 
-            BackgroundColor = Color.Black;
+            BackgroundColor = Color.DimGray;
+            GridColor = Color.Black;
+            IncludeGrid = true;
             CellSize = 32;
         }
 
