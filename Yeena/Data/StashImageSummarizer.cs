@@ -14,6 +14,8 @@
 
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Net.Http;
 using Yeena.PathOfExile;
 
@@ -80,14 +82,32 @@ namespace Yeena.Data {
             }
         }
 
+        private ImageFormat PickImageFormat(string filename) {
+            string ext = Path.GetExtension(filename);
+            switch (ext.ToLowerInvariant()) {
+                case ".png":
+                    return ImageFormat.Png;
+                case ".gif":
+                    return ImageFormat.Gif;
+                case ".jpg":
+                case ".jpeg":
+                    return ImageFormat.Jpeg;
+                case ".bmp":
+                    return ImageFormat.Bmp;
+                default:
+                    return ImageFormat.Png;
+            }
+        }
+
         public void Summarize(string filename, PoEStash stash) {
             int imageWidth = PoEGame.StashWidth * CellSize * stash.Tabs.Count;
             int imageHeight = PoEGame.StashHeight * CellSize;
+            var imageFormat = PickImageFormat(filename);
             
             using (var bitmap = new Bitmap(imageWidth, imageHeight)) {
                 using (var g = Graphics.FromImage(bitmap))
                     Render(g, stash, imageWidth, imageHeight);
-                bitmap.Save(filename);
+                bitmap.Save(filename, imageFormat);
             }
         }
 

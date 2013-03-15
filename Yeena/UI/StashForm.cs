@@ -250,7 +250,7 @@ namespace Yeena.UI {
 
         private void imageToolStripMenuItem_Click(object sender, EventArgs e) {
             FileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "PNG Images (*.png)|*.png|All Files (*.*)|*.*";
+            dialog.Filter = "BMP Images (*.bmp)|*.bmp|GIF Images (*.gif)|*.gif|JPEG Images (*.jpg)|*.jpg|PNG Images (*.png)|*.png|All Files (*.*)|*.*";
             dialog.DefaultExt = "png";
             if (dialog.ShowDialog() == DialogResult.Cancel) return;
 
