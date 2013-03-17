@@ -62,12 +62,7 @@ namespace Yeena.UI.Controls {
             _imageCache = imageCache;
         }
 
-        public void SetImages(PoEStashTab tab) {
-            _stashStashTab = tab;
-            SetImages(tab.Items);
-        }
-
-        public async void SetImages(IEnumerable<PoEItem> items) {
+        private async void SetImages(IEnumerable<PoEItem> items) {
             if (_images.Count > 0) {
                 _images.Clear();
                 Invalidate();
@@ -243,6 +238,10 @@ namespace Yeena.UI.Controls {
 
         public PoEStashTab StashTab {
             get { return _stashStashTab; }
+            set {
+                _stashStashTab = value;
+                SetImages(_stashStashTab);
+            }
         }
     }
 }

@@ -128,7 +128,7 @@ namespace Yeena.UI {
             TabPage tp = new TabPage(name);
             StashGrid grid = new StashGrid(_itemTable, _imageCache);
             grid.Dock = DockStyle.Fill;
-            grid.SetImages(tab);
+            grid.StashTab = tab;
             grid.Tag = tab;
             tp.Controls.Add(grid);
             tp.Tag = grid;
@@ -146,7 +146,7 @@ namespace Yeena.UI {
             EnableUnsafeControls(false);
 
             var tab = await _client.GetStashTabAsync(cboLeague.Text, tabStash.SelectedIndex);
-            selectedGrid.SetImages(tab);
+            selectedGrid.StashTab = tab;
 
             EnableUnsafeControls(true);
         }
@@ -295,7 +295,7 @@ namespace Yeena.UI {
             _recipeTabs = _recipeTabs.Filter(SelectedRecipe.Items);
             
             foreach (var tab in _recipeTabs) {
-                FindStashGridForTab(tab.Tab).SetImages(tab);
+                FindStashGridForTab(tab.Tab).StashTab = tab.Tab;
             }
 
             recSelector.ItemSource = _recipeTabs.Items.ToList();
