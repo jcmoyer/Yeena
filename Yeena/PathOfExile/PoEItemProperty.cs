@@ -30,29 +30,33 @@ namespace Yeena.PathOfExile {
         public string Name { get { return _name; } }
         public IReadOnlyList<IReadOnlyList<object>> Values { get { return _values; } }
 
-        private string _cachedDisplayText = String.Empty;
+        private readonly Lazy<string> _displayText;
         public string DisplayText {
-            get {
-                // TODO: This is not threadsafe for first initialization?
-                if (!String.IsNullOrEmpty(_cachedDisplayText)) return _cachedDisplayText;
-                
-                // If there's no % in it then it's not a formatted string?
-                // But we still need to take the first value from the first property list.
-                if (!_name.Contains("%")) {
-                    if (Values.Count > 0 && Values[0].Count > 0) {
-                        return _cachedDisplayText = _name + " " + Values[0][0];
-                    }
-                }
-
-                return _cachedDisplayText = FormatSpecifier.Replace(_name, (match) => {
-                    int which = Int32.Parse(match.Groups[1].Value);
-                    return _values[which][0].ToString();
-                });
-            }
+            get { return _displayText.Value; }
         }
 
         public override string ToString() {
             return DisplayText;
+        }
+
+        [JsonConstructor]
+        public PoEItemProperty() {
+            Func<string> displayTextFactory = () => {
+                // If there's no % in it then it's not a formatted string?
+                // But we still need to take the first value from the first property list.
+                if (!_name.Contains("%")) {
+                    if (Values.Count > 0 && Values[0].Count > 0) {
+                        return _name + " " + Values[0][0];
+                    }
+                }
+
+                return FormatSpecifier.Replace(_name, (match) => {
+                    int which = Int32.Parse(match.Groups[1].Value);
+                    return _values[which][0].ToString();
+                });
+            };
+
+            _displayText = new Lazy<string>(displayTextFactory);
         }
     }
 }
