@@ -93,7 +93,7 @@ namespace Yeena.PathOfExile {
                 // If it's a flask the best option seems to be subtracting the prefix/suffix
                 string itemName = item.TypeLine;
                 string maybePrefix = _prefixes.Flatten().FirstOrDefault(item.TypeLine.StartsWith);
-                string maybeSuffix = _prefixes.Flatten().FirstOrDefault(item.TypeLine.StartsWith);
+                string maybeSuffix = _suffixes.Flatten().FirstOrDefault(item.TypeLine.StartsWith);
                 if (maybePrefix != null) {
                     itemName = itemName.Remove(0, maybePrefix.Length);
                 }
