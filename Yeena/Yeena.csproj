@@ -145,6 +145,7 @@
       <DependentUpon>TabFilterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\IEnumerableExtensions.cs" />
+    <Compile Include="Utilities\IReadOnlyListExtensions.cs" />
     <EmbeddedResource Include="UI\Controls\ItemInfoPopup.resx">
       <DependentUpon>ItemInfoPopup.cs</DependentUpon>
     </EmbeddedResource>

@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Yeena.PathOfExile;
+using Yeena.Utilities;
 
 namespace Yeena.Recipe {
     class ConfigurableQualitySolver : QualitySolver {
@@ -45,7 +46,7 @@ namespace Yeena.Recipe {
 
             // Find the recipes of all remaining items
             var remaining = qualityItemList.Except(q20List);
-            var remainingRecipes = from subset in GetSubsetsOfQuality(remaining.ToArray(), 40)
+            var remainingRecipes = from subset in remaining.ToList().SubsetsWithSum(40, item => item.Quality)
                                    select new VendorRecipe(subset);
 
             // Return the two recipe sequences
