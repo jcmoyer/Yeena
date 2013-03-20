@@ -143,6 +143,14 @@ namespace Yeena.PathOfExile {
             get { return (PoEItemFrameType)_frameType; }
         }
 
+        public string Description {
+            get { return _descriptionText ?? String.Empty; }
+        }
+
+        public string SecondaryDescription {
+            get { return _secondaryDescriptionText ?? String.Empty; }
+        }
+
         [JsonConstructor]
         private PoEItem() {
             Func<object, int> qualityConverter = value => {
