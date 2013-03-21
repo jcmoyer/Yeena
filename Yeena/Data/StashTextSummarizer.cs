@@ -148,7 +148,7 @@ namespace Yeena.Data {
         }
 
         private void WriteProperty(TextWriter writer, PoEItemProperty property) {
-            writer.Write(new String(' ', IndentSize));
+            WriteIndent(writer);
             writer.WriteLine(property.DisplayText);
         }
 
@@ -159,7 +159,7 @@ namespace Yeena.Data {
         }
 
         private void WriteMod(TextWriter writer, string mod) {
-            writer.Write(new String(' ', IndentSize));
+            WriteIndent(writer);
             writer.WriteLine(mod);
         }
 
@@ -175,17 +175,17 @@ namespace Yeena.Data {
 
         private void WriteDescription(TextWriter writer, PoEItem item) {
             if (item.Description.Length > 0) {
-                writer.Write(new String(' ', IndentSize));
+                WriteIndent(writer);
                 writer.WriteLine(SanitizeText(item.Description));
             }
             if (item.SecondaryDescription.Length > 0) {
-                writer.Write(new String(' ', IndentSize));
+                WriteIndent(writer);
                 writer.WriteLine(SanitizeText(item.SecondaryDescription));
             }
         }
 
         private void WriteSocketLine(TextWriter writer, PoEItem item) {
-            writer.Write(new String(' ', IndentSize));
+            WriteIndent(writer);
             writer.WriteLine("Sockets: {0}", BuildSocketString(item));
         }
 
@@ -196,6 +196,10 @@ namespace Yeena.Data {
                 builder.Append(' ');
             }
             return builder.ToString().TrimEnd();
+        }
+
+        private void WriteIndent(TextWriter writer) {
+            writer.Write(new String(' ', IndentSize));
         }
     }
 }
