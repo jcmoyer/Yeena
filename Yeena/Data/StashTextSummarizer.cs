@@ -55,6 +55,7 @@ namespace Yeena.Data {
         public bool IncludeProperties { get; set; }
         public bool IncludeImplicitMods { get; set; }
         public bool IncludeExplicitMods { get; set; }
+        public bool IncludeDescriptions { get; set; }
 
         public StashTextSummarizer(PoEItemTable itemTable) {
             _itemTable = itemTable;
@@ -97,6 +98,9 @@ namespace Yeena.Data {
                     WriteSimple(writer, item);
                 }
 
+                if (IncludeDescriptions) {
+                    WriteDescription(writer, item);
+                }
                 if (IncludeSockets && item.SocketGroups.Any()) {
                     WriteSocketLine(writer, item);
                 }
@@ -162,6 +166,21 @@ namespace Yeena.Data {
         private void WriteEmptyLines(TextWriter writer, int count) {
             for (int i = 0; i < count; i++) {
                 writer.WriteLine();
+            }
+        }
+
+        private string SanitizeText(string text) {
+            return text.Replace('\n', ' ');
+        }
+
+        private void WriteDescription(TextWriter writer, PoEItem item) {
+            if (item.Description.Length > 0) {
+                writer.Write(new String(' ', IndentSize));
+                writer.WriteLine(SanitizeText(item.Description));
+            }
+            if (item.SecondaryDescription.Length > 0) {
+                writer.Write(new String(' ', IndentSize));
+                writer.WriteLine(SanitizeText(item.SecondaryDescription));
             }
         }
 
