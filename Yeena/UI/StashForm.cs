@@ -20,6 +20,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using Yeena.Data;
 using Yeena.PathOfExile;
 using Yeena.Recipe;
@@ -95,7 +96,7 @@ namespace Yeena.UI {
             PoEStashTab stash1;
             try {
                 stash1 = await _client.GetStashTabAsync(league, 0, 2500, cancellationToken);
-            } catch (InvalidCastException) {
+            } catch (JsonSerializationException) {
                 lblStatus.Text = "There is no stash in this league yet.";
                 return;
             }
