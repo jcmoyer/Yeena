@@ -28,7 +28,7 @@ namespace Yeena.UI {
 
         public PoESiteClient Client { get; private set; }
 
-        private BinaryDiskCache<CookieContainer> _cookies = new BinaryDiskCache<CookieContainer>("Cookies");
+        private readonly BinaryDiskCache<CookieContainer> _cookies = new BinaryDiskCache<CookieContainer>("Cookies");
         private readonly ApplicationSettings _settings;
 
         public LoginForm(ApplicationSettings settings) {
