@@ -163,7 +163,7 @@
             // cboLeague
             // 
             this.cboLeague.Name = "cboLeague";
-            this.cboLeague.Size = new System.Drawing.Size(121, 25);
+            this.cboLeague.Size = new System.Drawing.Size(200, 25);
             this.cboLeague.SelectedIndexChanged += new System.EventHandler(this.cboLeague_SelectedIndexChanged);
             // 
             // contextMenuStrip1
