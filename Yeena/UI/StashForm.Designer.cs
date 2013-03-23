@@ -44,9 +44,9 @@
             this.splMain = new System.Windows.Forms.SplitContainer();
             this.tabStash = new System.Windows.Forms.TabControl();
             this.panRecipe = new System.Windows.Forms.TableLayoutPanel();
+            this.recSelector = new Yeena.UI.Controls.RecipeSelector();
             this.dgvRecipes = new System.Windows.Forms.DataGridView();
             this.btnTabs = new System.Windows.Forms.Button();
-            this.recSelector = new Yeena.UI.Controls.RecipeSelector();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -87,32 +87,32 @@
             this.summaryToolStripMenuItem,
             this.imageToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // summaryToolStripMenuItem
             // 
             this.summaryToolStripMenuItem.Name = "summaryToolStripMenuItem";
-            this.summaryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.summaryToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.summaryToolStripMenuItem.Text = "Text Summary";
             this.summaryToolStripMenuItem.Click += new System.EventHandler(this.summaryToolStripMenuItem_Click);
             // 
             // imageToolStripMenuItem
             // 
             this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
-            this.imageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.imageToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.imageToolStripMenuItem.Text = "Image";
             this.imageToolStripMenuItem.Click += new System.EventHandler(this.imageToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(103, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -162,12 +162,8 @@
             // 
             // cboLeague
             // 
-            this.cboLeague.Items.AddRange(new object[] {
-            "Default",
-            "Hardcore"});
             this.cboLeague.Name = "cboLeague";
             this.cboLeague.Size = new System.Drawing.Size(121, 25);
-            this.cboLeague.Text = "Default";
             this.cboLeague.SelectedIndexChanged += new System.EventHandler(this.cboLeague_SelectedIndexChanged);
             // 
             // contextMenuStrip1
@@ -245,6 +241,18 @@
             this.panRecipe.Size = new System.Drawing.Size(346, 444);
             this.panRecipe.TabIndex = 3;
             // 
+            // recSelector
+            // 
+            this.recSelector.AutoSize = true;
+            this.recSelector.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.recSelector.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.recSelector.ItemSource = null;
+            this.recSelector.Location = new System.Drawing.Point(3, 3);
+            this.recSelector.Name = "recSelector";
+            this.recSelector.Size = new System.Drawing.Size(340, 27);
+            this.recSelector.TabIndex = 0;
+            this.recSelector.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
+            // 
             // dgvRecipes
             // 
             this.dgvRecipes.AllowUserToAddRows = false;
@@ -277,18 +285,6 @@
             this.btnTabs.Text = "Tabs...";
             this.btnTabs.UseVisualStyleBackColor = true;
             this.btnTabs.Click += new System.EventHandler(this.btnTabs_Click);
-            // 
-            // recSelector
-            // 
-            this.recSelector.AutoSize = true;
-            this.recSelector.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.recSelector.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.recSelector.ItemSource = null;
-            this.recSelector.Location = new System.Drawing.Point(3, 3);
-            this.recSelector.Name = "recSelector";
-            this.recSelector.Size = new System.Drawing.Size(340, 27);
-            this.recSelector.TabIndex = 0;
-            this.recSelector.RecipesSolved += new System.EventHandler(this.recipeSelector1_RecipesSolved);
             // 
             // StashForm
             // 

@@ -152,6 +152,12 @@ namespace Yeena.UI {
         }
 
         private async void StashForm_Load(object sender, EventArgs e) {
+            lblStatus.Text = "Loading league list...";
+            var leagues = await _client.GetLeagues();
+            foreach (var league in leagues) {
+                cboLeague.Items.Add(league.Name);
+            }
+
             lblStatus.Text = "Loading item table...";
             await _itemTable.LoadAsync(_client.GetItemTable);
 
@@ -173,7 +179,8 @@ namespace Yeena.UI {
                 // This is going to fire StartFetchStashPagesAsync.
                 cboLeague.Text = lastLeague;
             } else {
-                StartFetchStashPagesAsync(cboLeague.Text);   
+                // Default to the first league.
+                cboLeague.SelectedIndex = 0;
             }
         }
 
