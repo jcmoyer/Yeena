@@ -33,5 +33,9 @@ namespace Yeena.PathOfExile {
         public string Description {
             get { return _description; }
         }
+
+        public override string ToString() {
+            return Name;
+        }
     }
 }
