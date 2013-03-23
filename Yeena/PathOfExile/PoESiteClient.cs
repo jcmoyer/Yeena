@@ -171,5 +171,12 @@ namespace Yeena.PathOfExile {
                 await GetPrefixListAsync(),
                 await GetSuffixListAsync());
         }
+
+        public async Task<IReadOnlyList<PoELeague>> GetLeagues() {
+            var result = await _client.GetAsync(PoESite.Leagues);
+            result.EnsureSuccessStatusCode();
+            var json = await result.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<List<PoELeague>>(json);
+        }
     }
 }

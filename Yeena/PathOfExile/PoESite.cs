@@ -20,6 +20,9 @@ namespace Yeena.PathOfExile {
         public static readonly Uri Uri = new Uri("http://www.pathofexile.com/");
         public static readonly Uri UriHttps = new Uri("https://www.pathofexile.com/");
 
+        // The developer API doesn't seem to have a valid HTTPS certificate at the time of writing.
+        public static readonly Uri ApiUri = new Uri("http://api.pathofexile.com/");
+
         // Functionality
         public static readonly Uri Login = new Uri(UriHttps, "login");
 
@@ -35,5 +38,8 @@ namespace Yeena.PathOfExile {
         // Item mods
         public static readonly Uri ItemDataPrefixes = new Uri(UriHttps, "item-data/prefixmod");
         public static readonly Uri ItemDataSuffixes = new Uri(UriHttps, "item-data/suffixmod");
+
+        // League API
+        public static readonly Uri Leagues = new Uri(ApiUri, "leagues");
     }
 }

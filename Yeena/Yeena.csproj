@@ -68,6 +68,7 @@
     <Compile Include="PathOfExile\PoEGame.cs" />
     <Compile Include="PathOfExile\PoEItemFrameType.cs" />
     <Compile Include="PathOfExile\PoEItemSocket.cs" />
+    <Compile Include="PathOfExile\PoELeague.cs" />
     <Compile Include="PathOfExile\PoESocketColor.cs" />
     <Compile Include="PathOfExile\PoEStashRequestError.cs" />
     <Compile Include="PathOfExile\PoEStashTabInfo.cs" />
