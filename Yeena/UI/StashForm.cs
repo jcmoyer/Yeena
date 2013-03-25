@@ -73,7 +73,7 @@ namespace Yeena.UI {
             try {
                 if (_fetchTask != null)
                     await _fetchTask;
-            } catch (OperationCanceledException) {
+            } catch (TaskCanceledException) {
             }
 
             EnableUnsafeControls(false);
