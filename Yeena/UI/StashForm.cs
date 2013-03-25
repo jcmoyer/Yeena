@@ -67,8 +67,6 @@ namespace Yeena.UI {
                 return;
             }
 
-            EnableUnsafeControls(false);
-
             if (_fetchCts != null) {
                 _fetchCts.Cancel(true);
             }
@@ -78,11 +76,17 @@ namespace Yeena.UI {
             } catch (OperationCanceledException) {
             }
 
+            EnableUnsafeControls(false);
+
             tabStash.TabPages.Clear();
             _fetchCts = new CancellationTokenSource();
             _fetchTask = FetchStashPagesAsync(cboLeague.Text, _fetchCts.Token);
 
-            await _fetchTask;
+            try {
+                await _fetchTask;
+            } catch (TaskCanceledException) {
+
+            }
 
             EnableUnsafeControls(true);
         }
@@ -322,7 +326,6 @@ namespace Yeena.UI {
         }
 
         private void EnableUnsafeControls(bool state) {
-            cboLeague.Enabled = state;
             refreshToolStripMenuItem.Enabled = state;
             refreshAllTabsToolStripMenuItem.Enabled = state;
             exportToolStripMenuItem.Enabled = state;
