@@ -51,9 +51,8 @@ namespace Yeena.UI {
 
         private void ShowStash(PoEStash stash) {
             tabStash.TabPages.Clear();
-            int stashNum = 1;
             foreach (var tab in stash.Tabs) {
-                var uiTab1 = CreateStashTabPage(stashNum++.ToString(), tab);
+                var uiTab1 = CreateStashTabPage(tab.TabInfo.Name, tab);
                 tabStash.TabPages.Add(uiTab1);
             }
             _activeStash = stash;
