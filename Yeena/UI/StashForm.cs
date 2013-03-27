@@ -266,7 +266,9 @@ namespace Yeena.UI {
             dialog.DefaultExt = "png";
             if (dialog.ShowDialog() == DialogResult.Cancel) return;
 
-            DoSummarize(new StashImageSummarizer(_imageCache), dialog.FileName);
+            using (var summarizer = new StashImageSummarizer(_imageCache)) {
+                DoSummarize(summarizer, dialog.FileName);
+            }
         }
 
         private void DoSummarize(IStashSummarizer summarizer, string filename) {
