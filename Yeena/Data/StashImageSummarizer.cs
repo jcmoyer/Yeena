@@ -81,6 +81,9 @@ namespace Yeena.Data {
                 if (_background != null) {
                     _background.Dispose();
                 }
+                if (_gridPen != null) {
+                    _gridPen.Dispose();
+                }
             }
         }
 
