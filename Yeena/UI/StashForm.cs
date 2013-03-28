@@ -35,7 +35,7 @@ namespace Yeena.UI {
 
         // Map of league to stash
         private readonly Dictionary<string, PoEStash> _leagueStashes = new Dictionary<string, PoEStash>();
-        private PoEStash _activeStash = null;
+        private PoEStash _activeStash;
         private StashTabCollectionView _recipeTabs;
 
         private readonly JsonDiskCache<PoEItemTable> _itemTable = new JsonDiskCache<PoEItemTable>("ItemTable");
