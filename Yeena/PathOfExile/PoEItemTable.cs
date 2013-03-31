@@ -98,7 +98,7 @@ namespace Yeena.PathOfExile {
                     itemName = itemName.Remove(0, maybePrefix.Length);
                 }
                 if (maybeSuffix != null) {
-                    itemName = itemName.Remove(itemName.Length - maybeSuffix.Length - 1, maybeSuffix.Length);
+                    itemName = itemName.Remove(itemName.Length - maybeSuffix.Length - 1);
                 }
                 return itemName;
             }
