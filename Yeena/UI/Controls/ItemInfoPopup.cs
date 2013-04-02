@@ -88,7 +88,18 @@ namespace Yeena.UI.Controls {
         private void SetItem(PoEItem item) {
             _item = item;
 
-            if (_item.FrameType == PoEItemFrameType.Rare) {
+            if (_item.FrameType == PoEItemFrameType.Unique) {
+                lblItemName1.ForeColor = Color.SaddleBrown;
+                lblItemName2.ForeColor = Color.SaddleBrown;
+                if (_item.IsIdentified) {
+                    lblItemName1.Text = item.RareName;
+                    lblItemName2.Text = item.TypeLine;
+                    lblItemName2.Visible = true;
+                } else {
+                    lblItemName1.Text = item.TypeLine;
+                    lblItemName2.Visible = false;
+                }
+            } else if (_item.FrameType == PoEItemFrameType.Rare) {
                 lblItemName1.ForeColor = Color.Gold;
                 lblItemName2.ForeColor = Color.Gold;
                 if (_item.IsIdentified) {
