@@ -121,7 +121,7 @@ namespace Yeena.Data {
         }
 
         private void WriteRare(TextWriter writer, PoEItem item) {
-            writer.WriteLine("{0}, {1}", item.RareName, item.TypeLine);
+            writer.WriteLine("{0}, {1}", item.Name, item.TypeLine);
         }
 
         private void WriteStack(TextWriter writer, PoEItem item) {

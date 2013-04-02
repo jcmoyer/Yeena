@@ -92,7 +92,7 @@ namespace Yeena.UI.Controls {
                 lblItemName1.ForeColor = Color.SaddleBrown;
                 lblItemName2.ForeColor = Color.SaddleBrown;
                 if (_item.IsIdentified) {
-                    lblItemName1.Text = item.RareName;
+                    lblItemName1.Text = item.Name;
                     lblItemName2.Text = item.TypeLine;
                     lblItemName2.Visible = true;
                 } else {
@@ -103,7 +103,7 @@ namespace Yeena.UI.Controls {
                 lblItemName1.ForeColor = Color.Gold;
                 lblItemName2.ForeColor = Color.Gold;
                 if (_item.IsIdentified) {
-                    lblItemName1.Text = item.RareName;
+                    lblItemName1.Text = item.Name;
                     lblItemName2.Text = item.TypeLine;
                     lblItemName2.Visible = true;
                 } else {

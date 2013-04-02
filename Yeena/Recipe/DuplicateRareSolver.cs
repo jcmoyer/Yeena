@@ -28,7 +28,7 @@ namespace Yeena.Recipe {
 
             return from item in itemsList
                    where item.IsRare
-                   group item by item.RareName
+                   group item by item.Name
                        into rareGroup
                        let list = rareGroup.ToList()
                        where list.Count > 1

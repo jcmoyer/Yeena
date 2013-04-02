@@ -83,11 +83,11 @@ namespace Yeena.PathOfExile {
             get { return new Uri(PoESite.Uri, _iconUrl); }
         }
 
-        public string RareName { get { return _name; } }
+        public string Name { get { return _name; } }
         public string TypeLine { get { return _typeLine; } }
 
         public bool IsRare {
-            get { return !String.IsNullOrEmpty(RareName); }
+            get { return !String.IsNullOrEmpty(Name); }
         }
 
         public bool IsIdentified {
@@ -118,7 +118,7 @@ namespace Yeena.PathOfExile {
         } 
 
         public override string ToString() {
-            if (IsRare) return RareName;
+            if (IsRare) return Name;
             return TypeLine;
         }
 
