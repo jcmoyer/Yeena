@@ -90,8 +90,8 @@ namespace Yeena.Data {
             WriteTabName(writer, tab);
 
             foreach (var item in tab) {
-                if (item.FrameType == PoEItemFrameType.Rare) {
-                    WriteRare(writer, item);
+                if (item.FrameType == PoEItemFrameType.Rare || item.FrameType == PoEItemFrameType.Unique) {
+                    WriteNamedItem(writer, item);
                 } else if (!String.IsNullOrEmpty(item.StackSize) && !IncludeProperties) {
                     WriteStack(writer, item);
                 } else {
@@ -120,7 +120,7 @@ namespace Yeena.Data {
             WriteEmptyLines(writer, _emptyLinesBetweenTabs);
         }
 
-        private void WriteRare(TextWriter writer, PoEItem item) {
+        private void WriteNamedItem(TextWriter writer, PoEItem item) {
             writer.WriteLine("{0}, {1}", item.Name, item.TypeLine);
         }
 
