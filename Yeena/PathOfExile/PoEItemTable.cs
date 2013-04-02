@@ -74,20 +74,6 @@ namespace Yeena.PathOfExile {
             return item.TypeLine.Contains("Map");
         }
 
-        public bool IsNormal(PoEItem item) {
-            return item.FrameType == PoEItemFrameType.Normal;
-        }
-
-        public bool IsMagic(PoEItem item) {
-            string baseName = GetBaseItemName(item);
-            // In the case that the typeline is the same as the base name we know there is no
-            // prefix or suffix. This solves an edge case where some prefixes overlap with item
-            // names (i.e. without this check, Sapphire Rings are treated as magic because
-            // Sapphire is also a prefix)
-            if (item.TypeLine == baseName) return false;
-            return _prefixes.Any(p => p.Any(item.TypeLine.StartsWith)) || _suffixes.Any(s => s.Any(item.TypeLine.EndsWith));
-        }
-
         public string GetBaseItemName(PoEItem item) {
             if (IsFlask(item)) {
                 // If it's a flask the best option seems to be subtracting the prefix/suffix
