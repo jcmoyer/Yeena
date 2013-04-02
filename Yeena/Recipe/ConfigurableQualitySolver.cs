@@ -39,7 +39,7 @@ namespace Yeena.Recipe {
             // Find all items that satisfy a quality recipe alone
             var q20 = from item in qualityItemList
                       where item.Quality == 20 &&
-                      (!item.IsIdentified || (item.IsIdentified && !item.IsRare && !ItemTable.IsMagic(item)))
+                      (!item.IsIdentified || (item.IsIdentified && item.FrameType == PoEItemFrameType.Normal))
                       select item;
             var q20List = q20.ToList();
             var q20Recipes = from item in q20List select new VendorRecipe(new[] { item });

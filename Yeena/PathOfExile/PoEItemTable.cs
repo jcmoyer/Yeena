@@ -75,7 +75,7 @@ namespace Yeena.PathOfExile {
         }
 
         public bool IsNormal(PoEItem item) {
-            return !item.IsRare && !IsMagic(item);
+            return item.FrameType == PoEItemFrameType.Normal;
         }
 
         public bool IsMagic(PoEItem item) {

@@ -27,7 +27,7 @@ namespace Yeena.Recipe {
             var itemsList = items.ToList();
 
             return from item in itemsList
-                   where item.IsRare
+                   where item.FrameType == PoEItemFrameType.Rare
                    group item by item.Name
                        into rareGroup
                        let list = rareGroup.ToList()

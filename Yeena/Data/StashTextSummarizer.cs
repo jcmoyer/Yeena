@@ -90,7 +90,7 @@ namespace Yeena.Data {
             WriteTabName(writer, tab);
 
             foreach (var item in tab) {
-                if (item.IsRare) {
+                if (item.FrameType == PoEItemFrameType.Rare) {
                     WriteRare(writer, item);
                 } else if (!String.IsNullOrEmpty(item.StackSize) && !IncludeProperties) {
                     WriteStack(writer, item);

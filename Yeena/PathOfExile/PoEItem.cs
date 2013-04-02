@@ -86,10 +86,6 @@ namespace Yeena.PathOfExile {
         public string Name { get { return _name; } }
         public string TypeLine { get { return _typeLine; } }
 
-        public bool IsRare {
-            get { return !String.IsNullOrEmpty(Name); }
-        }
-
         public bool IsIdentified {
             get { return _identified; }
         }
@@ -118,7 +114,7 @@ namespace Yeena.PathOfExile {
         } 
 
         public override string ToString() {
-            if (IsRare) return Name;
+            if (FrameType == PoEItemFrameType.Rare || FrameType == PoEItemFrameType.Unique) return Name;
             return TypeLine;
         }
 
