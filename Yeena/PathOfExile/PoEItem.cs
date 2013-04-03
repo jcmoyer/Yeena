@@ -71,6 +71,9 @@ namespace Yeena.PathOfExile {
         [JsonProperty("identified")]
         private readonly bool _identified;
 
+        [JsonProperty("flavourText")]
+        private readonly List<string> _flavorText;
+
         public int X { get { return _x; } }
         public int Y { get { return _y; } }
         public int Width { get { return _width; } }
@@ -145,6 +148,16 @@ namespace Yeena.PathOfExile {
 
         public string SecondaryDescription {
             get { return _secondaryDescriptionText ?? String.Empty; }
+        }
+
+        public string FlavorText {
+            get {
+                if (_flavorText != null) {
+                    return String.Join(String.Empty, _flavorText);
+                } else {
+                    return String.Empty;
+                }
+            }
         }
 
         [JsonConstructor]
