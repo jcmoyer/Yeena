@@ -27,6 +27,7 @@
             this.lblItemName2 = new System.Windows.Forms.Label();
             this.lblProps = new System.Windows.Forms.Label();
             this.lblUnidentified = new System.Windows.Forms.Label();
+            this.lblFlavorText = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblItemName1
@@ -74,6 +75,18 @@
             this.lblUnidentified.TabIndex = 3;
             this.lblUnidentified.Text = "Unidentified";
             // 
+            // lblFlavorText
+            // 
+            this.lblFlavorText.AutoSize = true;
+            this.lblFlavorText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFlavorText.ForeColor = System.Drawing.Color.SaddleBrown;
+            this.lblFlavorText.Location = new System.Drawing.Point(129, 32);
+            this.lblFlavorText.Name = "lblFlavorText";
+            this.lblFlavorText.Size = new System.Drawing.Size(69, 16);
+            this.lblFlavorText.TabIndex = 4;
+            this.lblFlavorText.Text = "Flavor text";
+            this.lblFlavorText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // ItemInfoPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -81,6 +94,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(247, 110);
+            this.Controls.Add(this.lblFlavorText);
             this.Controls.Add(this.lblUnidentified);
             this.Controls.Add(this.lblProps);
             this.Controls.Add(this.lblItemName2);
@@ -102,5 +116,6 @@
         private System.Windows.Forms.Label lblItemName2;
         private System.Windows.Forms.Label lblProps;
         private System.Windows.Forms.Label lblUnidentified;
+        private System.Windows.Forms.Label lblFlavorText;
     }
 }

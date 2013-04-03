@@ -39,7 +39,8 @@ namespace Yeena.UI.Controls {
                 lblItemName1,
                 lblItemName2,
                 lblUnidentified,
-                lblProps
+                lblProps,
+                lblFlavorText
             };
         }
 
@@ -127,7 +128,13 @@ namespace Yeena.UI.Controls {
                 lblProps.Visible = false;
             }
             lblUnidentified.Visible = !item.IsIdentified && item.FrameType != PoEItemFrameType.Normal;
-
+            if (_item.FlavorText.Length > 0) {
+                lblFlavorText.Text = _item.FlavorText;
+                lblFlavorText.Visible = true;
+            } else {
+                lblFlavorText.Visible = false;
+            }
+            
             int largestWidth = Controls.Cast<Control>().Max(c => c.Width);
 
             // Resize to fit contents
