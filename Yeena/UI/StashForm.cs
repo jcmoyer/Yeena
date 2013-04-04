@@ -17,10 +17,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 using Yeena.Data;
 using Yeena.PathOfExile;
 using Yeena.Recipe;
@@ -29,9 +27,6 @@ using Yeena.UI.Controls;
 namespace Yeena.UI {
     partial class StashForm : Form {
         private readonly PoESiteClient _client;
-
-        private CancellationTokenSource _fetchCts;
-        private Task _fetchTask;
 
         // Map of league to stash
         private readonly Dictionary<string, PoEStash> _leagueStashes = new Dictionary<string, PoEStash>();
@@ -42,11 +37,44 @@ namespace Yeena.UI {
         private readonly ImageCache _imageCache = new ImageCache("Images");
         private readonly ApplicationSettings _settings;
 
+        private readonly StashFetcher _stashFetcher;
+
         public StashForm(ApplicationSettings settings, PoESiteClient client) {
             _settings = settings;
             _client = client;
+            _stashFetcher = new StashFetcher(_client);
+            _stashFetcher.StashTabReceived += _stashFetcher_StashTabReceived;
+            _stashFetcher.StashReceived += _stashFetcher_StashReceived;
+            _stashFetcher.Begin += _stashFetcher_Begin;
+            _stashFetcher.NoStashError += _stashFetcher_NoStashError;
 
             InitializeComponent();
+        }
+
+        void _stashFetcher_NoStashError(object sender, EventArgs e) {
+            lblStatus.Text = "There is no stash in this league yet.";
+        }
+
+        void _stashFetcher_Begin(object sender, EventArgs e) {
+            lblStatus.Text = "Fetching stash...";
+            EnableUnsafeControls(false);
+            tabStash.TabPages.Clear();
+        }
+
+        void _stashFetcher_StashTabReceived(object sender, StashTabReceivedEventArgs e) {
+            var uiTab1 = CreateStashTabPage(e.StashTab.TabInfo.Name, e.StashTab);
+            tabStash.TabPages.Add(uiTab1);
+
+            lblStatus.Text = String.Format("Received tab {0}/{1}", e.StashTab.TabInfo.Index + 1, e.StashTab.TabCount);
+        }
+
+        void _stashFetcher_StashReceived(object sender, StashReceivedEventArgs e) {
+            _activeStash = e.Stash;
+            _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
+            recSelector.ItemSource = _recipeTabs.Items.ToList();
+
+            lblStatus.Text = "Ready";
+            EnableUnsafeControls(true);
         }
 
         private void ShowStash(PoEStash stash) {
@@ -66,65 +94,11 @@ namespace Yeena.UI {
                 return;
             }
 
-            if (_fetchCts != null) {
-                _fetchCts.Cancel(true);
-            }
             try {
-                if (_fetchTask != null)
-                    await _fetchTask;
-            } catch (TaskCanceledException) {
-            }
-
-            EnableUnsafeControls(false);
-
-            tabStash.TabPages.Clear();
-            _fetchCts = new CancellationTokenSource();
-            _fetchTask = FetchStashPagesAsync(cboLeague.Text, _fetchCts.Token);
-
-            try {
-                await _fetchTask;
+                await _stashFetcher.FetchAsync(league);
             } catch (TaskCanceledException) {
 
             }
-
-            EnableUnsafeControls(true);
-        }
-
-        // Asynchronously fetches all the stash pages for a given league
-        private async Task FetchStashPagesAsync(string league, CancellationToken cancellationToken) {
-            var stashTabs = new List<PoEStashTab>();
-
-            // We need at least 1 tab to figure out how many tabs there are total
-            lblStatus.Text = "Fetching first stash page...";
-            PoEStashTab stash1;
-            try {
-                stash1 = await _client.GetStashTabAsync(league, 0, 2500, cancellationToken);
-            } catch (JsonSerializationException) {
-                lblStatus.Text = "There is no stash in this league yet.";
-                return;
-            }
-            var uiTab1 = CreateStashTabPage(stash1.TabInfo.Name, stash1);
-            tabStash.TabPages.Add(uiTab1);
-            stashTabs.Add(stash1);
-
-            for (int i = 1; i < stash1.TabCount; i++) {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                lblStatus.Text = String.Format("Fetching stash page {0}/{1}...", i + 1, stash1.TabCount);
-                var stashI = await _client.GetStashTabAsync(league, i, 2500, cancellationToken);
-
-                var uiTabI = CreateStashTabPage(stashI.TabInfo.Name, stashI);
-                tabStash.TabPages.Add(uiTabI);
-                stashTabs.Add(stashI);
-            }
-
-            lblStatus.Text = "Finalizing...";
-            var stash = new PoEStash(stashTabs);
-            _activeStash = stash;
-            _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
-            recSelector.ItemSource = _recipeTabs.Items.ToList();
-
-            lblStatus.Text = "Ready";
         }
 
         // Creates and returns a TabPage with a StashGrid control

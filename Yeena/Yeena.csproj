@@ -57,6 +57,7 @@
     <Compile Include="Data\ApplicationSettings.cs" />
     <Compile Include="Data\ApplicationSettingsContext.cs" />
     <Compile Include="Data\BinaryDiskCache.cs" />
+    <Compile Include="Data\StashFetcher.cs" />
     <Compile Include="Data\StashImageSummarizer.cs" />
     <Compile Include="Data\IStashSummarizer.cs" />
     <Compile Include="Data\JsonDiskCache.cs" />
