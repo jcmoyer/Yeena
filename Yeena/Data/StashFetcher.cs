@@ -89,7 +89,7 @@ namespace Yeena.Data {
 
             var tabs = new List<PoEStashTab> { tab0 };
             for (int i = 1; i < tab0.TabCount; i++) {
-                _cancellationTokenSource.Token.ThrowIfCancellationRequested();
+                cancellationToken.ThrowIfCancellationRequested();
 
                 var tabI = await _client.GetStashTabAsync(league, i, 2500, cancellationToken);
                 tabs.Add(tabI);
