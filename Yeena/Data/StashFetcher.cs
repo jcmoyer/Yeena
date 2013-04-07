@@ -69,7 +69,7 @@ namespace Yeena.Data {
             _currentFetchTask = GetLeagueStashAsync(league, _cancellationTokenSource.Token);
             try {
                 await _currentFetchTask;
-            } catch (TaskCanceledException) {
+            } catch (OperationCanceledException) {
                 OnCanceled(new EventArgs());
             }
         }
