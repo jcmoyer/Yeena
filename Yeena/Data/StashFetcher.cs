@@ -85,6 +85,7 @@ namespace Yeena.Data {
                 return;
             }
 
+            cancellationToken.ThrowIfCancellationRequested();
             OnStashTabReceived(new StashTabReceivedEventArgs(tab0));
 
             var tabs = new List<PoEStashTab> { tab0 };
@@ -94,9 +95,11 @@ namespace Yeena.Data {
                 var tabI = await _client.GetStashTabAsync(league, i, 2500, cancellationToken);
                 tabs.Add(tabI);
 
+                cancellationToken.ThrowIfCancellationRequested();
                 OnStashTabReceived(new StashTabReceivedEventArgs(tabI));
             }
 
+            cancellationToken.ThrowIfCancellationRequested();
             OnStashReceived(new StashReceivedEventArgs(new PoEStash(tabs)));
         }
 
