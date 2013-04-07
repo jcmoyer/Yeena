@@ -94,11 +94,7 @@ namespace Yeena.UI {
                 return;
             }
 
-            try {
-                await _stashFetcher.FetchAsync(league);
-            } catch (TaskCanceledException) {
-
-            }
+            await _stashFetcher.FetchAsync(league);
         }
 
         // Creates and returns a TabPage with a StashGrid control
