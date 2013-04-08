@@ -29,8 +29,6 @@ namespace Yeena.PathOfExile {
         private readonly HttpClientHandler _handler = new HttpClientHandler();
         private readonly HttpClient _client;
 
-        //private readonly PoESiteSession _session = new PoESiteSession();
-
         public CookieContainer Cookies {
             get { return _handler.CookieContainer; }
             set { _handler.CookieContainer = value; }
@@ -38,12 +36,6 @@ namespace Yeena.PathOfExile {
 
         public PoESiteClient() {
             _client = new HttpClient(_handler);
-
-            // 2013-04-13: This appears to be set by the server now.
-
-            // All requests require this cookie to be set to a constant value.
-            //Cookie sessionStart = new Cookie("session_start", _session.SessionStart.ToString(), "/", PoESite.Uri.Host);
-            //_handler.CookieContainer.Add(sessionStart);
         }
 
         ~PoESiteClient() {
