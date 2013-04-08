@@ -15,6 +15,7 @@
 using System;
 
 namespace Yeena.PathOfExile {
+    [Obsolete("This is no longer required for communication with the Path of Exile web site.")]
     class PoESiteSession {
         public int SessionStart { get; private set; }
 
