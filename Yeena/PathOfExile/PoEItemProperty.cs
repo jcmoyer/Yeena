@@ -32,6 +32,8 @@ namespace Yeena.PathOfExile {
         public string Name { get { return _name; } }
         public IReadOnlyList<IReadOnlyList<object>> Values { get { return _values; } }
 
+        public int DisplayMode { get { return _displayMode; } }
+
         private readonly Lazy<string> _displayText;
         public string DisplayText {
             get { return _displayText.Value; }

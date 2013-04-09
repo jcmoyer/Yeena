@@ -81,6 +81,11 @@ namespace Yeena.PathOfExile {
         public int Width { get { return _width; } }
         public int Height { get { return _height; } }
 
+        public bool IsVerified { get { return _verified; } }
+        public bool IsSupport { get { return _support; } }
+        public string League { get { return _league; } }
+        public string InventoryId { get { return _inventoryId; } }
+
         /// <summary>
         /// Returns a fully qualified Uri that can be used to access the item's icon.
         /// </summary>

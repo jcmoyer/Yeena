@@ -36,6 +36,14 @@ namespace Yeena.PathOfExile {
             get { return _description; }
         }
 
+        public string Url {
+            get { return _url; }
+        }
+
+        public bool IsEvent {
+            get { return _event; }
+        }
+
         public override string ToString() {
             return Name;
         }
