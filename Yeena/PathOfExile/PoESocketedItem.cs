@@ -14,25 +14,22 @@
 
 #pragma warning disable 649
 
-using System;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
-    class PoEItemSocket {
-        [JsonProperty("group")] private readonly int _group;
-        [JsonProperty("attr")] private readonly string _attr;
+    class PoESocketedItem : PoEItem {
+        [JsonProperty("socket")]
+        private readonly int _socket;
+        [JsonProperty("colour")]
+        private readonly string _color;
 
-        public int Group {
-            get { return _group; }
+        public int Socket {
+            get { return _socket; }
         }
 
         public PoESocketColor Color {
-            get { return PoESocketColorUtilities.Parse(_attr); }
-        }
-
-        public override string ToString() {
-            return Enum.GetName(typeof(PoESocketColor), Color);
+            get { return PoESocketColorUtilities.Parse(_color); }
         }
     }
 }

@@ -30,4 +30,15 @@ namespace Yeena.PathOfExile {
             }
         }
     }
+
+    static class PoESocketColorUtilities {
+        public static PoESocketColor Parse(string s) {
+            switch (s) {
+                case "S": return PoESocketColor.Red;
+                case "D": return PoESocketColor.Green;
+                case "I": return PoESocketColor.Blue;
+                default: return PoESocketColor.Unknown;
+            }
+        }
+    }
 }

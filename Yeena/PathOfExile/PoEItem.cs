@@ -37,8 +37,8 @@ namespace Yeena.PathOfExile {
         private readonly string _league;
         [JsonProperty("sockets")]
         private readonly List<PoEItemSocket> _sockets;
-        // TODO: socketedItems
-        // seems to only be used for named magics/rares?
+        [JsonProperty("socketedItems")]
+        private readonly List<PoESocketedItem> _socketedItems;
         [JsonProperty("name")]
         private readonly string _name;
         [JsonProperty("typeLine")]
@@ -121,7 +121,11 @@ namespace Yeena.PathOfExile {
 
         public IReadOnlyList<PoEItemSocket> Sockets {
             get { return _sockets; }
-        } 
+        }
+
+        public IReadOnlyList<PoESocketedItem> SocketedItems {
+            get { return _socketedItems ?? new List<PoESocketedItem>(); }
+        }
 
         public override string ToString() {
             if (FrameType == PoEItemFrameType.Rare || FrameType == PoEItemFrameType.Unique) return Name;
@@ -168,7 +172,7 @@ namespace Yeena.PathOfExile {
         }
 
         [JsonConstructor]
-        private PoEItem() {
+        protected PoEItem() {
             Func<object, int> qualityConverter = value => {
                 // Quality strings are in the format +XX%.
                 // We need to chop off the first and last characters
