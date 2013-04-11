@@ -15,6 +15,7 @@
 #pragma warning disable 649
 
 using System;
+using System.Drawing;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
@@ -22,7 +23,7 @@ namespace Yeena.PathOfExile {
     class PoEStashTabInfo {
         [JsonProperty("n")] private readonly string _name;
         [JsonProperty("i")] private readonly int _index;
-        // colour { r, g, b }
+        [JsonProperty("colour")] private readonly PoEStashTabColor _color;
         [JsonProperty("src")] private readonly string _src;
 
         public string Name {
@@ -31,6 +32,10 @@ namespace Yeena.PathOfExile {
 
         public int Index {
             get { return _index; }
+        }
+
+        public Color Color {
+            get { return _color; }
         }
 
         /// <summary>
