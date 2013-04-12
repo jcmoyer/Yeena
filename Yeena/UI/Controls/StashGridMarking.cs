@@ -18,7 +18,7 @@ using Yeena.PathOfExile;
 namespace Yeena.UI.Controls {
     class StashGridMarking {
         public PoEItem Item { get; private set; }
-        public Brush Brush { get; set; }
+        public Brush Brush { get; private set; }
 
         public StashGridMarking(PoEItem item) : this(item, Brushes.Green) {
         }
