@@ -28,12 +28,12 @@ namespace Yeena.PathOfExile {
         [JsonProperty("currency")]
         private readonly PoEItemCategory _currency;
         [JsonProperty("prefixes")]
-        private readonly PoEItemCategory _prefixes;
+        private readonly PoEItemModCategory _prefixes;
         [JsonProperty("suffixes")]
-        private readonly PoEItemCategory _suffixes;
+        private readonly PoEItemModCategory _suffixes;
 
         public PoEItemTable(PoEItemCategory weapons, PoEItemCategory armor, PoEItemCategory jewelry,
-                            PoEItemCategory currency, PoEItemCategory prefixes, PoEItemCategory suffixes) {
+                            PoEItemCategory currency, PoEItemModCategory prefixes, PoEItemModCategory suffixes) {
             _weapons = weapons;
             _armor = armor;
             _jewelry = jewelry;
@@ -78,13 +78,13 @@ namespace Yeena.PathOfExile {
             if (IsFlask(item)) {
                 // If it's a flask the best option seems to be subtracting the prefix/suffix
                 string itemName = item.TypeLine;
-                string maybePrefix = _prefixes.Flatten().FirstOrDefault(item.TypeLine.StartsWith);
-                string maybeSuffix = _suffixes.Flatten().FirstOrDefault(item.TypeLine.EndsWith);
+                var maybePrefix = _prefixes.Flatten().FirstOrDefault(a => item.TypeLine.StartsWith(a.Name));
+                var maybeSuffix = _suffixes.Flatten().FirstOrDefault(a => item.TypeLine.EndsWith(a.Name));
                 if (maybePrefix != null) {
-                    itemName = itemName.Remove(0, maybePrefix.Length);
+                    itemName = itemName.Remove(0, maybePrefix.Name.Length);
                 }
                 if (maybeSuffix != null) {
-                    itemName = itemName.Remove(itemName.Length - maybeSuffix.Length - 1);
+                    itemName = itemName.Remove(itemName.Length - maybeSuffix.Name.Length - 1);
                 }
                 return itemName;
             }

@@ -132,6 +132,41 @@ namespace Yeena.PathOfExile {
             return new PoEItemCategory(categoryName, itemLists);
         }
 
+        private async Task<PoEItemModCategory> GetModListAsync(Uri uri, string categoryName) {
+            var result = await _client.GetAsync(uri);
+            result.EnsureSuccessStatusCode();
+
+            var doc = new HtmlDocument();
+            doc.Load(await result.Content.ReadAsStreamAsync());
+
+            var categories = doc.DocumentNode.SelectNodes("//div[contains(@class, 'layoutBoxFull')]");
+
+            var modLists = new List<PoEItemModList>();
+            foreach (var category in categories) {
+                var titleNode = category.SelectSingleNode(".//h1[contains(@class, 'layoutBoxTitle')]");
+                var itemNames = category.SelectNodes(".//td[contains(@class, 'name')]");
+
+                var modList = new List<PoEItemMod>();
+                foreach (var nameEl in itemNames) {
+                    var modName = nameEl.InnerText;
+
+                    var levelEl = nameEl.NextSibling.NextSibling;
+                    var level = Int32.Parse(levelEl.InnerText);
+
+                    var effectEl = levelEl.NextSibling.NextSibling;
+                    var effect = String.Join(Environment.NewLine, effectEl.ChildNodes.Select(a => a.InnerText));
+
+                    var magnitudeEl = effectEl.NextSibling.NextSibling;
+                    var magnitude = String.Join(Environment.NewLine, magnitudeEl.ChildNodes.Select(a => a.InnerText));
+
+                    modList.Add(new PoEItemMod(modName, level, PoEItemModStat.Parse(effect, magnitude)));
+                }
+                modLists.Add(new PoEItemModList(titleNode.InnerText, modList));
+            }
+
+            return new PoEItemModCategory(categoryName, modLists);
+        }
+
         public Task<PoEItemCategory> GetWeaponListAsync() {
             return GetItemListAsync(PoESite.ItemDataWeapon, "Weapon");
         }
@@ -148,12 +183,12 @@ namespace Yeena.PathOfExile {
             return GetItemListAsync(PoESite.ItemDataCurrency, "Currency");
         }
 
-        public Task<PoEItemCategory> GetPrefixListAsync() {
-            return GetItemListAsync(PoESite.ItemDataPrefixes, "Prefixes");
+        public Task<PoEItemModCategory> GetPrefixListAsync() {
+            return GetModListAsync(PoESite.ItemDataPrefixes, "Prefixes");
         }
 
-        public Task<PoEItemCategory> GetSuffixListAsync() {
-            return GetItemListAsync(PoESite.ItemDataSuffixes, "Suffixes");
+        public Task<PoEItemModCategory> GetSuffixListAsync() {
+            return GetModListAsync(PoESite.ItemDataSuffixes, "Suffixes");
         }
 
         public async Task<PoEItemTable> GetItemTable() {
