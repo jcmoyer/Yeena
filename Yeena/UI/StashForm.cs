@@ -213,16 +213,6 @@ namespace Yeena.UI {
             Application.Exit();
         }
 
-        private void tabControl1_DrawItem(object sender, DrawItemEventArgs e) {
-            TabPage page = tabStash.TabPages[e.Index];
-            e.Graphics.FillRectangle(new SolidBrush(page.BackColor), e.Bounds);
-
-            Rectangle paddedBounds = e.Bounds;
-            int yOffset = (e.State == DrawItemState.Selected) ? -2 : 1;
-            paddedBounds.Offset(1, yOffset);
-            TextRenderer.DrawText(e.Graphics, page.Text, Font, paddedBounds, page.ForeColor);
-        }
-
         private void summaryToolStripMenuItem_Click(object sender, EventArgs e) {
             FileDialog dialog = new SaveFileDialog();
             dialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";

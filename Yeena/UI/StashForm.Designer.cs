@@ -42,7 +42,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.splMain = new System.Windows.Forms.SplitContainer();
-            this.tabStash = new System.Windows.Forms.TabControl();
+            this.tabStash = new Yeena.UI.Controls.StashTabControl();
             this.panRecipe = new System.Windows.Forms.TableLayoutPanel();
             this.recSelector = new Yeena.UI.Controls.RecipeSelector();
             this.dgvRecipes = new System.Windows.Forms.DataGridView();
@@ -222,7 +222,6 @@
             this.tabStash.SelectedIndex = 0;
             this.tabStash.Size = new System.Drawing.Size(444, 444);
             this.tabStash.TabIndex = 2;
-            this.tabStash.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             // 
             // panRecipe
             // 
@@ -339,7 +338,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem removeFromStashToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splMain;
-        private System.Windows.Forms.TabControl tabStash;
+        private Yeena.UI.Controls.StashTabControl tabStash;
         private System.Windows.Forms.TableLayoutPanel panRecipe;
         private Controls.RecipeSelector recSelector;
         private System.Windows.Forms.DataGridView dgvRecipes;
