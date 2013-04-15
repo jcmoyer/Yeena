@@ -96,8 +96,10 @@
     <Compile Include="Recipe\ChromaticSolver.cs" />
     <Compile Include="Recipe\ConfigurableQualitySolver.cs" />
     <Compile Include="Recipe\BaubleSolver.cs" />
+    <Compile Include="Recipe\RerollMagicSolver.cs" />
     <Compile Include="Recipe\DivineSixSocketSolver.cs" />
     <Compile Include="Recipe\PrismSolver.cs" />
+    <Compile Include="Recipe\RerollRareSolver.cs" />
     <Compile Include="Recipe\ScrapSolver.cs" />
     <Compile Include="Recipe\DuplicateRareSolver.cs" />
     <Compile Include="Recipe\QualitySolver.cs" />
