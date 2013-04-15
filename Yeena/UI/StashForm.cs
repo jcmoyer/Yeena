@@ -147,6 +147,8 @@ namespace Yeena.UI {
             recSelector.RegisterRecipeSolver(new SixSocketSolver(_itemTable));
             recSelector.RegisterRecipeSolver(new DivineSixSocketSolver(_itemTable));
             recSelector.RegisterRecipeSolver(new ChromaticSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new RerollMagicSolver(_itemTable));
+            recSelector.RegisterRecipeSolver(new RerollRareSolver(_itemTable));
 
             var lastLeague = _settings.LastLeagueName;
             if (!String.IsNullOrEmpty(lastLeague)) {
