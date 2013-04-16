@@ -205,7 +205,7 @@ namespace Yeena.PathOfExile {
         /// Returns a list of implicit mods. All items with the same base item type share the same kinds of implicit
         /// mods but with varying magnitudes.
         /// </summary>
-        public IReadOnlyCollection<string> ImplicitMods {
+        public IReadOnlyList<string> ImplicitMods {
             get { return _implicitMods ?? new List<string>(); }
         }
 
@@ -213,7 +213,7 @@ namespace Yeena.PathOfExile {
         /// Returns a list of explicit mods. This property is only used for non-Normal rarity items. The mods contained
         /// by this property vary by item.
         /// </summary>
-        public IReadOnlyCollection<string> ExplicitMods {
+        public IReadOnlyList<string> ExplicitMods {
             get { return _explicitMods ?? new List<string>(); }
         } 
 
