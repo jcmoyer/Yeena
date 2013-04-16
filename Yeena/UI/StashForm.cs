@@ -179,7 +179,7 @@ namespace Yeena.UI {
                 var grid = (StashGrid)page.Tag;
 
                 var marking = new StashGridMarking(item);
-                grid.AddMarking(new StashGridMarking(item));
+                grid.AddMarking(marking);
 
                 var solidBrush = marking.Brush as SolidBrush;
                 if (solidBrush != null) {
