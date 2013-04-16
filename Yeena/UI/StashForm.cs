@@ -251,22 +251,12 @@ namespace Yeena.UI {
             
             _recipeTabs = _recipeTabs.Filter(SelectedRecipe.Items);
             
-            foreach (var tab in _recipeTabs) {
-                FindStashGridForTab(tab.Tab).StashTab = tab.Tab;
+            foreach (var tabView in _recipeTabs) {
+                tabStash.GetStashGridForStashTab(tabView.Tab).StashTab = tabView.Tab;
             }
 
             recSelector.ItemSource = _recipeTabs.Items.ToList();
             recSelector.SolveRecipes();
-        }
-
-        private StashGrid FindStashGridForTab(PoEStashTab tab) {
-            foreach (var page in tabStash.TabPages.OfType<TabPage>()) {
-                var stashGrid = page.Controls.OfType<StashGrid>().FirstOrDefault();
-                if (stashGrid != null && stashGrid.StashTab == tab) {
-                    return stashGrid;
-                }
-            }
-            return null;
         }
 
         private void EnableUnsafeControls(bool state) {

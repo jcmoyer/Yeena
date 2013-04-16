@@ -55,5 +55,22 @@ namespace Yeena.UI.Controls {
                 return false;
             }
         }
+
+        public StashGrid GetStashGridForStashTab(PoEStashTab tab) {
+            return TabPages
+                .OfType<StashTabPage>()
+                .Select(p => (StashGrid)p.Tag)
+                .First(g => g.StashTab == tab);
+        }
+
+        public bool TryGetStashGridForStashTab(PoEStashTab tab, out StashGrid grid) {
+            try {
+                grid = GetStashGridForStashTab(tab);
+                return true;
+            } catch (InvalidOperationException) {
+                grid = null;
+                return false;
+            }
+        }
     }
 }
