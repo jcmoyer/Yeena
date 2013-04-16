@@ -168,6 +168,7 @@ namespace Yeena.UI {
             }
 
             if (recipe == null) {
+                tabStash.Invalidate();
                 return;
             }
 
