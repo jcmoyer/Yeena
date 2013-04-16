@@ -252,7 +252,7 @@ namespace Yeena.UI {
             _recipeTabs = _recipeTabs.Filter(SelectedRecipe.Items);
             
             foreach (var tabView in _recipeTabs) {
-                tabStash.GetStashGridForStashTab(tabView.Tab).StashTab = tabView.Tab;
+                tabStash.GetStashGridForStashTab(tabView.Tab).TabView = tabView;
             }
 
             recSelector.ItemSource = _recipeTabs.Items.ToList();

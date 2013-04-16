@@ -243,5 +243,14 @@ namespace Yeena.UI.Controls {
                 SetImages(_stashStashTab);
             }
         }
+
+        public StashTabView TabView {
+            set {
+                if (value.Tab != _stashStashTab) {
+                    throw new InvalidOperationException("Given StashTabView must be a view of the underlying tab.");
+                }
+                SetImages(value);
+            }
+        }
     }
 }
