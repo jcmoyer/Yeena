@@ -33,7 +33,7 @@ namespace Yeena.PathOfExile {
             get { return _numTabs; }
         }
 
-        public IReadOnlyCollection<PoEItem> Items {
+        public IReadOnlyList<PoEItem> Items {
             get { return _items; }
         }
 
