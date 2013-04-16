@@ -14,7 +14,6 @@
 
 #pragma warning disable 649
 
-using System;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
@@ -32,7 +31,7 @@ namespace Yeena.PathOfExile {
         }
 
         public override string ToString() {
-            return Enum.GetName(typeof(PoESocketColor), Color);
+            return Color.ToString();
         }
     }
 }
