@@ -162,10 +162,9 @@ namespace Yeena.UI {
         private void dataGridView1_SelectionChanged(object sender, EventArgs e) {
             var recipe = SelectedRecipe;
 
-            foreach (var tcTab in tabStash.TabPages.OfType<TabPage>()) {
-                tcTab.BackColor = default(Color);
-                StashGrid sg = (StashGrid)tcTab.Tag;
-                sg.ClearMarkings();
+            foreach (var tab in _activeStash.Tabs) {
+                tabStash.GetTabPageForStashTab(tab).BackColor = default(Color);
+                tabStash.GetStashGridForStashTab(tab).ClearMarkings();
             }
 
             if (recipe == null) {
