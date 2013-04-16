@@ -174,21 +174,16 @@ namespace Yeena.UI {
 
             foreach (var item in recipe.Items) {
                 var responsibleTab = _activeStash.GetContainingTab(item);
-                foreach (var tcTab in tabStash.TabPages.OfType<TabPage>()) {
-                    StashGrid sg = (StashGrid)tcTab.Tag;
-                    PoEStashTab stashTab = (PoEStashTab)sg.Tag;
-                    
-                    if (stashTab != responsibleTab) {
-                        continue;
-                    }
 
-                    var marking = new StashGridMarking(item);
-                    sg.AddMarking(new StashGridMarking(item));
+                var page = tabStash.GetTabPageForStashTab(responsibleTab);
+                var grid = (StashGrid)page.Tag;
 
-                    var solidBrush = marking.Brush as SolidBrush;
-                    if (solidBrush != null) {
-                        tcTab.BackColor = solidBrush.Color;
-                    }
+                var marking = new StashGridMarking(item);
+                grid.AddMarking(new StashGridMarking(item));
+
+                var solidBrush = marking.Brush as SolidBrush;
+                if (solidBrush != null) {
+                    page.BackColor = solidBrush.Color;
                 }
             }
 

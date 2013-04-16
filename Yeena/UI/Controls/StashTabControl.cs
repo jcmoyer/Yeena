@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Yeena.PathOfExile;
 
@@ -36,6 +38,22 @@ namespace Yeena.UI.Controls {
             page.Controls.Add(stashGrid);
             page.Tag = stashGrid;
             TabPages.Add(page);
+        }
+
+        public TabPage GetTabPageForStashTab(PoEStashTab tab) {
+            return TabPages
+                .OfType<StashTabPage>()
+                .First(p => p.StashTab == tab);
+        }
+
+        public bool TryGetTabPageForStashTab(PoEStashTab tab, out TabPage page) {
+            try {
+                page = GetTabPageForStashTab(tab);
+                return true;
+            } catch (InvalidOperationException) {
+                page = null;
+                return false;
+            }
         }
     }
 }
