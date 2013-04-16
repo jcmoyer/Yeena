@@ -297,8 +297,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "StashForm";
             this.Text = "Yeena";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StashForm_FormClosing);
-            this.Load += new System.EventHandler(this.StashForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

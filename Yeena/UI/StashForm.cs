@@ -111,7 +111,7 @@ namespace Yeena.UI {
             EnableUnsafeControls(true);
         }
 
-        private async void StashForm_Load(object sender, EventArgs e) {
+        protected override async void OnLoad(EventArgs e) {
             lblStatus.Text = "Loading league list...";
             var leagues = await _client.GetLeagues();
             foreach (var league in leagues) {
@@ -221,7 +221,7 @@ namespace Yeena.UI {
             }
         }
 
-        private void StashForm_FormClosing(object sender, FormClosingEventArgs e) {
+        protected override void OnFormClosing(FormClosingEventArgs e) {
             _itemTable.Save();
             _imageCache.Save();
 
