@@ -17,6 +17,9 @@
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
+    /// <summary>
+    /// Represents an item that has been socketed into another item in Path of Exile.
+    /// </summary>
     [JsonObject]
     class PoESocketedItem : PoEItem {
         [JsonProperty("socket")]
@@ -24,12 +27,14 @@ namespace Yeena.PathOfExile {
         [JsonProperty("colour")]
         private readonly string _color;
 
-        public int Socket {
-            get { return _socket; }
-        }
+        /// <summary>
+        /// Returns the id of the socket this item has been socketed into.
+        /// </summary>
+        public int Socket { get { return _socket; } }
 
-        public PoESocketColor Color {
-            get { return PoESocketColorUtilities.Parse(_color); }
-        }
+        /// <summary>
+        /// Returns the color of the socket this item has been socketed into.
+        /// </summary>
+        public PoESocketColor Color { get { return PoESocketColorUtilities.Parse(_color); } }
     }
 }
