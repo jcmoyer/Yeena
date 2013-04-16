@@ -14,6 +14,8 @@
 
 using System.Drawing;
 using System.Windows.Forms;
+using Yeena.Data;
+using Yeena.PathOfExile;
 
 namespace Yeena.UI.Controls {
     class StashTabControl : TabControl {
@@ -25,6 +27,16 @@ namespace Yeena.UI.Controls {
             int yOffset = (e.State == DrawItemState.Selected) ? -2 : 1;
             paddedBounds.Offset(1, yOffset);
             TextRenderer.DrawText(e.Graphics, page.Text, Font, paddedBounds, page.ForeColor);
+        }
+
+        public void AddStashTab(PoEStashTab tab, StashGrid stashGrid) {
+            var page = new TabPage(tab.TabInfo.Name);
+            stashGrid.Dock = DockStyle.Fill;
+            stashGrid.StashTab = tab;
+            stashGrid.Tag = tab;
+            page.Controls.Add(stashGrid);
+            page.Tag = stashGrid;
+            TabPages.Add(page);
         }
     }
 }

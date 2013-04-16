@@ -62,8 +62,7 @@ namespace Yeena.UI {
         }
 
         void _stashFetcher_StashTabReceived(object sender, StashTabReceivedEventArgs e) {
-            var uiTab1 = CreateStashTabPage(e.StashTab.TabInfo.Name, e.StashTab);
-            tabStash.TabPages.Add(uiTab1);
+            tabStash.AddStashTab(e.StashTab, new StashGrid(_itemTable, _imageCache));
 
             lblStatus.Text = String.Format("Received tab {0}/{1}", e.StashTab.TabInfo.Index + 1, e.StashTab.TabCount);
         }
@@ -80,8 +79,7 @@ namespace Yeena.UI {
         private void ShowStash(PoEStash stash) {
             tabStash.TabPages.Clear();
             foreach (var tab in stash.Tabs) {
-                var uiTab1 = CreateStashTabPage(tab.TabInfo.Name, tab);
-                tabStash.TabPages.Add(uiTab1);
+                tabStash.AddStashTab(tab, new StashGrid(_itemTable, _imageCache));
             }
             _activeStash = stash;
             _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
@@ -95,18 +93,6 @@ namespace Yeena.UI {
             }
 
             await _stashFetcher.FetchAsync(league);
-        }
-
-        // Creates and returns a TabPage with a StashGrid control
-        private TabPage CreateStashTabPage(string name, PoEStashTab tab) {
-            TabPage tp = new TabPage(name);
-            StashGrid grid = new StashGrid(_itemTable, _imageCache);
-            grid.Dock = DockStyle.Fill;
-            grid.StashTab = tab;
-            grid.Tag = tab;
-            tp.Controls.Add(grid);
-            tp.Tag = grid;
-            return tp;
         }
 
         private void cboLeague_SelectedIndexChanged(object sender, EventArgs e) {
