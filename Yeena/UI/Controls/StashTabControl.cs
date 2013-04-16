@@ -14,7 +14,6 @@
 
 using System.Drawing;
 using System.Windows.Forms;
-using Yeena.Data;
 using Yeena.PathOfExile;
 
 namespace Yeena.UI.Controls {
@@ -30,7 +29,7 @@ namespace Yeena.UI.Controls {
         }
 
         public void AddStashTab(PoEStashTab tab, StashGrid stashGrid) {
-            var page = new TabPage(tab.TabInfo.Name);
+            var page = new StashTabPage(tab);
             stashGrid.Dock = DockStyle.Fill;
             stashGrid.StashTab = tab;
             stashGrid.Tag = tab;

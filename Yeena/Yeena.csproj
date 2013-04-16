@@ -127,6 +127,9 @@
     <Compile Include="UI\Controls\StashTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Controls\StashTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
