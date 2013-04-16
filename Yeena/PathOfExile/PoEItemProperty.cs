@@ -20,27 +20,39 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
+    /// <summary>
+    /// Repesents an item property.
+    /// </summary>
     [JsonObject]
     class PoEItemProperty {
         private static readonly Regex FormatSpecifier = new Regex(@"%(\d+)", RegexOptions.Compiled);
 
         [JsonProperty("name")] private readonly string _name;
         [JsonProperty("values")] private readonly List<List<object>> _values;
-        // ???
         [JsonProperty("displayMode")] private readonly int _displayMode;
 
+        private readonly Lazy<string> _displayText;
+
+        /// <summary>
+        /// Returns the name of this property.
+        /// </summary>
         public string Name { get { return _name; } }
+
+        /// <summary>
+        /// Returns the values associated with this property.
+        /// </summary>
         public IReadOnlyList<IReadOnlyList<object>> Values { get { return _values; } }
 
+        /// <summary>
+        /// Unknown.
+        /// </summary>
         public int DisplayMode { get { return _displayMode; } }
 
-        private readonly Lazy<string> _displayText;
+        /// <summary>
+        /// Returns display-friendly text for this property.
+        /// </summary>
         public string DisplayText {
             get { return _displayText.Value; }
-        }
-
-        public override string ToString() {
-            return DisplayText;
         }
 
         [JsonConstructor]
@@ -61,6 +73,14 @@ namespace Yeena.PathOfExile {
             };
 
             _displayText = new Lazy<string>(displayTextFactory);
+        }
+
+        /// <summary>
+        /// Returns a string representation for this property.
+        /// </summary>
+        /// <returns>A string representation for this property.</returns>
+        public override string ToString() {
+            return DisplayText;
         }
     }
 }
