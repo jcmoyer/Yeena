@@ -176,7 +176,7 @@ namespace Yeena.UI {
                 var responsibleTab = _activeStash.GetContainingTab(item);
 
                 var page = tabStash.GetTabPageForStashTab(responsibleTab);
-                var grid = (StashGrid)page.Tag;
+                var grid = tabStash.GetStashGridForStashTab(responsibleTab);
 
                 var marking = new StashGridMarking(item);
                 grid.AddMarking(marking);
