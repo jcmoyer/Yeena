@@ -72,5 +72,15 @@ namespace Yeena.UI.Controls {
                 return false;
             }
         }
+
+        public StashGrid SelectedStashGrid {
+            get {
+                if (SelectedTab != null) {
+                    return (StashGrid)SelectedTab.Tag;
+                } else {
+                    return null;
+                }
+            }
+        }
     }
 }

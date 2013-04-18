@@ -102,13 +102,12 @@ namespace Yeena.UI {
         }
 
         private async void refreshToolStripMenuItem_Click(object sender, EventArgs e) {
-            var selectedGrid = tabStash.SelectedTab.Controls.OfType<StashGrid>().FirstOrDefault();
-            if (selectedGrid == null) return;
+            if (tabStash.SelectedStashGrid == null) return;
 
             EnableUnsafeControls(false);
 
             var tab = await _client.GetStashTabAsync(cboLeague.Text, tabStash.SelectedIndex);
-            selectedGrid.StashTab = tab;
+            tabStash.SelectedStashGrid.StashTab = tab;
 
             EnableUnsafeControls(true);
         }
