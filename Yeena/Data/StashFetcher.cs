@@ -34,13 +34,19 @@ namespace Yeena.Data {
 
     class StashReceivedEventArgs : EventArgs {
         private readonly PoEStash _stash;
+        private readonly string _league;
 
         public PoEStash Stash {
             get { return _stash; }
         }
 
-        public StashReceivedEventArgs(PoEStash stash) {
+        public string League {
+            get { return _league; }
+        }
+
+        public StashReceivedEventArgs(PoEStash stash, string league) {
             _stash = stash;
+            _league = league;
         }
     }
 
@@ -100,7 +106,7 @@ namespace Yeena.Data {
             }
 
             cancellationToken.ThrowIfCancellationRequested();
-            OnStashReceived(new StashReceivedEventArgs(new PoEStash(tabs)));
+            OnStashReceived(new StashReceivedEventArgs(new PoEStash(tabs), league));
         }
 
         protected virtual void OnBegin(EventArgs e) {
