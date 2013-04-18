@@ -53,6 +53,7 @@ namespace Yeena.UI {
 
         void _stashFetcher_NoStashError(object sender, EventArgs e) {
             lblStatus.Text = "There is no stash in this league yet.";
+            EnableUnsafeControls(true);
         }
 
         void _stashFetcher_Begin(object sender, EventArgs e) {
