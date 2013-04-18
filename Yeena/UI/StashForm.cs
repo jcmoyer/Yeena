@@ -69,6 +69,7 @@ namespace Yeena.UI {
 
         void _stashFetcher_StashReceived(object sender, StashReceivedEventArgs e) {
             _activeStash = e.Stash;
+            _leagueStashes[e.League] = e.Stash;
             _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
             recSelector.ItemSource = _recipeTabs.Items.ToList();
 
