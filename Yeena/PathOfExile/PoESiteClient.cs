@@ -25,10 +25,17 @@ using HtmlAgilityPack;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
+    /// <summary>
+    /// Communicates with the Path of Exile website via HTTP, using HTTPS where possible.
+    /// </summary>
     class PoESiteClient : IDisposable {
         private readonly HttpClientHandler _handler = new HttpClientHandler();
         private readonly HttpClient _client;
 
+        /// <summary>
+        /// Allows manipulation of the cookies stored by the underlying HttpClientHandler.
+        /// </summary>
+        /// <see cref="CookieContainer"/>
         public CookieContainer Cookies {
             get { return _handler.CookieContainer; }
             set { _handler.CookieContainer = value; }
@@ -42,6 +49,9 @@ namespace Yeena.PathOfExile {
             Dispose(false);
         }
 
+        /// <summary>
+        /// Releases the unmanaged resources and disposes of the managed resources used by the Yeena.PathOfExile.PoESiteClient.
+        /// </summary>
         public void Dispose() {
             Dispose(true);
         }
@@ -57,6 +67,11 @@ namespace Yeena.PathOfExile {
             }
         }
 
+        /// <summary>
+        /// Asynchronously logs in to the Path of Exile website.
+        /// </summary>
+        /// <param name="creds">Credential object that holds the username and password.</param>
+        /// <returns>A task that returns the HTML of the page returned by the Path of Exile web server.</returns>
         public async Task<string> LoginAsync(PoESiteCredentials creds) {
             var result = await _client.PostAsync(PoESite.Login, new FormUrlEncodedContent(new Dictionary<string, string> {
                 { "login", "Login" },
@@ -68,11 +83,29 @@ namespace Yeena.PathOfExile {
             return await result.Content.ReadAsStringAsync();
         }
 
+        /// <summary>
+        /// Asynchronously fetches a single stash tab. This operation requires you to have logged in successfully. You cannot cancel this task.
+        /// </summary>
+        /// <param name="league">League to fetch the stash from.</param>
+        /// <param name="page">Page number to fetch.</param>
+        /// <param name="throttle">How long, in milliseconds, to wait before attempting to fetch the stash tab again if an error occurred.</param>
+        /// <returns>A task that returns a stash tab.</returns>
+        /// <see cref="LoginAsync"/>
+        /// <see cref="PoEStashTab"/>
         public Task<PoEStashTab> GetStashTabAsync(string league, int page = 0, int throttle = 2500) {
             return GetStashTabAsync(league, page, throttle, new CancellationToken());
         }
 
-        /// <exception cref="System.InvalidCastException">Thrown if there's no stash for this league</exception>
+        /// <summary>
+        /// Asynchronously fetches a single stash tab. This operation requires you to have logged in successfully.
+        /// </summary>
+        /// <param name="league">League to fetch the stash from.</param>
+        /// <param name="page">Page number to fetch.</param>
+        /// <param name="throttle">How long, in milliseconds, to wait before attempting to fetch the stash tab again if an error occurred.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used to cancel the task.</param>
+        /// <returns>A task that returns a stash tab.</returns>
+        /// <see cref="LoginAsync"/>
+        /// <see cref="PoEStashTab"/>
         public async Task<PoEStashTab> GetStashTabAsync(string league, int page, int throttle, CancellationToken cancellationToken) {
             // This should probably be moved elsewhere.
             await Task.Delay(throttle);
@@ -167,30 +200,65 @@ namespace Yeena.PathOfExile {
             return new PoEItemModCategory(categoryName, modLists);
         }
 
+        /// <summary>
+        /// Asynchronously fetches a category of weapon items from the Path of Exile website.
+        /// </summary>
+        /// <returns>A task that returns a category of weapon items.</returns>
+        /// <see cref="PoEItemCategory"/>
         public Task<PoEItemCategory> GetWeaponListAsync() {
             return GetItemListAsync(PoESite.ItemDataWeapon, "Weapon");
         }
 
+        /// <summary>
+        /// Asynchronously fetches a category of armor items from the Path of Exile website.
+        /// </summary>
+        /// <returns>A task that returns a category of armor items.</returns>
+        /// <see cref="PoEItemCategory"/>
         public Task<PoEItemCategory> GetArmorListAsync() {
             return GetItemListAsync(PoESite.ItemDataArmor, "Armor");
         }
 
+        /// <summary>
+        /// Asynchronously fetches a category of jewelry items from the Path of Exile website.
+        /// </summary>
+        /// <returns>A task that returns a category of jewelry items.</returns>
+        /// <see cref="PoEItemCategory"/>
         public Task<PoEItemCategory> GetJewelryListAsync() {
             return GetItemListAsync(PoESite.ItemDataJewelry, "Jewelry");
         }
 
+        /// <summary>
+        /// Asynchronously fetches a category of currency items from the Path of Exile website.
+        /// </summary>
+        /// <returns>A task that returns a category of currency items.</returns>
+        /// <see cref="PoEItemCategory"/>
         public Task<PoEItemCategory> GetCurrencyListAsync() {
             return GetItemListAsync(PoESite.ItemDataCurrency, "Currency");
         }
 
+        /// <summary>
+        /// Asynchronously fetches a category of prefix mods from the Path of Exile website.
+        /// </summary>
+        /// <returns>A task that returns a category of item prefixes.</returns>
+        /// <see cref="PoEItemModCategory"/>
         public Task<PoEItemModCategory> GetPrefixListAsync() {
             return GetModListAsync(PoESite.ItemDataPrefixes, "Prefixes");
         }
 
+        /// <summary>
+        /// Asynchronously fetches a category of suffix mods from the Path of Exile website.
+        /// </summary>
+        /// <returns>A task that returns a category of item suffixes.</returns>
+        /// <see cref="PoEItemModCategory"/>
         public Task<PoEItemModCategory> GetSuffixListAsync() {
             return GetModListAsync(PoESite.ItemDataSuffixes, "Suffixes");
         }
 
+        /// <summary>
+        /// Asynchronously fetreives a PoEItemTable constructed from data on the Path of Exile website.
+        /// </summary>
+        /// <returns>A task that returns an item table that contains information about most items in the game.</returns>
+        /// <see cref="PoEItemTable"/>
         public async Task<PoEItemTable> GetItemTable() {
             return new PoEItemTable(
                 await GetWeaponListAsync(),
@@ -201,6 +269,11 @@ namespace Yeena.PathOfExile {
                 await GetSuffixListAsync());
         }
 
+        /// <summary>
+        /// Asynchronously fetches the league list.
+        /// </summary>
+        /// <returns>A task that returns the list of leagues.</returns>
+        /// <see cref="PoELeague"/>
         public async Task<IReadOnlyList<PoELeague>> GetLeagues() {
             var result = await _client.GetAsync(PoESite.Leagues);
             result.EnsureSuccessStatusCode();
