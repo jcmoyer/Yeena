@@ -46,6 +46,7 @@ namespace Yeena.UI {
             _stashFetcher.StashTabReceived += _stashFetcher_StashTabReceived;
             _stashFetcher.StashReceived += _stashFetcher_StashReceived;
             _stashFetcher.Begin += _stashFetcher_Begin;
+            _stashFetcher.End += _stashFetcher_End;
             _stashFetcher.NoStashError += _stashFetcher_NoStashError;
 
             InitializeComponent();
@@ -53,13 +54,16 @@ namespace Yeena.UI {
 
         void _stashFetcher_NoStashError(object sender, EventArgs e) {
             lblStatus.Text = "There is no stash in this league yet.";
-            EnableUnsafeControls(true);
         }
 
         void _stashFetcher_Begin(object sender, EventArgs e) {
             lblStatus.Text = "Fetching stash...";
             EnableUnsafeControls(false);
             tabStash.TabPages.Clear();
+        }
+
+        void _stashFetcher_End(object sender, EventArgs e) {
+            EnableUnsafeControls(true);
         }
 
         void _stashFetcher_StashTabReceived(object sender, StashTabReceivedEventArgs e) {
@@ -75,7 +79,6 @@ namespace Yeena.UI {
             recSelector.ItemSource = _recipeTabs.Items.ToList();
 
             lblStatus.Text = "Ready";
-            EnableUnsafeControls(true);
         }
 
         private void ShowStash(PoEStash stash) {
