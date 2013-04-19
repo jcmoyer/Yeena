@@ -57,6 +57,7 @@ namespace Yeena.Data {
         private CancellationTokenSource _cancellationTokenSource;
 
         public event EventHandler Begin;
+        public event EventHandler End;
         public event EventHandler Canceled;
         public event EventHandler NoStashError;
         public event EventHandler<StashTabReceivedEventArgs> StashTabReceived;
@@ -78,6 +79,8 @@ namespace Yeena.Data {
             } catch (OperationCanceledException) {
                 OnCanceled(new EventArgs());
             }
+
+            OnEnd(new EventArgs());
         }
 
         private async Task GetLeagueStashAsync(string league, CancellationToken cancellationToken) {
@@ -111,6 +114,13 @@ namespace Yeena.Data {
 
         protected virtual void OnBegin(EventArgs e) {
             var handler = Begin;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnEnd(EventArgs e) {
+            var handler = End;
             if (handler != null) {
                 handler(this, e);
             }
