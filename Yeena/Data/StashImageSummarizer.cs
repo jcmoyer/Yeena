@@ -121,7 +121,7 @@ namespace Yeena.Data {
             if (IncludeGrid) {
                 RenderGrid(g, stash.Tabs.Count);
             }
-            foreach (var tab in stash.Tabs) {
+            foreach (var tab in stash) {
                 RenderTab(g, tab);
             }
         }

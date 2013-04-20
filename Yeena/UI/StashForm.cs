@@ -75,7 +75,7 @@ namespace Yeena.UI {
         void _stashFetcher_StashReceived(object sender, StashReceivedEventArgs e) {
             _activeStash = e.Stash;
             _leagueStashes[e.League] = e.Stash;
-            _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
+            _recipeTabs = new StashTabCollectionView(_activeStash);
             recSelector.ItemSource = _recipeTabs.Items.ToList();
 
             lblStatus.Text = "Ready";
@@ -83,11 +83,11 @@ namespace Yeena.UI {
 
         private void ShowStash(PoEStash stash) {
             tabStash.TabPages.Clear();
-            foreach (var tab in stash.Tabs) {
+            foreach (var tab in stash) {
                 tabStash.AddStashTab(tab, new StashGrid(_itemTable, _imageCache));
             }
             _activeStash = stash;
-            _recipeTabs = new StashTabCollectionView(_activeStash.Tabs);
+            _recipeTabs = new StashTabCollectionView(_activeStash);
             recSelector.ItemSource = _recipeTabs.Items.ToList();
         }
 
@@ -166,7 +166,7 @@ namespace Yeena.UI {
         private void dataGridView1_SelectionChanged(object sender, EventArgs e) {
             var recipe = SelectedRecipe;
 
-            foreach (var tab in _activeStash.Tabs) {
+            foreach (var tab in _activeStash) {
                 tabStash.GetTabPageForStashTab(tab).BackColor = default(Color);
                 tabStash.GetStashGridForStashTab(tab).ClearMarkings();
             }

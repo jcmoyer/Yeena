@@ -28,11 +28,11 @@ namespace Yeena.Data {
         }
 
         public StashTabCollectionView Tabs {
-            get { return new StashTabCollectionView(_stash.Tabs); }
+            get { return new StashTabCollectionView(_stash); }
         }
 
         public StashTabCollectionView FilterTabs(IEnumerable<int> indices) {
-            var filteredTabs = from tab in _stash.Tabs
+            var filteredTabs = from tab in _stash
                                from index in indices
                                where tab.TabInfo.Index == index
                                select tab;
