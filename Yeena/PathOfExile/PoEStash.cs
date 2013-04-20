@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Yeena.PathOfExile {
-    class PoEStash {
+    class PoEStash : IEnumerable<PoEStashTab> {
         private readonly List<PoEStashTab> _tabs;
 
         public PoEStash(IEnumerable<PoEStashTab> tabs) {
@@ -33,6 +34,14 @@ namespace Yeena.PathOfExile {
                 }
             }
             return null;
+        }
+
+        public IEnumerator<PoEStashTab> GetEnumerator() {
+            return Tabs.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
         }
     }
 }
