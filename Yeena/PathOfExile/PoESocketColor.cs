@@ -13,6 +13,9 @@
 // limitations under the License.
 
 namespace Yeena.PathOfExile {
+    /// <summary>
+    /// Represents a socket color.
+    /// </summary>
     enum PoESocketColor {
         Red,
         Green,
