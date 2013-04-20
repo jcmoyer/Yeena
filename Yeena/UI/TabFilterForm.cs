@@ -32,11 +32,11 @@ namespace Yeena.UI {
             }
         }
 
-        public TabFilterForm(IReadOnlyList<PoEStashTab> tabs) {
+        public TabFilterForm(IEnumerable<PoEStashTab> tabs) {
             InitializeComponent();
 
-            for (int i = 0; i < tabs.Count; i++) {
-                lstTabs.Items.Add(new TaggedStashTab(tabs[i]));
+            foreach (var tab in tabs) {
+                lstTabs.Items.Add(new TaggedStashTab(tab));
             }
         }
 

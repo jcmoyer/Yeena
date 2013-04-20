@@ -235,7 +235,7 @@ namespace Yeena.UI {
         private void btnTabs_Click(object sender, EventArgs e) {
             if (_activeStash == null) return;
 
-            var filterForm = new TabFilterForm(_activeStash.Tabs);
+            var filterForm = new TabFilterForm(_activeStash);
             filterForm.SetCheckedTabs(_recipeTabs.Tabs);
 
             if (filterForm.ShowDialog() == DialogResult.OK) {
