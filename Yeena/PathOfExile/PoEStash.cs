@@ -26,16 +26,6 @@ namespace Yeena.PathOfExile {
             get { return _tabs; }
         }
 
-        public IReadOnlyList<PoEItem> Items {
-            get {
-                var items = new List<PoEItem>();
-                foreach (var tab in _tabs) {
-                    items.AddRange(tab);
-                }
-                return items;
-            }
-        }
-
         public PoEStashTab GetContainingTab(PoEItem item) {
             foreach (var tab in _tabs) {
                 foreach (var tabItem in tab) {
