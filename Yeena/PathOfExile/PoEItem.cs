@@ -126,7 +126,7 @@ namespace Yeena.PathOfExile {
         /// Returns a fully qualified Uri that can be used to access the item's icon.
         /// </summary>
         public Uri IconUri {
-            get { return new Uri(PoESite.Uri, _iconUrl); }
+            get { return new Uri(PoESite.UriHttps, _iconUrl); }
         }
 
         /// <summary>

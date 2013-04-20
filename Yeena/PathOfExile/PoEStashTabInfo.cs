@@ -43,7 +43,7 @@ namespace Yeena.PathOfExile {
         /// display bitmap. This is the same image displayed on the site's stash browser.
         /// </summary>
         public Uri ImageUri {
-            get { return new Uri(PoESite.Uri, _src); }
+            get { return new Uri(PoESite.UriHttps, _src); }
         }
 
         public override string ToString() {
