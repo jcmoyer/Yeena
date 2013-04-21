@@ -29,7 +29,7 @@ namespace Yeena.PathOfExile {
         public string Name { get { return _name; } }
         public int Level { get { return _level; } }
 
-        public IReadOnlyList<PoEItemModStat> Effects {get { return _effects; }} 
+        public IReadOnlyList<PoEItemModStat> Effects { get { return _effects; } } 
 
         [JsonConstructor]
         private PoEItemMod() {
