@@ -13,6 +13,9 @@
 // limitations under the License.
 
 namespace Yeena.PathOfExile {
+    /// <summary>
+    /// Represents an item's rarity.
+    /// </summary>
     enum PoEItemFrameType {
         Normal = 0,
         Magic = 1,
