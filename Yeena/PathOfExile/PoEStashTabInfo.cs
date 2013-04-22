@@ -19,6 +19,9 @@ using System.Drawing;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
+    /// <summary>
+    /// Contains information about a stash tab.
+    /// </summary>
     [JsonObject]
     class PoEStashTabInfo {
         [JsonProperty("n")] private readonly string _name;
@@ -26,14 +29,23 @@ namespace Yeena.PathOfExile {
         [JsonProperty("colour")] private readonly PoEStashTabColor _color;
         [JsonProperty("src")] private readonly string _src;
 
+        /// <summary>
+        /// Returns the name of the stash tab.
+        /// </summary>
         public string Name {
             get { return _name; }
         }
 
+        /// <summary>
+        /// Returns the index of the stash tab.
+        /// </summary>
         public int Index {
             get { return _index; }
         }
 
+        /// <summary>
+        /// Returns the color of the stash tab.
+        /// </summary>
         public Color Color {
             get { return _color; }
         }
@@ -46,6 +58,10 @@ namespace Yeena.PathOfExile {
             get { return new Uri(PoESite.UriHttps, _src); }
         }
 
+        /// <summary>
+        /// Returns a string representation of this information.
+        /// </summary>
+        /// <returns>The name of the tab.</returns>
         public override string ToString() {
             return _name;
         }
