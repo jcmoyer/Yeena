@@ -19,6 +19,9 @@ using System.Drawing;
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
+    /// <summary>
+    /// Represents the color of a stash tab.
+    /// </summary>
     [JsonObject]
     class PoEStashTabColor {
         [JsonProperty("r")]
@@ -29,6 +32,11 @@ namespace Yeena.PathOfExile {
         private readonly int _b;
 
         private readonly Lazy<Color> _color;
+
+        /// <summary>
+        /// Returns the color of a stash tab.
+        /// </summary>
+        /// <see cref="System.Drawing.Color"/>
         public Color Color {
             get { return _color.Value; }
         }
