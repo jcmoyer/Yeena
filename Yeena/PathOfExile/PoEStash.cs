@@ -16,7 +16,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Yeena.PathOfExile {
-    class PoEStash : IEnumerable<PoEStashTab> {
+    class PoEStash : IReadOnlyList<PoEStashTab> {
         private readonly List<PoEStashTab> _tabs;
 
         public PoEStash(IEnumerable<PoEStashTab> tabs) {
@@ -42,6 +42,14 @@ namespace Yeena.PathOfExile {
 
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
+        }
+
+        public int Count {
+            get { return Tabs.Count; }
+        }
+
+        public PoEStashTab this[int index] {
+            get { return Tabs[index]; }
         }
     }
 }
