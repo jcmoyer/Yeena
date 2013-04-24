@@ -22,7 +22,7 @@ namespace Yeena.PathOfExile {
     /// i.e. Claw has Nailed Fist, Sharktooth Claw, etc...
     /// </summary>
     [JsonObject]
-    class PoEItemList : IEnumerable<string> {
+    class PoEItemList : IReadOnlyList<string> {
         [JsonProperty("name")]
         private readonly string _name;
         [JsonProperty("items")]
@@ -47,6 +47,14 @@ namespace Yeena.PathOfExile {
 
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
+        }
+
+        public int Count {
+            get { return _names.Count; }
+        }
+
+        public string this[int index] {
+            get { return _names[index]; }
         }
 
         public override string ToString() {
