@@ -22,7 +22,7 @@ namespace Yeena.PathOfExile {
     /// item group, i.e. Weapon is a category of Claw, Bow, Dagger, etc...
     /// </summary>
     [JsonObject]
-    class PoEItemCategory : IEnumerable<PoEItemList> {
+    class PoEItemCategory : IReadOnlyList<PoEItemList> {
         [JsonProperty("name")]
         private readonly string _name;
         [JsonProperty("items")]
@@ -39,6 +39,14 @@ namespace Yeena.PathOfExile {
 
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
+        }
+
+        public int Count {
+            get { return _items.Count; }
+        }
+
+        public PoEItemList this[int index] {
+            get { return _items[index]; }
         }
 
         public override string ToString() {
