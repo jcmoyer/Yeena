@@ -37,12 +37,12 @@ namespace Yeena.PathOfExile {
             _names = new List<string>(itemNames);
         }
 
-        public IReadOnlyCollection<string> Names {
+        public IReadOnlyList<string> Names {
             get { return _names; }
         }
 
         public IEnumerator<string> GetEnumerator() {
-            return _names.GetEnumerator();
+            return Names.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator() {
@@ -50,11 +50,11 @@ namespace Yeena.PathOfExile {
         }
 
         public int Count {
-            get { return _names.Count; }
+            get { return Names.Count; }
         }
 
         public string this[int index] {
-            get { return _names[index]; }
+            get { return Names[index]; }
         }
 
         public override string ToString() {
