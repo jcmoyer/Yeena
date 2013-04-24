@@ -17,12 +17,18 @@
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
+    /// <summary>
+    /// Represents an error that has occurred while retreiving the stash.
+    /// </summary>
     [JsonObject]
     class PoEStashRequestError {
         [JsonProperty("message")]
         private readonly string _message;
 
-        public string Message {
+        /// <summary>
+        /// Returns the message associated with this error.
+        /// </summary>
+        public string Message {            
             get { return _message; }
         }
     }
