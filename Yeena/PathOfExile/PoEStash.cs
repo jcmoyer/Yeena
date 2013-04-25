@@ -29,7 +29,7 @@ namespace Yeena.PathOfExile {
         }
 
         public PoEStashTab GetTabForItem(PoEItem item) {
-            return _tabs.FirstOrDefault(t => t.Any(i => i == item));
+            return _tabs.First(t => t.Any(i => i == item));
         }
 
         public IEnumerator<PoEStashTab> GetEnumerator() {
