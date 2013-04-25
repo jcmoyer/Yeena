@@ -14,6 +14,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Yeena.PathOfExile {
     class PoEStash : IReadOnlyList<PoEStashTab> {
@@ -28,12 +29,7 @@ namespace Yeena.PathOfExile {
         }
 
         public PoEStashTab GetTabForItem(PoEItem item) {
-            foreach (var tab in _tabs) {
-                foreach (var tabItem in tab) {
-                    if (item == tabItem) return tab;
-                }
-            }
-            return null;
+            return _tabs.FirstOrDefault(t => t.Any(i => i == item));
         }
 
         public IEnumerator<PoEStashTab> GetEnumerator() {
