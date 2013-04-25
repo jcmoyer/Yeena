@@ -306,7 +306,7 @@ namespace Yeena.PathOfExile {
         /// </summary>
         /// <returns>A string representation of this item.</returns>
         public override string ToString() {
-            if (FrameType == PoEItemFrameType.Rare || FrameType == PoEItemFrameType.Unique) return Name;
+            if ((FrameType == PoEItemFrameType.Rare || FrameType == PoEItemFrameType.Unique) && IsIdentified) return Name;
             return TypeLine;
         }
     }
