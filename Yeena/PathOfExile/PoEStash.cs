@@ -27,7 +27,7 @@ namespace Yeena.PathOfExile {
             get { return _tabs; }
         }
 
-        public PoEStashTab GetContainingTab(PoEItem item) {
+        public PoEStashTab GetTabForItem(PoEItem item) {
             foreach (var tab in _tabs) {
                 foreach (var tabItem in tab) {
                     if (item == tabItem) return tab;

@@ -177,7 +177,7 @@ namespace Yeena.UI {
             }
 
             foreach (var item in recipe) {
-                var responsibleTab = _activeStash.GetContainingTab(item);
+                var responsibleTab = _activeStash.GetTabForItem(item);
 
                 var page = tabStash.GetTabPageForStashTab(responsibleTab);
                 var grid = tabStash.GetStashGridForStashTab(responsibleTab);
