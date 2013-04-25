@@ -50,7 +50,27 @@ namespace Yeena.Data {
         }
     }
 
+    class StashFetcherServerErrorEventArgs : EventArgs {
+        private readonly string _message;
+
+        public string Message {
+            get { return _message; }
+        }
+
+        public StashFetcherServerErrorEventArgs(string message) {
+            _message = message;
+        }
+    }
+
+    class StashFetcherServerErrorException : Exception {
+        public StashFetcherServerErrorException(string message) : base(message) {
+        }
+    }
+
     class StashFetcher {
+        private const int RetryCount = 10;
+        private const int InitialThrottle = 3000;
+
         private readonly PoESiteClient _client;
 
         private Task _currentFetchTask;
@@ -62,6 +82,7 @@ namespace Yeena.Data {
         public event EventHandler NoStashError;
         public event EventHandler<StashTabReceivedEventArgs> StashTabReceived;
         public event EventHandler<StashReceivedEventArgs> StashReceived;
+        public event EventHandler<StashFetcherServerErrorEventArgs> ServerError;
 
         public StashFetcher(PoESiteClient client) {
             _client = client;
@@ -78,6 +99,8 @@ namespace Yeena.Data {
                 await _currentFetchTask;
             } catch (OperationCanceledException) {
                 OnCanceled(new EventArgs());
+            } catch (StashFetcherServerErrorException ex) {
+                OnServerError(new StashFetcherServerErrorEventArgs(ex.Message));
             }
 
             OnEnd(new EventArgs());
@@ -88,7 +111,7 @@ namespace Yeena.Data {
             
             PoEStashTab tab0;
             try {
-                tab0 = await _client.GetStashTabAsync(league, 0, 2500, cancellationToken);
+                tab0 = await GetStashTabThrottledAsync(league, 0, InitialThrottle, RetryCount, cancellationToken);
             } catch (JsonSerializationException) {
                 OnNoStashError(new EventArgs());
                 return;
@@ -101,7 +124,7 @@ namespace Yeena.Data {
             for (int i = 1; i < tab0.TabCount; i++) {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                var tabI = await _client.GetStashTabAsync(league, i, 2500, cancellationToken);
+                var tabI = await GetStashTabThrottledAsync(league, i, InitialThrottle, RetryCount, cancellationToken);
                 tabs.Add(tabI);
 
                 cancellationToken.ThrowIfCancellationRequested();
@@ -110,6 +133,25 @@ namespace Yeena.Data {
 
             cancellationToken.ThrowIfCancellationRequested();
             OnStashReceived(new StashReceivedEventArgs(new PoEStash(tabs), league));
+        }
+
+        private async Task<PoEStashTab> GetStashTabThrottledAsync(string league, int page, int throttle, int numRetries, CancellationToken cancellationToken) {
+            PoEStashTab tab;
+            do {
+                tab = await _client.GetStashTabAsync(league, page, cancellationToken);
+                // Wait for a bit if there was an error, then try again.
+                if (tab.Error != null) {
+                    // Let clients know what is going on.
+                    string message = String.Format("{0} Retrying in {1} seconds.", tab.Error.Message, Math.Round(throttle / 1000.0f, 1));
+                    OnServerError(new StashFetcherServerErrorEventArgs(message));
+
+                    await Task.Delay(throttle, cancellationToken);
+                    throttle = (int)(throttle * 1.5);
+                } else {
+                    return tab;
+                }
+            } while (numRetries-- > 0);
+            throw new StashFetcherServerErrorException("Cancelling due to numerous errors: " + tab.Error.Message);
         }
 
         protected virtual void OnBegin(EventArgs e) {
@@ -149,6 +191,13 @@ namespace Yeena.Data {
 
         protected virtual void OnStashReceived(StashReceivedEventArgs e) {
             var handler = StashReceived;
+            if (handler != null) {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnServerError(StashFetcherServerErrorEventArgs e) {
+            var handler = ServerError;
             if (handler != null) {
                 handler(this, e);
             }

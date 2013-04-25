@@ -88,12 +88,11 @@ namespace Yeena.PathOfExile {
         /// </summary>
         /// <param name="league">League to fetch the stash from.</param>
         /// <param name="page">Page number to fetch.</param>
-        /// <param name="throttle">How long, in milliseconds, to wait before attempting to fetch the stash tab again if an error occurred.</param>
         /// <returns>A task that returns a stash tab.</returns>
         /// <see cref="LoginAsync"/>
         /// <see cref="PoEStashTab"/>
-        public Task<PoEStashTab> GetStashTabAsync(string league, int page = 0, int throttle = 2500) {
-            return GetStashTabAsync(league, page, throttle, new CancellationToken());
+        public Task<PoEStashTab> GetStashTabAsync(string league, int page = 0) {
+            return GetStashTabAsync(league, page, new CancellationToken());
         }
 
         /// <summary>
@@ -101,15 +100,11 @@ namespace Yeena.PathOfExile {
         /// </summary>
         /// <param name="league">League to fetch the stash from.</param>
         /// <param name="page">Page number to fetch.</param>
-        /// <param name="throttle">How long, in milliseconds, to wait before attempting to fetch the stash tab again if an error occurred.</param>
         /// <param name="cancellationToken">A cancellation token that can be used to cancel the task.</param>
         /// <returns>A task that returns a stash tab.</returns>
         /// <see cref="LoginAsync"/>
         /// <see cref="PoEStashTab"/>
-        public async Task<PoEStashTab> GetStashTabAsync(string league, int page, int throttle, CancellationToken cancellationToken) {
-            // This should probably be moved elsewhere.
-            await Task.Delay(throttle);
-
+        public async Task<PoEStashTab> GetStashTabAsync(string league, int page, CancellationToken cancellationToken) {
             var result = await _client.PostAsync(PoESite.GetStashItems, new FormUrlEncodedContent(new Dictionary<string, string> {
                 { "league", league },
                 { "tabIndex", page.ToString() },
@@ -123,24 +118,15 @@ namespace Yeena.PathOfExile {
             ser.Context = c;
 
             var stashTab = ser.Deserialize<PoEStashTab>(new JsonTextReader(new StringReader(json)));
-
-            if (stashTab.Error != null) {
-                // Retry later.
-                int newThrottle = (int)(throttle * 1.2);
-                await Task.Delay(throttle);
-                return await GetStashTabAsync(league, page, newThrottle, cancellationToken);
-            } else {
-                return stashTab;
-            }
+            return stashTab;
         }
 
-        public async Task<PoEStash> GetStashAsync(string league, int throttle = 2500) {
+        public async Task<PoEStash> GetStashAsync(string league) {
             PoEStashTab tab = await GetStashTabAsync(league);
 
             var tabs = new List<PoEStashTab>(tab.TabCount);
             for (int i = 1; i < tab.TabCount; i++) {
-                tabs.Add(await GetStashTabAsync(league, i, throttle));
-                await Task.Delay(throttle);
+                tabs.Add(await GetStashTabAsync(league, i));
             }
 
             return new PoEStash(tabs);

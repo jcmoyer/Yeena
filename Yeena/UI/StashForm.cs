@@ -48,8 +48,13 @@ namespace Yeena.UI {
             _stashFetcher.Begin += _stashFetcher_Begin;
             _stashFetcher.End += _stashFetcher_End;
             _stashFetcher.NoStashError += _stashFetcher_NoStashError;
+            _stashFetcher.ServerError += _stashFetcher_ServerError;
 
             InitializeComponent();
+        }
+
+        void _stashFetcher_ServerError(object sender, StashFetcherServerErrorEventArgs e) {
+            lblStatus.Text = "Server error: " + e.Message;
         }
 
         void _stashFetcher_NoStashError(object sender, EventArgs e) {
