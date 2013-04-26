@@ -17,19 +17,32 @@
 using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
+    /// <summary>
+    /// Represents a socket in an item.
+    /// </summary>
     [JsonObject]
     class PoEItemSocket {
         [JsonProperty("group")] private readonly int _group;
         [JsonProperty("attr")] private readonly string _attr;
 
+        /// <summary>
+        /// Returns the group this socket belongs in. Linked sockets will share the same group.
+        /// </summary>
         public int Group {
             get { return _group; }
         }
 
+        /// <summary>
+        /// Returns the color of this socket.
+        /// </summary>
         public PoESocketColor Color {
             get { return PoESocketColorUtilities.Parse(_attr); }
         }
 
+        /// <summary>
+        /// Returns a string representation of this socket.
+        /// </summary>
+        /// <returns>A string representation of this socket.</returns>
         public override string ToString() {
             return Color.ToString();
         }
