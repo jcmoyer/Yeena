@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace Yeena.PathOfExile {
     [JsonObject]
-    class PoEItemModCategory : IEnumerable<PoEItemModList> {
+    class PoEItemModCategory : IReadOnlyList<PoEItemModList> {
         [JsonProperty("name")]
         private readonly string _name;
         [JsonProperty("modLists")]
@@ -43,6 +43,14 @@ namespace Yeena.PathOfExile {
 
         IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
+        }
+
+        public int Count {
+            get { return _modLists.Count; }
+        }
+
+        public PoEItemModList this[int index] {
+            get { return _modLists[index]; }
         }
 
         public override string ToString() {
