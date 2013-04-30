@@ -43,7 +43,7 @@ namespace Yeena.PathOfExile {
         }
 
         public bool IsEquippable(PoEItem item) {
-            return IsWeapon(item) || IsArmor(item) || IsJewelry(item) || IsFlask(item);
+            return IsWeapon(item) || IsArmor(item) || IsJewelry(item) || item.IsFlask;
         }
 
         public bool IsWeapon(PoEItem item) {
@@ -62,20 +62,8 @@ namespace Yeena.PathOfExile {
             return _currency.Any(il => il.Any(item.TypeLine.Contains));
         }
 
-        public bool IsFlask(PoEItem item) {
-            return item.TypeLine.Contains("Flask");
-        }
-
-        public bool IsGem(PoEItem item) {
-            return item.HasProperty("Experience");
-        }
-
-        public bool IsMap(PoEItem item) {
-            return item.TypeLine.Contains("Map");
-        }
-
         public string GetBaseItemName(PoEItem item) {
-            if (IsFlask(item)) {
+            if (item.IsFlask) {
                 // If it's a flask the best option seems to be subtracting the prefix/suffix
                 string itemName = item.TypeLine;
                 var maybePrefix = _prefixes.Flatten().FirstOrDefault(a => item.TypeLine.StartsWith(a.Name));

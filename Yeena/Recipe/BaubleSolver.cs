@@ -18,7 +18,7 @@ namespace Yeena.Recipe {
     [VendorRecipeName("Glassblower's Bauble")]
     class BaubleSolver : ConfigurableQualitySolver {
         public BaubleSolver(PoEItemTable itemTable)
-            : base(itemTable, itemTable.IsFlask) {
+            : base(itemTable, item => item.IsFlask) {
         }
     }
 }

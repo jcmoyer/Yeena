@@ -251,6 +251,27 @@ namespace Yeena.PathOfExile {
             }
         }
 
+        /// <summary>
+        /// Returns whether or not this item is a flask.
+        /// </summary>
+        public bool IsFlask {
+            get { return TypeLine.Contains("Flask"); }
+        }
+
+        /// <summary>
+        /// Returns whether or not this item is a skill gem.
+        /// </summary>
+        public bool IsGem {
+            get { return HasProperty("Experience"); }
+        }
+
+        /// <summary>
+        /// Returns whether or not this item is a map.
+        /// </summary>
+        public bool IsMap {
+            get { return TypeLine.Contains("Map"); }
+        }
+
         [JsonConstructor]
         protected PoEItem() {
             Func<object, int> qualityConverter = value => {

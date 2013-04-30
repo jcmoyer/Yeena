@@ -18,7 +18,7 @@ namespace Yeena.Recipe {
     [VendorRecipeName("Gemcutter's Prism")]
     class PrismSolver : ConfigurableQualitySolver {
         public PrismSolver(PoEItemTable itemTable)
-            : base(itemTable, itemTable.IsGem) {
+            : base(itemTable, item => item.IsGem) {
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Yeena.Recipe {
     [VendorRecipeName("Cartographer's Chisel")]
     class ChiselSolver : ConfigurableQualitySolver {
         public ChiselSolver(PoEItemTable itemTable)
-            : base(itemTable, itemTable.IsMap) {
+            : base(itemTable, item => item.IsMap) {
         }
     }
 }
