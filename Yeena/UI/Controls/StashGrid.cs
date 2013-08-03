@@ -68,6 +68,7 @@ namespace Yeena.UI.Controls {
                 Invalidate();
             }
             _dataSrc = items.ToList();
+            BuildItemGrid(_dataSrc);
 
             HttpClient client = new HttpClient();
             foreach (var item in _dataSrc) {
@@ -75,8 +76,6 @@ namespace Yeena.UI.Controls {
 
                 Invalidate(CalculateItemRect(item));
             }
-
-            BuildItemGrid(_dataSrc);
         }
 
         private void BuildItemGrid(IEnumerable<PoEItem> items) {
