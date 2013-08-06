@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Yeena</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  </head>
+ 
+  <body>
+    <div id="content">
+      <h1>Yeena</h1>
+      <h2>Stash evaluator for Path of Exile</h2>
+
+      <!-- <p>The latest version is <a id="dllink" href="Yeena-0.1.4886.2616.zip">0.1.4886.2616</a><span id="publishdate"></span>.</p> -->
+
+      <p>You can download the latest version from the <a href="https://github.com/jcmoyer/Yeena/releases">release page</a>.</p>
+
+      <p>You will need <a href="http://go.microsoft.com/fwlink/?LinkId=225702">.NET Framework 4.5</a> if it's not already installed.</p>
+      <p>Browse the <a href="https://github.com/jcmoyer/Yeena">source code</a> on GitHub.</p>      
+    </div>
+
+    <script type="text/javascript">
+      jQuery.fn.center = function () {
+        this.css('position', 'absolute');
+        this.css('top', Math.max(0, (($(window).height() - this.outerHeight()) / 2) +
+                $(window).scrollTop()) + "px");
+        this.css('left', Math.max(0, (($(window).width() - this.outerWidth()) / 2) +
+                $(window).scrollLeft()) + "px");
+        return this;
+      }
+
+      $(document).ready(function() {
+        /*
+        var dllink   = $('#dllink');
+        var dateSpan = $('#publishdate');
+        var version  = dllink.text().split('.');
+        var buildDate = new Date(2000, 0, 1);
+        buildDate.setDate(buildDate.getDate() + parseInt(version[2]));
+        dateSpan.text(', built ' + buildDate.toDateString());
+        */
+        var content = $('#content');
+        content.center();
+      });
+    </script>
+  </body>
+</html>
