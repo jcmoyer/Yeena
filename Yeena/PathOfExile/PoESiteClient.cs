@@ -73,12 +73,20 @@ namespace Yeena.PathOfExile {
         /// <param name="creds">Credential object that holds the username and password.</param>
         /// <returns>A task that returns the HTML of the page returned by the Path of Exile web server.</returns>
         public async Task<string> LoginAsync(PoESiteCredentials creds) {
+            var loginReq = _client.GetAsync(PoESite.Login);
+            var doc = new HtmlDocument();
+            doc.LoadHtml(await loginReq.Result.Content.ReadAsStringAsync());
+
+            var hash = doc.GetElementbyId("hash").GetAttributeValue("value", String.Empty);
+
             var result = await _client.PostAsync(PoESite.Login, new FormUrlEncodedContent(new Dictionary<string, string> {
                 { "login", "Login" },
                 { "login_email", creds.Username },
                 { "login_password", creds.Password },
                 { "remember_me", "1" },
+                { "hash", hash }
             }));
+
             result.EnsureSuccessStatusCode();
             return await result.Content.ReadAsStringAsync();
         }
