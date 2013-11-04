@@ -1,32 +1,35 @@
+/* A font by Jos Buivenga (exljbris) -> www.exljbris.com */
+@font-face {
+  font-family: 'FontinRegular';
+  src: url('font/Fontin-Regular.ttf') format('truetype');
+}
+
 html {
   background-color: rgb(0, 0, 0);
   color: rgb(163, 141, 109);
-
   margin: 0px;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+}
 
-  font-size: 1.2em;
+h1, h2 {
+  text-align: center;
+  margin: 0;
+  font-family: 'FontinRegular',Verdana,Arial,Helvetica,sans-serif;
+  color: rgb(223, 207, 153);
+  text-shadow: 0px 0px 1px rgb(223, 207, 153);
 }
 
 h1 {
-  font-size: 4em;
-  text-align: center;
-  text-shadow: 0px 0px 5px rgb(163, 141, 109);
-  margin: 0px;
+  font-size: 3em;
 }
 
 h2 {
-  font-size: 1em;
-  text-align: center;
-  margin: 0px;
-  text-shadow: 0px 0px 5px rgb(163, 141, 109);
-
+  font-size: 16.9px;
   text-decoration: underline;
 }
 
 a {
   color: rgb(163, 141, 109);
-  font-size: 1.2em;
-
   /* Hover effect */
   -o-transition: .5s;
   -ms-transition: .5s;
@@ -41,11 +44,11 @@ a:hover {
 
 p {
   text-align: center;
+  font-size: 13px;
 }
 
 #content {
-  background-color: rgb(17, 16, 15);
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid rgb(29, 29, 29);
+  background-color: rgb(12, 11, 11);
+  padding: 6px;
+  border: 1px solid rgb(20, 20, 20);
 }
