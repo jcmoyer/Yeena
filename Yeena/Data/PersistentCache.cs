@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace Yeena.Data {
     abstract class PersistentCache<T> where T : class {
         protected string Name { get; private set; }
-        public T Value { get; protected set; }
+        public T Value { get; set; }
 
         protected PersistentCache(string name) {
             Name = name;
