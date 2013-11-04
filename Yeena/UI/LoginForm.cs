@@ -82,7 +82,7 @@ namespace Yeena.UI {
                 response = string.Empty;
             } else {
                 // Make the store reference the client's cookies
-                _cookies.Load(() => Client.Cookies);
+                _cookies.Value = Client.Cookies;
                 response = await Client.LoginAsync(new PoESiteCredentials(txtEmail.Text, txtPassword.Text));
             }
 
